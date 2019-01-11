@@ -23,3 +23,16 @@ spring:
       password: tmall
       validation-query: select 1 from dual
 
+
+---
+spring:
+  profiles: dev
+
+  datasource:
+    maindb:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      jdbcUrl: jdbc:oracle:thin:@10.40.44.105:10101:TMALL
+      username: tmall
+      password: tmall#stg1
+      validation-query: select 1 from dual
+
