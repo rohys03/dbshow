@@ -2,27 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <ul th:fragment="Sidebar">
-    <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="objectDropDown" role="button" data-toggle="dropdown" aria-expanded="true">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="objectDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>오브젝트 관리</span>
+            <span>운영 정보 조회</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="objectDropDown" >
-            <h6 class="dropdown-header">object1:</h6>
-            <a class="dropdown-item" th:href="@{/sqlListByObject}">Sql목록 by Object</a>
+            <h6 class="dropdown-header">Object 정보.</h6>
+            <a class="dropdown-item" href=# th:href="@{/}">참조 Object.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">Ogg 동기화.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">mySession.</a>
             <div class="dropdown-divider"></div>
         </div>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="sqlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
-            <span>SQL 관리</span>
+            <span>SQL 정보</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+        <div class="dropdown-menu" aria-labelledby="sqlDropdown">
+            <h6 class="dropdown-header">SQL 정보</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item active" href=# th:href="@{/sqlListByObject}">SQL Application.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">SQL 수행빈도.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">Top SQL.</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
             <a class="dropdown-item" href="404.html">404 Page</a>
@@ -30,14 +33,22 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>운영 업무</span></a>
+        <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>운영 기능</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="opDropdown">
+            <h6 class="dropdown-header">운영 업무.</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item active" href=# th:href="@{/sqlListByObject}">DB Jobs.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">Object별 권한.</a>
+            <a class="dropdown-item" href=# th:href="@{/}">Plan Management.</a>
+        </div>
     </li>
-    <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="testMenuDropDown" role="button" data-toggle="dropdown" aria-expanded="true">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="testMenuDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>기타 Test</span>
+            <span>Test (realestate)</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="testMenuDropDown" >
             <h6 class="dropdown-header">목록:</h6>
