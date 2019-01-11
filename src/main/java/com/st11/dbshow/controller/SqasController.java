@@ -33,7 +33,7 @@ public class SqasController {
 
     }
 
-    @RequestMapping(value = {"/sqlListByObject"})
+    @RequestMapping(value = {"sqlListByObject"})
     public String sqlListByParsingSchemaName(HttpServletRequest request, Model model) {
 
         String owner = request.getParameter("owner");
