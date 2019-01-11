@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/layout/header :: css">
+    <title>11st DB show</title>
+</head>
+
+<style>
+    .cut-off th:nth-child(1) {
+        width: 75%;
+    }
+    .cut-off td:nth-child(1) {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+</style>
+
+<body id="page-top">
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top" th:include="/layout/header :: navi"></nav>
+
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav" th:include="/layout/sidebar :: Sidebar"></ul>
+
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Overview</li>
+            </ol>
+
+            <!-- DataTables Example -->
+            <div class="card mb-3">
+                <div class="card-header">
+
+                    <i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
+
+                    <div>
+                        <p>
+                        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/sqlListByObject">
+                            <div class="input-group">
+                                <select name="commandType">
+                                    <option value="ALL" selected>ALL</option>
+                                    <option value="SELECT" >Select</option>
+                                    <option value="DML">Dml</option>
+                                    <option value="OTHERS">Others</option>
+                                </select>
+                                <input type="text" name="owner" class="form-control" th:value="${inParam.owner}" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <input type="text" name="name" class="form-control" th:value="${inParam.name}"placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered cut-off" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>inst_id</th>
+                                <th>sql_Id</th>
+                                <th>plan_hash_value</th>
+                                <th>SchemaName</th>
+                                <th>Module</th>
+                                <th>Program_ID</th>
+                                <th>Executions</th>
+                                <th>Blocks / Exec</th>
+                                <th>LastActiveTime</th>
+                                <th>FirstLoadTime</th>
+                                <th>CommandType</th>
+                                <th>sql_Text</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="sqlVo : ${sqlareaList}">
+                                <td th:text="${sqlVo.instId}"></td>
+                                <td th:text="${sqlVo.sqlId}"></td>
+                                <td th:text="${sqlVo.planHashValue}"></td>
+                                <td th:text="${sqlVo.parsingSchemaName}"></td>
+                                <td th:text="${sqlVo.module}"></td>
+                                <td th:text="${sqlVo.programId}"></td>
+                                <td th:text="${sqlVo.executions}"></td>
+                                <td th:text="${sqlVo.blockPerExec}"></td>
+                                <td th:text="${sqlVo.lastActiveTime}"></td>
+                                <td th:text="${sqlVo.firstLoadTime}"></td>
+                                <td th:text="${sqlVo.commandType}"></td>
+                                <td th:text="${sqlVo.sqlText}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer small text-muted" th:text="'[Index.html] Updated yesterday at ' + ${serverTime}">Updated yesterday at 11:59 PM</div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer" th:include="/layout/footer :: content-footer"></footer>
+    </div>
+    <!-- /.content-wrapper -->
+
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<footer th:include="/layout/footer :: script"></footer>
+
+</body>
+
+</html>
