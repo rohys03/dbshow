@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/layout/header :: css">
+<head th:include="layout/header :: css">
     <title>11st DB show</title>
 </head>
 
@@ -18,11 +18,11 @@
 </style>
 
 <body id="page-top">
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top" th:include="/layout/header :: navi"></nav>
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top" th:include="layout/header :: navi"></nav>
 
 <div id="wrapper">
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav" th:include="/layout/sidebar :: Sidebar"></ul>
+    <ul class="sidebar navbar-nav" th:include="layout/sidebar :: Sidebar"></ul>
 
     <div id="content-wrapper">
 
@@ -111,7 +111,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer" th:include="/layout/footer :: content-footer"></footer>
+        <footer class="sticky-footer" th:include="layout/footer :: content-footer"></footer>
     </div>
     <!-- /.content-wrapper -->
 
@@ -122,7 +122,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<footer th:include="/layout/footer :: script"></footer>
+<footer th:include="layout/footer :: script"></footer>
 
 </body>
 
