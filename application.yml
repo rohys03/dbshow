@@ -12,6 +12,12 @@ mybatis:
 spring:
   profiles: local
 
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+
   datasource:
     db1:
       jdbcUrl: jdbc:mysql://localhost:3306/landcrawler?serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8

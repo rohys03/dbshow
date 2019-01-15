@@ -1,0 +1,19 @@
+table .table-thead-wrap-size {
+    font-size: 1rem;
+}
+table .table-tbody-wrap-size {
+    font-size: 0.8rem;
+}
+
+div .table-wrap {
+    table-layout: fixed;
+    width: 100%;
+    mso-cellspacing: 1px;
+}
+
+div .sqltext-wrap {
+    width:200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

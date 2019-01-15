@@ -33,8 +33,45 @@ public class SqasController {
 
     }
 
+//    @RequestMapping(value = {"sqlListByObject"})
+//    public String sqlListByParsingSchemaName(HttpServletRequest request, Model model) {
+//
+//        String owner = request.getParameter("owner");
+//        String name = request.getParameter("name");
+//        String commandType = request.getParameter("commandType");
+//        List<SqlAreaVO> sqlareaList = null;
+//        System.out.println("/sqlListByObject/owner:"+ owner + "/name:" + name + "/commandType:" + commandType);
+//
+//        HashMap<String, Object> inParam = new HashMap<>();
+//        inParam.put("owner", owner);
+//        inParam.put("name", name);
+//        inParam.put("commandType", commandType);
+//
+//
+//        if (name != null) {
+//            sqlareaList = sqasService.getSqlAreaList(inParam);
+//        } else {
+//            sqlareaList = sqasService.getSqlAreaListAll();
+//        }
+//
+//        model.addAttribute("serverTime", getCurrentTime());
+//        model.addAttribute("sqlareaList", sqlareaList);
+//        model.addAttribute("inParam", inParam);
+//
+//        return "sqlListByObject";
+//    }
+
+    @RequestMapping(value = {"index"})
+    public String _index(HttpServletRequest request, Model model) {
+
+        model.addAttribute("serverTime", getCurrentTime());
+        model.addAttribute("includedContent", "content/dashboard :: dashboardData");
+        return "index";
+    }
+
+
     @RequestMapping(value = {"sqlListByObject"})
-    public String sqlListByParsingSchemaName(HttpServletRequest request, Model model) {
+    public String sqlListByParsingSchemaName2(HttpServletRequest request, Model model) {
 
         String owner = request.getParameter("owner");
         String name = request.getParameter("name");
@@ -57,7 +94,8 @@ public class SqasController {
         model.addAttribute("serverTime", getCurrentTime());
         model.addAttribute("sqlareaList", sqlareaList);
         model.addAttribute("inParam", inParam);
+        model.addAttribute("includedContent", "content/sqlApplication :: sqlData");
 
-        return "sqlListByObject";
+        return "index";
     }
 }
