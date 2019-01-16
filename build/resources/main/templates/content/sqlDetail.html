@@ -3,28 +3,31 @@
 <div th:fragment="sqlData">
 
     <div class="card-header">
+        <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다.</i>
 
-        <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 검색 할 수 있습니다.</i>
-
-        <div>
-            <p>
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/sqlListByObject">
-                <div class="input-group">
+        <p>
+        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlDetail">
+            <div class=" input-group">
+                <div class="col-auto input-group">
                     <select name="searchType">
                         <option value="SQLID" selected>Sql_Id</option>
                         <option value="SQLNAME" >SqlName (Xml)</option>
                     </select>
-                    <input type="text" name="sqlString" class="form-control" th:value="${inParam.sqlString}"placeholder="Input Sql id..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
                 </div>
-            </form>
-            </p>
-        </div>
+                <div >
+                    <input type="text" name="sqlString" class="form-control" value="" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        </p>
     </div>
+
     <div class="card-body">
         <div class="table-responsive">
 
@@ -58,14 +61,16 @@
                 <tr>
                     <th>SQL Full Text</th>
                     <td colspan="100%">
-                        <code>
+                        <pre>
+                            <code>
                             Select sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number
                             From gv$sqlSelect
                             WHERE aaa
                             sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From
                             gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sql
 
-                        </code>
+                            </code>
+                        </pre>
                     </td>
                 </tr>
                 </tbody>

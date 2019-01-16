@@ -1,2 +1,2 @@
 #!/bin/sh
-pgrep -f dbshow |xargs kill
+pgrep -f /app/puser/dbshow/build/libs/dbshow |xargs kill
