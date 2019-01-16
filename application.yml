@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: dev
 
 server:
   port: 8081
@@ -40,7 +40,7 @@ spring:
   datasource:
     maindb:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      jdbcUrl: jdbc:oracle:thin:@10.40.44.105:10101:TMALL
+      jdbcUrl: jdbc:oracle:thin:@10.40.62.151:10101:TMALL
       username: tmall
       password: tmall#stg1
       validation-query: select 1 from dual

@@ -8,7 +8,7 @@
 
         <div>
             <p>
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/sqlListByObject">
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/sqlListByObject2">
                 <div class="input-group">
                     <select name="commandType">
                         <option value="ALL" selected>ALL</option>
@@ -16,8 +16,8 @@
                         <option value="DML">Dml</option>
                         <option value="OTHERS">Others</option>
                     </select>
-                    <input type="text" name="owner" class="form-control" th:value="${inParam.owner}" placeholder="Owner Schemaname.." aria-label="Search" aria-describedby="basic-addon2">
-                    <input type="text" name="name" class="form-control" th:value="${inParam.name}"placeholder="Table NAme.." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="owner" class="form-control" th:value="${inParam.owner}" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="name" class="form-control" th:value="${inParam.name}"placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search"></i>
@@ -31,7 +31,7 @@
     <div class="card-body">
         <div class="table-responsive">
 
-            <table class="table table-bordered table-wrap" id="dataTable">
+            <table class="table table-bordered" id="dataTable">
                 <thead class="table-thead-wrap-size">
                 <tr>
                     <th>inst_id</th>

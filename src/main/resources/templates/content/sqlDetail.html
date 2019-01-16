@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sqlData">
+
+    <div class="card-header">
+        <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다.</i>
+
+        <p>
+        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlDetail">
+            <div class=" input-group">
+                <div class="col-auto input-group">
+                    <select name="searchType">
+                        <option value="SQLID" selected>Sql_Id</option>
+                        <option value="SQLNAME" >SqlName (Xml)</option>
+                    </select>
+                </div>
+                <div >
+                    <input type="text" name="sqlString" class="form-control" value="" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        </p>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-bordered" id="sqlDetail">
+                <thead class="table-thead-wrap-size">
+                <tr>
+                    <th>inst_id</th><td></td>
+                    <th>sql_Id</th><td></td>
+                    <th>sql_Name(Xml)</th><td colspan="3"></td>
+                </tr>
+                <tr>
+                    <th>plan_hash_value</th><td></td>
+                    <th>SchemaName</th><td></td>
+                    <th>Module</th><td></td>
+                    <th>Program_ID</th><td></td>
+                </tr>
+                <tr>
+                    <th>Executions</th><td></td>
+                    <th>buffer Gets</th><td></td>
+                    <th>Blocks / Exec</th><td></td>
+                    <th>stat4</th><td></td>
+                </tr>
+                <tr>
+                    <th>LastActiveTime</th><td></td>
+                    <th>FirstLoadTime</th><td></td>
+                    <th>Col3</th><td></td>
+                    <th>Col4</th><td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>SQL Full Text</th>
+                    <td colspan="100%">
+                        <pre>
+                            <code>
+                            Select sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number
+                            From gv$sqlSelect
+                            WHERE aaa
+                            sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From
+                            gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sql
+
+                            </code>
+                        </pre>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated yesterday at ' + ${serverTime}"> Updated </div>
+</div>
+
+</html>

@@ -17,3 +17,22 @@ div .sqltext-wrap {
     white-space: nowrap;
     overflow: hidden;
 }
+
+#sqlDetail th {
+    width: 160px;
+    font-size: 1rem;
+    align: "left";
+}
+
+#sqlDetail code {
+    vertical-align: top;
+    line-height: 1px;
+    white-space: pre-wrap;
+    word-wrap: normal;
+    color: blue;
+    padding: 1px;
+}
+
+#sqlDetail td {
+    padding: 0.3rem;
+}

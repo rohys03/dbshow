@@ -71,12 +71,12 @@ public class SqasController {
 
 
     @RequestMapping(value = {"sqlListByObject"})
-    public String sqlListByParsingSchemaName2(HttpServletRequest request, Model model) {
+    public String sqlListByParsingSchemaName(HttpServletRequest request, Model model) {
 
         String owner = request.getParameter("owner");
         String name = request.getParameter("name");
         String commandType = request.getParameter("commandType");
-        List<SqlAreaVO> sqlareaList = null;
+        List<SqlAreaVO> modelList = null;
         System.out.println("/sqlListByObject/owner:"+ owner + "/name:" + name + "/commandType:" + commandType);
 
         HashMap<String, Object> inParam = new HashMap<>();
@@ -86,16 +86,40 @@ public class SqasController {
 
 
         if (name != null) {
-            sqlareaList = sqasService.getSqlAreaList(inParam);
+            modelList = sqasService.getSqlAreaList(inParam);
         } else {
-            sqlareaList = sqasService.getSqlAreaListAll();
+            modelList = sqasService.getSqlAreaListAll();
         }
 
         model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("sqlareaList", sqlareaList);
+        model.addAttribute("sqlareaList", modelList);
         model.addAttribute("inParam", inParam);
         model.addAttribute("includedContent", "content/sqlApplication :: sqlData");
 
         return "index";
     }
+
+    @RequestMapping(value = {"sqlDetail"})
+    public String sqlDetail(HttpServletRequest request, Model model) {
+
+        String searchType = request.getParameter("searchType");
+        String sqlString = request.getParameter("sqlString");
+        List<SqlAreaVO> modelList = null;
+        System.out.println("/sqlListByObject/searchType:"+ searchType + "/sqlString:" + sqlString );
+
+        HashMap<String, Object> inParam = new HashMap<>();
+        inParam.put("ssearchType", searchType);
+        inParam.put("sqlString", sqlString);
+
+        if (sqlString != null) {
+            modelList = sqasService.getSqlAreaList(inParam);
+        }
+        model.addAttribute("serverTime", getCurrentTime());
+        model.addAttribute("model", modelList);
+        model.addAttribute("inParam", inParam);
+        model.addAttribute("includedContent", "content/sqlDetail :: sqlData");
+
+        return "index";
+    }
+
 }
