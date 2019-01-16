@@ -61,7 +61,7 @@ public class SqasController {
 //        return "sqlListByObject";
 //    }
 
-    @RequestMapping(value = {"index"})
+    @RequestMapping(value = {"/", "index"})
     public String _index(HttpServletRequest request, Model model) {
 
         model.addAttribute("serverTime", getCurrentTime());

@@ -130,8 +130,10 @@
         </ol>
 
         <!-- DataTables Example -->
-        <div class="card mb-3" id="includedContent" th:include="__${includedContent}__">
-        </div>
+        <div id="includedContent1" th:text="${serverTime}"></div>
+        <!--<div id="includedContent" th:text="__${serverTime}__"></div>-->
+
+        <div class="card mb-3" id="includedContent" th:include="__${includedContent}__"></div>
     </div>
 
     <!-- /.container-fluid -->
