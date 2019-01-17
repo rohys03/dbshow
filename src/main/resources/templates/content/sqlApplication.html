@@ -16,8 +16,8 @@
                         <option value="DML">Dml</option>
                         <option value="OTHERS">Others</option>
                     </select>
-                    <input type="text" name="owner" class="form-control" th:value="${inParam.owner}" placeholder="Schema Name.." aria-label="Search" aria-describedby="basic-addon2">
-                    <input type="text" name="name" class="form-control" th:value="${inParam.name}"placeholder="Table Name.." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name.." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name.." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search"></i>
@@ -41,6 +41,7 @@
                     <th>Module</th>
                     <th>Program_ID</th>
                     <th>Executions</th>
+                    <th>Buffer_Gets</th>
                     <th>Blocks / Exec</th>
                     <th>LastActiveTime</th>
                     <th>FirstLoadTime</th>
@@ -50,7 +51,7 @@
                 </thead>
 
                 <tbody class="table-tbody-wrap-size">
-                <tr th:each="sqlVo : ${sqlareaList}">
+                <tr th:each="sqlVo : ${model}">
                     <td th:text="${sqlVo.instId}"></td>
                     <td th:text="${sqlVo.sqlId}"></td>
                     <td th:text="${sqlVo.planHashValue}"></td>
@@ -58,6 +59,7 @@
                     <td th:text="${sqlVo.module}"></td>
                     <td th:text="${sqlVo.programId}"></td>
                     <td th:text="${sqlVo.executions}"></td>
+                    <td th:text="${sqlVo.bufferGets}"></td>
                     <td th:text="${sqlVo.blockPerExec}"></td>
                     <td th:text="${sqlVo.lastActiveTime}"></td>
                     <td th:text="${sqlVo.firstLoadTime}"></td>

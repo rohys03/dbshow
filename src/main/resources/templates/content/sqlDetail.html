@@ -3,7 +3,7 @@
 <div th:fragment="sqlData">
 
     <div class="card-header">
-        <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다.</i>
+        <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다. (ex: sql_id : 417q49pqzn0ap )</i>
 
         <p>
         <form class="d-none d-md-inline-block form-inline form-row" action="/sqlDetail">
@@ -15,7 +15,7 @@
                     </select>
                 </div>
                 <div >
-                    <input type="text" name="sqlString" class="form-control" value="" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="sqlString" class="form-control" th:value="${inParam.sqlString}" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
@@ -31,49 +31,50 @@
     <div class="card-body">
         <div class="table-responsive">
 
-            <table class="table table-bordered" id="sqlDetail">
+            <table class="table table-bordered" id="sqlDetail" width="100%">
+                <th:block th:each="sqlVo : ${model}">
                 <thead class="table-thead-wrap-size">
-                <tr>
-                    <th>inst_id</th><td></td>
-                    <th>sql_Id</th><td></td>
-                    <th>sql_Name(Xml)</th><td colspan="3"></td>
-                </tr>
-                <tr>
-                    <th>plan_hash_value</th><td></td>
-                    <th>SchemaName</th><td></td>
-                    <th>Module</th><td></td>
-                    <th>Program_ID</th><td></td>
-                </tr>
-                <tr>
-                    <th>Executions</th><td></td>
-                    <th>buffer Gets</th><td></td>
-                    <th>Blocks / Exec</th><td></td>
-                    <th>stat4</th><td></td>
-                </tr>
-                <tr>
-                    <th>LastActiveTime</th><td></td>
-                    <th>FirstLoadTime</th><td></td>
-                    <th>Col3</th><td></td>
-                    <th>Col4</th><td></td>
-                </tr>
+                    <tr>
+                        <th width="12%">inst_id</th><td width="13%" th:text="${sqlVo.instId}">##</td>
+                        <th width="12%">sql_Id</th><td width="13%" th:text="${sqlVo.sqlId}">##</td>
+                        <th width="12%">sql_Name(Xml)</th><td colspan="3" th:text="${sqlVo.sqlId}">##</td>
+                    </tr>
+                    <tr>
+                        <th width="12%">plan_hash_value</th><td width="13%" th:text="${sqlVo.planHashValue}">##</td>
+                        <th width="12%">SchemaName</th><td width="13%" th:text="${sqlVo.parsingSchemaName}">##</td>
+                        <th width="12%">Module</th><td width="13%" th:text="${sqlVo.module}">##</td>
+                        <th width="12%">Program_ID</th><td width="13%" th:text="${sqlVo.programId}">##</td>
+                    </tr>
+                    <tr>
+                        <th>Executions</th><td th:text="${sqlVo.executions}">##</td>
+                        <th>buffer Gets</th><td th:text=${sqlVo.bufferGets}>##</td>
+                        <th>Blocks / Exec</th><td th:text="${sqlVo.blockPerExec}">##</td>
+                        <th>stat4</th><td th:text="null">##</td>
+                    </tr>
+                    <tr>
+                        <th>LastActiveTime</th><td th:text="${sqlVo.lastActiveTime}">##</td>
+                        <th>FirstLoadTime</th><td th:text="${sqlVo.firstLoadTime}">##</td>
+                        <th>Col3</th><td th:text="null">##</td>
+                        <th>Col4</th><td th:text="null">##</td>
+                    </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th>SQL Full Text</th>
                     <td colspan="100%">
                         <pre>
-                            <code>
+                            <code th:text="${sqlVo.sqlFullText}">
                             Select sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number
                             From gv$sqlSelect
                             WHERE aaa
                             sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From
                             gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sql
-
                             </code>
                         </pre>
                     </td>
                 </tr>
                 </tbody>
+                </th:block>
             </table>
         </div>
     </div>

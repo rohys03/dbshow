@@ -77,7 +77,7 @@
                 <div class="dropdown-menu" aria-labelledby="sqlDropdown">
                     <h6 class="dropdown-header">SQL 정보</h6>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="content/sqlApplication.html" th:href="@{/sqlListByObject}">SQL List.</a>
+                    <a class="dropdown-item" href="content/sqlApplication.html" th:href="@{/sqlListByObject}">SQL 검색.</a>
                     <a class="dropdown-item" href="content/sqlDetail" th:href="@{/sqlDetail}">SQL Detail.</a>
                     <a class="dropdown-item" href="#" th:href="@{/}">#SQL 수행빈도.</a>
                     <a class="dropdown-item" href=# th:href="@{/}">#Top SQL.</a>
@@ -130,7 +130,6 @@
         </ol>
 
         <!-- DataTables Example -->
-        <div id="includedContent1" th:text="${serverTime}"></div>
         <!--<div id="includedContent" th:text="__${serverTime}__"></div>-->
 
         <div class="card mb-3" id="includedContent" th:include="__${includedContent}__"></div>

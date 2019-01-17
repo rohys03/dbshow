@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "spring.api",
+      "type": "com.st11.dbshow.config.ApiServerConfig",
+      "sourceType": "com.st11.dbshow.config.ApiServerConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.api.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.st11.dbshow.config.ApiServerConfig"
+    }
+  ],
+  "hints": []
+}

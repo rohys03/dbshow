@@ -2,6 +2,11 @@ spring:
   profiles:
     active: dev
 
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
 server:
   port: 8081
 
@@ -17,34 +22,36 @@ spring:
       enabled: true
   freemarker:
     cache: false
-
-  datasource:
-    db1:
-      jdbcUrl: jdbc:mysql://localhost:3306/landcrawler?serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8
-      driver-class-name: com.mysql.jdbc.Driver
-      username: landcrawler
-      password: landcrawler
-
-    maindb:
-      driver-class-name: oracle.jdbc.driver.OracleDriver
-      jdbcUrl: jdbc:oracle:thin:@10.211.55.4:1526:NO03
-      username: tmall
-      password: tmall
-      validation-query: select 1 from dual
+#
+#  datasource:
+#    db1:
+#      jdbcUrl: jdbc:mysql://localhost:3306/landcrawler?serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      username: landcrawler
+#      password: landcrawler
+#
+#    maindb:
+#      driver-class-name: oracle.jdbc.driver.OracleDriver
+#      jdbcUrl: jdbc:oracle:thin:@10.211.55.4:1526:NO03
+#      username: tmall
+#      password: tmall
+#      validation-query: select 1 from dual
 
 
 ---
 spring:
   profiles: dev
 
-  datasource:
-    maindb:
-      driver-class-name: oracle.jdbc.driver.OracleDriver
-      jdbcUrl: jdbc:oracle:thin:@10.40.62.151:10101:TMALL
-      username: tmall
-      password: tmall#stg1
-      validation-query: select 1 from dual
-
+  api:
+    baseUrl: http://172.28.114.66:8082/api
+#
+#  datasource:
+#    maindb:
+#      driver-class-name: oracle.jdbc.driver.OracleDriver
+#      jdbcUrl: jdbc:oracle:thin:@10.40.62.151:10101:TMALL
+#      username: tmall
+#      password: tmall#stg1
+#      validation-query: select 1 from dual
 
 ---
 spring:

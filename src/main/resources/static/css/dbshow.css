@@ -18,21 +18,24 @@ div .sqltext-wrap {
     overflow: hidden;
 }
 
-#sqlDetail th {
+#sqlDetail > th,
+#sqlDetail > td {
     width: 160px;
+    padding: 0.3rem;
     font-size: 1rem;
-    align: "left";
+    align: left;
+    vertical-align: center;
 }
 
 #sqlDetail code {
-    vertical-align: top;
+    vertical-align: center;
     line-height: 1px;
     white-space: pre-wrap;
     word-wrap: normal;
-    color: blue;
-    padding: 1px;
+    color: darkred;
+    padding: 1rem;
 }
 
-#sqlDetail td {
-    padding: 0.3rem;
-}
+/*#sqlDetail td {*/
+    /*padding: 0.3rem;*/
+/*}*/
