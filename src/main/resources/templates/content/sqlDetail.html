@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="sqlData">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>Sql Detail</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
 
     <div class="card-header">
         <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다. (ex: sql_id : 417q49pqzn0ap )</i>
 
         <p>
-        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlDetail">
+        <form class="d-none d-md-inline-block form-inline form-row" action="sqlDetail">
             <div class=" input-group">
                 <div class="col-auto input-group">
                     <select name="searchType">
@@ -79,6 +88,7 @@
         </div>
     </div>
     <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated yesterday at ' + ${serverTime}"> Updated </div>
-</div>
+</th:block>
+</body>
 
 </html>

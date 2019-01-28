@@ -28,12 +28,12 @@ public class SqasController {
         return formattedDate;
     }
 
-    @RequestMapping(value = {"", "index"})
-    public String index(HttpServletRequest request, Model model) {
+    @RequestMapping(value = {"dashboard", "", "index"})
+    public String index2(HttpServletRequest request, Model model) {
 
         model.addAttribute("serverTime", getCurrentTime());
         model.addAttribute("includedContent", "content/dashboard :: dashboardData");
-        return "index";
+        return "content/dashboard";
     }
 
     @RequestMapping(value = {"sqlListByObject"})
@@ -71,7 +71,9 @@ public class SqasController {
         model.addAttribute("includedContent", "content/sqlApplication :: sqlData");
 
         model.addAttribute("model", modelCollection);
-        return "index";
+
+        return "content/sqlApplication";
+//        return "index";
     }
 
     @RequestMapping(value = {"sqlDetail"})
@@ -103,6 +105,8 @@ public class SqasController {
         model.addAttribute("includedContent", "content/sqlDetail :: sqlData");
         model.addAttribute("model", modelCollection);
 
-        return "index";
+        return "content/sqlDetail";
+//        return "index";
     }
+
 }

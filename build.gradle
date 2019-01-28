@@ -33,6 +33,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-devtools")
 	compile("com.fasterxml.jackson.core:jackson-databind")
 	compileOnly('org.projectlombok:lombok')
+	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 //	compile("com.oracle:ojdbc7:12.1.0.2")
 	compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 	testImplementation('org.springframework.boot:spring-boot-starter-test')

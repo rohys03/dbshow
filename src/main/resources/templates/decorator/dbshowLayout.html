@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">11st DB Show</title>
+
+    <th:block th:include="decorator/commonCss"></th:block>
+
+    <!-- dbshow Custom styles for this template-->
+    <link href="css/dbshow.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <header class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+        <a class="navbar-brand mr-1" href="/index"> index </a>
+
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navbar Search -->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </header>
+
+    <section id="wrapper">
+
+        <!-- Sidebar -->
+        <th:block th:include="decorator/dbshowNavigator :: sidebar"></th:block>
+
+        <section id="content-wrapper">
+            <!-- Breadcrumbs-->
+            <th:block th:include="decorator/dbshowNavigator :: navigator"></th:block>
+
+            <div id="includedContent" layout:fragment="content">
+            </div>
+        </section>
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © 11st DBshow 2019</span>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+<!-- Scroll to Top Button-->
+    <aside >
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <th:block layout:fragment="content_aside"></th:block>
+    </aside>
+
+    <th:block th:include="decorator/commonJs"></th:block>
+    <th:block layout:fragment="content_script"></th:block>
+
+    <!-- db Show script -->
+    <script type="text/javascript" src="js/dbshow.js"></script>
+
+</body>
+
+</html>

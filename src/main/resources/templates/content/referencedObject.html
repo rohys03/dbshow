@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>Referenced Object</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <!-- DataTables Example -->
+    <div class="card-header">
+        <div><i class="fas fa-table">오브젝트 타입과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
+        </div>
+        <p>
+        <form class="d-none d-md-inline-block form-inline form-row" action="/referencedObject">
+            <div class="input-group">
+                <div class="col-auto input-group">
+                    <select name="commandType">
+                        <option value="ALL" selected>ALL</option>
+                        <option value="TABLE" >TABLE</option>
+                        <option value="PROCEDURE">PROCEDURE</option>
+                        <option value="VIEW">VIEW</option>
+                    </select>
+                </div>
+                <div class="col-auto input-group">
+                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">
+                </div>
+                <div class="col-auto input-group">
+                    <input type="text" name="objectName" class="form-control" th:value="${inParams.objectName}" placeholder="Table Name..">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </p>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-wrap" id="dataTable" >
+            <colgroup>
+                <col class="col60px">
+                <col class="col130px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col130px">
+                <col class="sqltext-wrap col-auto">
+            </colgroup>
+            <thead class="table-thead-wrap-size">
+            <tr>
+                <th>Depth</th>
+                <th>ObjectType</th>
+                <th>owner</th>
+                <th>status</th>
+                <th>ObjectName</th>
+                <th class="sqltext-wrap col-auto">Referenced Full Path</th>
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:each="objectVo : ${model}">
+                <td th:text="${objectVo.depth}" ></td>
+                <td th:text="${objectVo.objectType}"></td>
+                <td th:text="${objectVo.owner}"></td>
+                <td th:text="${objectVo.status}"></td>
+                <td th:text="${objectVo.objectName}"></td>
+                <td class="sqltext-wrap" th:text="${objectVo.referencedPath}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+</th:block>
+
+<th:block layout:fragment="content_aside">
+    <div class="dim-layer">
+
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <!--content //-->
+                    <p class="ctxt mb20">Sql Full Text.<br>
+                        구현이 아직 안되었습니다. <br>
+                        popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
+                        jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
+                    </p>
+
+                    <div class="btn-r">
+                        <a href="#" class="dim-btn-layerClose">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</th:block>
+</body>
+</html>
+

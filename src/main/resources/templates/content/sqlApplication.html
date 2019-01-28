@@ -1,76 +1,138 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="sqlData">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
 
+<head>
+    <title>Sql Application</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <!-- DataTables Example -->
     <div class="card-header">
-
-        <i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
-
-        <div>
-            <p>
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/sqlListByObject">
-                <div class="input-group">
+        <div><i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
+        </div>
+        <p>
+        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlListByObject">
+            <div class="input-group">
+                <div class="col-auto input-group">
                     <select name="commandType">
                         <option value="ALL" selected>ALL</option>
                         <option value="SELECT" >Select</option>
                         <option value="DML">Dml</option>
                         <option value="OTHERS">Others</option>
                     </select>
-                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name.." aria-label="Search" aria-describedby="basic-addon2">
-                    <input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name.." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
+                </div>
+                <div class="col-auto input-group">
+                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">
+                </div>
+                <div class="col-auto input-group">
+                    <input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </p>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-wrap" id="dataTable" >
+            <colgroup>
+                <col class="col60px">
+                <col class="col130px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col130px">
+                <col class="col130px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col130px">
+                <col class="col130px">
+                <col class="col60px">
+                <col class="sqltext-wrap col-auto">
+            </colgroup>
+            <thead class="table-thead-wrap-size">
+            <tr>
+                <th>inst</th>
+                <th>sql_Id</th>
+                <th>plan_Hash</th>
+                <th>SchemaNm</th>
+                <th>Module</th>
+                <th>Program_ID</th>
+                <th>Executions</th>
+                <th>BufferGets</th>
+                <th>Block/Exec</th>
+                <th>LastActiveTime</th>
+                <th>FirstLoadTime</th>
+                <th>Type</th>
+                <th class="sqltext-wrap col-auto">Sql_Text</th>
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:each="sqlVo : ${model}">
+                <td th:text="${sqlVo.instId}" ></td>
+                <td><a th:text="${sqlVo.sqlId}" href="#layer2" class="dim-btn-layer" /></td>
+                <td th:text="${sqlVo.planHashValue}"></td>
+                <td th:text="${sqlVo.parsingSchemaName}"></td>
+                <td th:text="${sqlVo.module}"></td>
+                <td th:text="${sqlVo.programId}"></td>
+                <td th:text="${sqlVo.executions}"></td>
+                <td th:text="${sqlVo.bufferGets}"></td>
+                <td th:text="${sqlVo.blockPerExec}"></td>
+                <td th:text="${sqlVo.lastActiveTime}"></td>
+                <td th:text="${sqlVo.firstLoadTime}"></td>
+                <td th:text="${sqlVo.commandType}"></td>
+                <td class="sqltext-wrap" th:text="${sqlVo.sqlText}">
+                    <
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+</th:block>
+
+<th:block layout:fragment="content_aside">
+    <div class="dim-layer">
+
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <!--content //-->
+                    <p class="ctxt mb20">Sql Full Text.<br>
+                    구현이 아직 안되었습니다. <br>
+                    popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
+                    jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
+                    </p>
+
+                    <div class="btn-r">
+                        <a href="#" class="dim-btn-layerClose">Close</a>
                     </div>
                 </div>
-            </form>
-            </p>
+            </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
+</th:block>
 
-            <table class="table table-bordered table-wrap" id="dataTable">
-                <thead class="table-thead-wrap-size">
-                <tr>
-                    <th>inst_id</th>
-                    <th>sql_Id</th>
-                    <th>plan_hash_value</th>
-                    <th>SchemaName</th>
-                    <th>Module</th>
-                    <th>Program_ID</th>
-                    <th>Executions</th>
-                    <th>Buffer_Gets</th>
-                    <th>Blocks / Exec</th>
-                    <th>LastActiveTime</th>
-                    <th>FirstLoadTime</th>
-                    <th>CommandType</th>
-                    <th class="sqltext-wrap">Sql_Text</th>
-                </tr>
-                </thead>
-
-                <tbody class="table-tbody-wrap-size">
-                <tr th:each="sqlVo : ${model}">
-                    <td th:text="${sqlVo.instId}"></td>
-                    <td th:text="${sqlVo.sqlId}"></td>
-                    <td th:text="${sqlVo.planHashValue}"></td>
-                    <td th:text="${sqlVo.parsingSchemaName}"></td>
-                    <td th:text="${sqlVo.module}"></td>
-                    <td th:text="${sqlVo.programId}"></td>
-                    <td th:text="${sqlVo.executions}"></td>
-                    <td th:text="${sqlVo.bufferGets}"></td>
-                    <td th:text="${sqlVo.blockPerExec}"></td>
-                    <td th:text="${sqlVo.lastActiveTime}"></td>
-                    <td th:text="${sqlVo.firstLoadTime}"></td>
-                    <td th:text="${sqlVo.commandType}"></td>
-                    <td class="sqltext-wrap" th:text="${sqlVo.sqlText}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated yesterday at ' + ${serverTime}"> Updated </div>
-</div>
-
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+    $('#dataTable').DataTable();
+    });
+    </script>
+</th:block>
+</body>
 </html>
+
