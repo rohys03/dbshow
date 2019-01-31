@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
 
+import static com.st11.dbshow.util.DbShow.*;
 
 @Controller
 public class SqasController {
@@ -21,18 +22,11 @@ public class SqasController {
     @Autowired
     ApiService apiService;
 
-    private String getCurrentTime() {
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-        String formattedDate = dateFormat.format(new Date());
-
-        return formattedDate;
-    }
-
-    @RequestMapping(value = {"dashboard", "", "index"})
-    public String index2(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "dashboard")
+    public String dashboard(HttpServletRequest request, Model model) {
 
         model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("includedContent", "content/dashboard :: dashboardData");
+
         return "content/dashboard";
     }
 
@@ -41,23 +35,13 @@ public class SqasController {
 
         final String apiMethod = "sqlApplicationList";
 
-        HashMap<String, Object> inParams = new HashMap<>();
+        Map<String, String> inParams = getParameterMap(request);
         Collection <SqlAreaVO> modelCollection = null;
 
-        String dbName = request.getParameter("dbName");
-        String commandType = request.getParameter("commandType");
-        String owner = request.getParameter("owner");
-        String name = request.getParameter("name");
-
-        if (dbName == null || dbName =="") {dbName= "OMSTGDB";}
-        if (commandType == null || commandType =="") {commandType= "SELECT";}
-        if (owner == null || owner =="") {owner= "";}
-        if (name == null || name =="") {name= "";}
-
-        inParams.put("dbName", dbName);
-        inParams.put("owner", owner);
-        inParams.put("commandType", commandType);
-        inParams.put("name", name);
+        String dbName = inParams.getOrDefault("dbName", "dbName");
+        String commandType = inParams.getOrDefault("commandType", "commandType");
+        String owner = inParams.getOrDefault("owner", "owner");
+        String name = inParams.getOrDefault("name", "name");
 
         System.out.println("/sqlListByObject/ " + inParams.toString());
 
@@ -67,33 +51,22 @@ public class SqasController {
         }
 
         model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("inParams", inParams);
-        model.addAttribute("includedContent", "content/sqlApplication :: sqlData");
-
         model.addAttribute("model", modelCollection);
 
         return "content/sqlApplication";
-//        return "index";
     }
 
     @RequestMapping(value = {"sqlDetail"})
     public String sqlDetail(HttpServletRequest request, Model model) throws IOException {
 
         final String apiMethod = "sqlDetail";
-        HashMap<String, Object> inParams = new HashMap<>();
-        Collection<SqlAreaVO> modelCollection = null;
 
-        String dbName = request.getParameter("dbName");
-        String searchType = request.getParameter("searchType");
-        String sqlString = request.getParameter("sqlString");
+        Map<String, String> inParams = getParameterMap(request);
+        Collection <SqlAreaVO> modelCollection = null;
 
-        if(dbName == null || dbName =="") {dbName = "OMSTGDB";}
-        if(searchType == null || searchType =="") {searchType = "SQLID";}
-        if(sqlString == null || sqlString =="") {sqlString = "";}
-
-        inParams.put("dbName", dbName);
-        inParams.put("searchType", searchType);
-        inParams.put("sqlString", sqlString);
+        String dbName = inParams.getOrDefault("dbName", "dbName");
+        String searchType = inParams.getOrDefault("searchType", "searchType");
+        String sqlString = inParams.getOrDefault("sqlString", "sqlString");
 
         if (searchType != "" && sqlString != "") {
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
@@ -101,12 +74,9 @@ public class SqasController {
         }
 
         model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("inParam", inParams);
-        model.addAttribute("includedContent", "content/sqlDetail :: sqlData");
         model.addAttribute("model", modelCollection);
 
         return "content/sqlDetail";
-//        return "index";
     }
 
 }

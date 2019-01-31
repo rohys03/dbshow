@@ -27,10 +27,12 @@
                     </select>
                 </div>
                 <div class="col-auto input-group">
-                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">
+                    <!--<input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">-->
+                    <input type="text" name="owner" class="form-control" th:value="${param.owner}" placeholder="Schema Name..">
                 </div>
                 <div class="col-auto input-group">
-                    <input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">
+                    <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
+                    <input type="text" name="name" class="form-control" th:value="${param.name}" placeholder="Table Name..">
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">

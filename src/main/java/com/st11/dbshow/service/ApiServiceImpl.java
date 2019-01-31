@@ -28,9 +28,10 @@ public class ApiServiceImpl implements ApiService  {
             urlString = urlString + "/" + arg;
         }
 
+        System.out.println("[ApiService.getApiModels] : " + urlString);
+
         modelCollection = mapper.readValue(new URL(urlString), type);
 
-        System.out.println("[ApiService.getApiModels] : " + urlString);
 
         return modelCollection;
     }

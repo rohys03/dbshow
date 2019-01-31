@@ -2,9 +2,80 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/dbshowLayout}">
+      layout:decorate="~{decorator/dbshowLayout}">
 
 <head>
     <title>Index</title>
 </head>
+
+<body>
+<th:block layout:fragment="content">
+    <!-- Icon Cards-->
+    <div class="row" style="min-height: 300px; margin: 1px">
+
+        <div class="col-lg-6">
+            <div class="card  o-hidden mb-3" style="min-height:300px">
+                <div class="card-header" style="background: rgba(255, 99, 132, 0.2)">공지사항
+                    <a class="text-black-50 float-right" href="#">
+                        Go 공지사항
+                        <span class="float-right">
+                                <i class="fas float-right fa-angle-double-right"></i></span>
+                    </a>
+                </div>
+                <div class="card-body" >
+
+                    <div class="card-body-icon float-right">
+                        <i class="fas fa-fw  fa-comments"></i>
+                    </div>
+                    <span width="50%">
+                            <h6> 공지사항 </h6>
+                            <ol>
+                                <li> 11st DB Show 탄생. </li>
+                                <li> 아직 개발중입니다.. </li>
+                            </ol>
+                        </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-3" style="min-height:300px">
+                <div class="card-header" style="background: rgba(255, 159, 64, 0.2)">
+                    <i class="fas fa-chart-bar"></i> Simple KPI
+                </div>
+                <div class="card-body">
+                        <span width="50%">
+                            <h6>KPI</h6>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="min-height: 25%; margin: 1px">
+        <div class="col-lg-12">
+            <div class="card mb-3" style="min-height:300px">
+                <div class="card-header" style="background: rgba(75, 192, 192, 0.2)">
+                    <i class="fas fa-chart-bar"></i> Api Service Help
+                </div>
+                <div class="card-body">
+                        <span id="apiService" >
+                            <h6>Api Service List</h6>
+                            <ol>
+                                <li th:text="'Sql 검색 : ' + ${@environment.getProperty('dbshowapi.url.sqlApplication')}"></li>
+                                <li th:text="'Sql 상세 : ' + ${@environment.getProperty('dbshowapi.url.sqlDetail')}"></li>
+                                <li th:text="'참조 Object : ' + ${@environment.getProperty('dbshowapi.url.refObject')}"></li>
+                                <li th:text="'Sql List : ' + ${@environment.getProperty('dbshowapi.url.sqlApplication')}"></li>
+                                <li>Sql List</li>
+                                <li th:text="${@environment.getProperty('layout.sidebar.menuA_A')}"></li>
+                            </ol>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
 </html>

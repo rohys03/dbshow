@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Sql Detail</title>
+    <title>11st DB Show - Index</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +33,7 @@
 
 <header class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="/index"> index </a>
+    <a class="navbar-brand mr-1" href="/index" style="color:rgb(255, 102, 102)"> 11st DB </a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -63,15 +63,15 @@
                 <span>운영 정보 조회</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="objectDropDown" >
-                <h6 class="dropdown-header">Object 정보.</h6>
-                <a class="dropdown-item" href=/index>#Dashboard.</a>
-                <a class="dropdown-item" href=""/>#참조 Object.</a>
+                <h6 class="dropdown-header">System 정보.</h6>
+                <a class="dropdown-item" href=/dashboard>Dashboard.</a>
+                <a class="dropdown-item" href=/referencedObject>참조 Object.</a>
                 <a class="dropdown-item" href=""/>#Ogg 동기화.</a>
                 <a class="dropdown-item" href=""/>#mySession.</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
-        <li class="nav-item dropdown active">
+        <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="sqlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>SQL 정보</span>
@@ -108,7 +108,7 @@
                 <span>SQL 분리(가칭)</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlAreaDropdown">
-                <a class="dropdown-item " href="/sqlDistributionKpi">#지표 관리.</a>
+                <a class="dropdown-item " href="/dashboard">지표 관리.</a>
                 <h6 class="dropdown-header">Logical Area</h6>
                 <a class="dropdown-item " href="/sqlListByObject">#Table 조회.</a>
                 <a class="dropdown-item" href="/sqlListByObject"/>#SQL별 참조 Object.</a>
@@ -143,276 +143,71 @@
             <li class="breadcrumb-item active">Overview</li>
         </ol>
 
-        <div class="card-header">
-            <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다. (ex: sql_id : 417q49pqzn0ap )</i>
 
-            <p>
-            <form class="d-none d-md-inline-block form-inline form-row" action="sqlDetail">
-                <div class=" input-group">
-                    <div class="col-auto input-group">
-                        <select name="searchType">
-                            <option value="SQLID" selected>Sql_Id</option>
-                            <option value="SQLNAME" >SqlName (Xml)</option>
-                        </select>
-                    </div>
-                    <div >
-                        <input type="text" name="sqlString" class="form-control" value="417q49pqzn0ap" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
 
+        <!-- Icon Cards-->
+        <div class="row" style="min-height: 300px; margin: 1px">
+
+            <div class="col-lg-6">
+                <div class="card  o-hidden mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(255, 99, 132, 0.2)">
+                        <a class="text-black-50 float-right" href="#">
+                            Go 공지사항
+                            <span class="float-right">
+                                <i class="fas float-right fa-angle-double-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body" >
+
+                        <div class="card-body-icon float-right">
+                            <i class="fas fa-fw  fa-comments"></i>
+                        </div>
+                        <span width="50%">
+                            <h6> 공지사항 </h6>
+                            <ol>
+                                <li> 11st DB Show 탄생. </li>
+                                <li> 아직 개발중입니다.. </li>
+                            </ol>
+                        </span>
+                    </div>
                 </div>
-            </form>
-            </p>
-        </div>
+            </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-
-                <table class="table table-bordered" id="sqlDetail" width="100%">
-
-                    <thead class="table-thead-wrap-size">
-                    <tr>
-                        <th scope="row">inst_id</th><td>1</td>
-                        <th scope="row">sql_Id</th><td>417q49pqzn0ap</td>
-                        <th scope="row">sql_Name(Xml)</th><td>417q49pqzn0ap</td>
-                        <th scope="row"></th><td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">plan_hash_value</th><td>2043374878</td>
-                        <th scope="row">SchemaName</th><td>TMALL</td>
-                        <th scope="row">Module</th><td>JDBC Thin Client</td>
-                        <th scope="row">Program_ID</th><td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Executions</th><td>33</td>
-                        <th scope="row">buffer Gets</th><td>181</td>
-                        <th scope="row">Blocks / Exec</th><td>5</td>
-                        <th scope="row">stat4</th><td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">LastActiveTime</th><td>2019-01-28 15:47:22.0</td>
-                        <th scope="row">FirstLoadTime</th><td>2019-01-25/18:43:51</td>
-                        <th scope="row">Col3</th><td></td>
-                        <th scope="row">Col4</th><td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">SQL Full Text</th>
-                        <td colspan="100%">
-                        <pre>
-                            <code>SELECT
-
-        DLP.PRD_NO
-        , DLP.PRD_NM
-        , DLP.BRAND_NM
-        , DLP.ADVRT_STMT
-        , DLP.SEL_MTHD_CD
-        , DLP.DLV_CST_PAY_TYP_CD
-        , DLP.DLV_CST_INST_BASI_CD
-        , DLP.ABRD_BRAND_YN
-        , DLP.MINOR_SEL_CN_YN
-        , DLP.SEL_PRC
-        , DLP.FINAL_DSC_PRC
-        , DLP.MALL_PNT_RT
-        , DLP.MALL_PNT
-        , DLP.SPPL_CHP_QTY
-        , DLP.INTFREE_MON
-        , DLP.OPT_YN
-        , DLP.PRD_EVL_TOT_QTY
-        , DLP.BUY_SATISFY
-        , DLP.EXPRT_REVIEW_CNT
-        , DLP.NCK_NM
-        , DLP.NCK_NM_IMG_URL
-        , DLP.MEM_ID
-        , DLP.SELLER_HMPG_NM
-        , DLP.S_DSC_AMT
-        , DLP.S_DSC_RT
-        , DLP.M_DSC_AMT
-        , DLP.M_DSC_RT
-        , DLP.IS_PREMIUM_ITEM
-        , DLP.PREMIUM_ITEM_BGN_DY
-        , DLP.PREMIUM_ITEM_END_DY
-        , DLP.IS_BG_COLOR_ITEM
-        , DLP.BG_COLOR_ITEM_BGN_DY
-        , DLP.BG_COLOR_ITEM_END_DY
-        , DLP.IS_FOCUS_ITEM
-        , DLP.FOCUS_ITEM_BGN_DY
-        , DLP.FOCUS_ITEM_END_DY
-        , &#39;&#39; AS IMG_URL_01
-        , ( SELECT URL_PATH || BASIC_EXT_NM
-            FROM PD_PRD_IMAGE
-            WHERE PRD_NO = DLP.PRD_NO ) AS IMG_URL_02
-        , DLP.PRD_EVL_TOT_QTY AS EVL_CNT
-        , DLP.SEL_MNBD_NO
-        , DLP.OCB_PRD_RT
-        , DLP.PRD_PNT_RT
-        , DLP.PRD_PNT_ADD_RT
-        , DLP.OCB_ZONE_RT
-        , DLP.PRD_INTFREE_YN
-        , DLP.SKT_ADD_PRE_YN
-        , DLP.SKT_ADD_PRE_RATE
-        , DLP.FRGFT_YN
-        , DLP.EVENT_SAVE_RT
-        , DLP.F_DSC_AMT
-        , DLP.F_DSC_RT
-        , DLP.IS_MVP_YN
-        , DLP.LCTGR_NO
-        , DLP.MCTGR_NO
-        , DLP.DLV_DELAY_GRT
-        , DLP.CONT_PNT_RT
-        , DLP.MVP_SCORE
-        , DLP.SELLER_OCB
-        , DLP.SELLER_MILEAGE
-        , DLP.MULTI_QTY_DSC_AMT
-        , DLP.MULTI_QTY_DSC_RT
-        , DLP.PARTNER_OCB_SAVE_RT
-        , &#39;&#39;||IMG.URL_PATH||IMG.BASIC_EXT_NM IMAGE_ORIGIN_URL
-        , DLP.PRMT_OCB_SAVE_RT
-        , DLP.RETAIL_PRICE
-        , DLP.AD_MOVIE_YN
-        , DLP.PRICE_NM
-        , DLP.OH_POINT_USE_RT
-        , DLP.OH_POINT_SAVE_RT
-        , DLP.HOPE_SHP_PNT
-        , DLP.PRD_TYP_CD_DE
-        , DLP.T_EVENT_RT_LIST
-        , DLP.MILEAGE_RT_LIST
-        , DLP.DSC_CARD_RT_LIST
-        , DLP.CUPN_OBJ_RT_LIST
-        , DLP.DLV_PRC
-        , DLP.W_FINAL_DSC_PRC
-        , DLP.RNTL_INFO_LIST
-        , DLP.OCB_RSRV_RT_LIST
-
-        ,
-        (
-        SELECT SEMI_REVIEW_CNT
-        FROM   DP_PRD_CONT_SUMMARY CONT
-        WHERE  CONT.PRD_NO = DLP.PRD_NO
-        ) SEMI_REVIEW_CNT
-        , (
-        SELECT SHP_LIKE_CNT
-        FROM   DP_PRD_CONT_SUMMARY CONT
-        WHERE  CONT.PRD_NO = DLP.PRD_NO
-        ) SHP_LIKE_CNT
-        , &#39;&#39; AS QUICK_BIG_OK_SELLER_YN
-        , (
-        SELECT SELL_CRDT_GRD
-        FROM   MB_SELLER_SUM_INFO
-        WHERE  MEM_NO = (SELECT DECODE( REP_SELLER_NO, NULL, MEM_NO, REP_SELLER_NO ) FROM MB_MEM WHERE  MEM_NO = DLP.SEL_MNBD_NO )
-        ) SELL_CRDT_GRD
-        , (
-        SELECT &#39;Y&#39; AS IS_PREMIUM_PLUS
-        FROM pd_prd_itm a,
-        dp_disp_itm b
-        WHERE a.disp_itm_no = b.disp_itm_no
-        AND a.use_yn = &#39;Y&#39;
-        AND a.svc_bgn_dy &lt;= sysdate
-        AND sysdate &lt;= a.svc_end_dy
-        AND a.disp_itm_no = 343
-        AND b.use_yn = &#39;Y&#39;
-        AND PRD_NO = DLP.PRD_NO
-        AND rownum &lt;= 1
-        ) AS PREMIUM_PLUS
-        , (SELECT  /*+ INDEX(A PK_MB_SELLER_SUM_INFO) */ NVL(A.CS_SELLER_YN,&#39;N&#39;)  FROM MB_SELLER_SUM_INFO A WHERE A.MEM_NO = DLP.SEL_MNBD_NO ) CS_SELLER_YN
-        , (select /*+ INDEX(DEAL IX1_DP_DEAL_PRD)*/ DECODE(count(1), 0, &#39;N&#39;, &#39;Y&#39;) from dp_deal_prd deal where deal.prd_no = DLP.PRD_NO and deal.disp_bgn_dy &lt;= sysdate and deal.disp_end_dy &gt;= sysdate and deal.sel_stat_cd = &#39;103&#39; and rownum = 1) deal_prd_yn
-        , (
-        select /*+ LEADING(B A) USE_NL(A) INDEX(B PK_PD_PRD_TGOW_PLC_EXCH_RTNGD)*/
-        (select dtls_com_nm from sy_co_detail where grp_cd=&#39;MB047&#39; and dtls_cd = a.country_cd)
-        ||&#39; &#39;|| addr1||&#39; &#39;||addr2||&#39; &#39;||city||&#39; &#39;||state||&#39; &#39;||zip_code
-        from mb_global_addr a
-        , pd_prd_tgow_plc_exch_rtngd b
-        where  b.prd_no = DLP.prd_no
-        and a.mem_no = b.mem_no
-        and a.addr_cd = &#39;02&#39;
-        and a.del_yn = &#39;N&#39;
-        and b.mb_addr_location = &#39;02&#39;
-        and b.prd_addr_clf_cd in (&#39;01&#39;, &#39;04&#39;)
-        and rownum = 1
-        ) as global_addr
-        , NVL((SELECT
-            /*+ LEADING(A B) USE_NL(B) INDEX(A PK_PD_PRD) INDEX(B PK_PD_PRD_ATTR_COMP) */
-            A.STD_PRD_YN || &#39;@&#39; || A.STD_PRD_NM || &#39;@&#39; || A.MKT_PRD_NM || &#39;@&#39; || B.PRD_ATTR_VALUE_NM
-            FROM PD_PRD A, PD_PRD_ATTR_COMP B
-            WHERE A.PRD_NO = B.OBJ_PRD_NO(+)
-            AND B.PRD_ATTR_CD(+) = &#39;11821&#39;
-            AND A.PRD_NO = DLP.PRD_NO
-            AND ROWNUM = 1
-            ), &#39;@@@&#39;) AS STD_PRD_INFO
-
-        , OBJ.TRC_NO
-        , &#39;&#39; AS EXTRA_TEXT
-        , OBJ.TYP_GUBN
-        , OBJ.AREA_GUBN
-        , OBJ.RQST_AMT
-        , IMG.CUT_CNT
-        , NVL((SELECT SUM(BUY_SCORE)
-        FROM AD_RISE_BUY_DTLS BUY
-        WHERE BUY.PRD_NO = DLP.PRD_NO
-        AND SVC_BGN_DT &lt;= SYSDATE
-        AND SVC_END_DT &gt;= SYSDATE
-        AND BUY_SCORE &gt; 0
-        AND APL_STAT_CD = &#39;01&#39;
-        AND ROWNUM = 1), 0) AS RISE_SCORE
-        , NVL((SELECT &#39;Y&#39;
-        FROM DP_BRAND_LIST A
-        , DP_BRAND_SELLER_MAP B
-        WHERE A.BRAND_CD = B.BRAND_CD
-        AND A.BRAND_SHOP_STAT_CD != &#39;D&#39;
-        AND A.BRAND_CD = DLP.BRAND_CD
-        AND B.SEL_MNBD_NO = DLP.SEL_MNBD_NO
-        AND B.SELLER_TYP_CD = &#39;01&#39;), &#39;N&#39;) AS BRAND_HQ_YN
-        FROM
-        (
-        SELECT /*+ LEADING(SPCE KEYWD OBJ) USE_NL(KEYWD OBJ) INDEX(OBJ IX1_AD_DISP_OBJ)*/
-        OBJ.DISP_OBJ_NO
-        , OBJ.TRC_NO
-        , OBJ.DISP_OBJ_STAT_CD
-        , OBJ.RQST_AMT
-        , &#39;&#39; AS EXTRA_TEXT
-        , SPCE.TYP_GUBN
-        , SPCE.AREA_GUBN
-        FROM DP_DISP_SPCE SPCE
-        , AD_DISP_OBJ  OBJ
-        , DP_DISP_SPCE_APL_KEYWD KEYWD
-        WHERE KEYWD.DISP_SPCE_APL_KEYWD_NO = OBJ.DISP_ADVRT_AREA_NO
-        AND SPCE.DISP_SPCE_NO            = KEYWD.DISP_SPCE_NO
-        AND SPCE.USE_YN                  = &#39;Y&#39;
-        AND OBJ.DISP_ADVRT_AREA_CLF_CD   = &#39;03&#39;
-        AND OBJ.DISP_OBJ_STAT_CD = &#39;03&#39;
-
-            AND SPCE.DISP_SPCE_ID = :1
-
-        AND KEYWD.KEYWD_NM = UPPER(:2 )
-
-            AND OBJ.DISP_BGN_DY &lt;= TO_DATE(:3 ,&#39;YYYYMMDD HH24MISS&#39;)
-            AND OBJ.DISP_END_DY &gt;= TRUNC(TO_DATE(:4 ,&#39;YYYYMMDD HH24MISS&#39;))
-
-
-        ORDER BY OBJ.DISP_PRRT_RNK ASC, OBJ.RQST_AMT DESC
-        ) OBJ
-        , DP_LIVE_PRD DLP
-        , PD_PRD_IMAGE IMG
-        WHERE
-        OBJ.DISP_OBJ_NO = DLP.PRD_NO
-
-        AND OBJ.DISP_OBJ_NO = IMG.PRD_NO
-
-            AND ROWNUM &lt;= :5 </code>
-                        </pre>
-                        </td>
-                    </tr>
-                    </tbody>
-
-                </table>
+            <div class="col-lg-6">
+                <div class="card mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(255, 159, 64, 0.2)">
+                        <i class="fas fa-chart-bar"></i> Simple KPI
+                    </div>
+                    <div class="card-body">
+                        <span width="50%">
+                            <h6>KPI</h6>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated yesterday at 2019년 1월 28일 (월) 오후 4시 32분 38초</div>
+        <br>
+        <div class="row" style="min-height: 25%; margin: 1px">
+            <div class="col-lg-12">
+                <div class="card mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(75, 192, 192, 0.2)">
+                        <i class="fas fa-chart-bar"></i> Api Service Help
+                    </div>
+                    <div class="card-body">
+                        <span id="apiService" >
+                            <h6>Api Service List</h6>
+                            <ol>
+                                <li>Sql List : sqlApplicationList/{dbName}/{commandType}/{owner}/{tableName}</li>
+                                <li>Sql Detail : sqlDetail/{dbName}/{searchType}/{searchString}</li>
+                                <li>Ref Object : referencedObject/{dbName}/{objectType}/{owner}/{objectName}</li>
+                                <li>Sql List</li>
+                            </ol>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </section>
 

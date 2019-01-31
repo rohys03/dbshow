@@ -19,18 +19,18 @@
         <form class="d-none d-md-inline-block form-inline form-row" action="/referencedObject">
             <div class="input-group">
                 <div class="col-auto input-group">
-                    <select name="commandType">
-                        <option value="ALL" selected>ALL</option>
+                    <select name="objectType">
+                        <option value="ALL">ALL</option>
                         <option value="TABLE" >TABLE</option>
                         <option value="PROCEDURE">PROCEDURE</option>
                         <option value="VIEW">VIEW</option>
                     </select>
                 </div>
                 <div class="col-auto input-group">
-                    <input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">
+                    <input type="text" name="owner" class="form-control" th:value="${param.owner}" placeholder="Schema Name..">
                 </div>
                 <div class="col-auto input-group">
-                    <input type="text" name="objectName" class="form-control" th:value="${inParams.objectName}" placeholder="Table Name..">
+                    <input type="text" name="objectName" class="form-control" th:value="${param.objectName}" placeholder="Table Name..">
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
