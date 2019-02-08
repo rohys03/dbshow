@@ -126,3 +126,16 @@ a.dim-btn-layerClose:hover {
     background-color: #1f326a;
     color: #fff;
 }
+
+body#page-top.dbshow-purple header {
+    background-color: #dd99ff !important;
+}
+
+body#page-top.dbshow-purple header > a{
+    color: #ff1a1a !important;
+}
+
+body#page-top.dbshow-purple > section#wrapper > ol{
+    background-color: #440066 !important;
+}
+

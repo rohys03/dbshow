@@ -8,7 +8,7 @@ public class DbshowApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DbshowApplication.class, args);
+		System.out.println("============ DB Show Start ============");
 	}
 
 }
-

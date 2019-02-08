@@ -31,17 +31,17 @@ public class SqasController {
     }
 
     @RequestMapping(value = {"sqlListByObject"})
-    public String sqlListByParsingSchemaName(HttpServletRequest request, Model model) throws IOException{
+    public String sqlListByObject(HttpServletRequest request, Model model) throws IOException{
 
         final String apiMethod = "sqlApplicationList";
 
         Map<String, String> inParams = getParameterMap(request);
         Collection <SqlAreaVO> modelCollection = null;
 
-        String dbName = inParams.getOrDefault("dbName", "dbName");
-        String commandType = inParams.getOrDefault("commandType", "commandType");
-        String owner = inParams.getOrDefault("owner", "owner");
-        String name = inParams.getOrDefault("name", "name");
+        String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
+        String commandType = inParams.getOrDefault("commandType", "commandType").toUpperCase();
+        String owner = inParams.getOrDefault("owner", "owner").toUpperCase();
+        String name = inParams.getOrDefault("name", "name").toUpperCase();
 
         System.out.println("/sqlListByObject/ " + inParams.toString());
 
@@ -64,9 +64,9 @@ public class SqasController {
         Map<String, String> inParams = getParameterMap(request);
         Collection <SqlAreaVO> modelCollection = null;
 
-        String dbName = inParams.getOrDefault("dbName", "dbName");
-        String searchType = inParams.getOrDefault("searchType", "searchType");
-        String sqlString = inParams.getOrDefault("sqlString", "sqlString");
+        String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
+        String searchType = inParams.getOrDefault("searchType", "searchType").toUpperCase();
+        String sqlString = inParams.getOrDefault("sqlString", "sqlString").toUpperCase();
 
         if (searchType != "" && sqlString != "") {
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
