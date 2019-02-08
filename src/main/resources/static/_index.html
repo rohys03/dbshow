@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - DashBoard</title>
+    <title>11st DB Show - Sql Detail</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,7 +29,7 @@
 
 </head>
 
-<body id="page-top" class="dbshow-purple">
+<body id="page-top">
 
 <header class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -68,7 +68,7 @@
                 <h6 class="dropdown-header">System 정보.</h6>
                 <a class="dropdown-item" href=/dashboard>Dashboard.</a>
                 <a class="dropdown-item" href=/referencedObject>참조 Object.</a>
-                <a class="dropdown-item" href=""/>#Ogg 동기화.</a>
+                <a class="dropdown-item" href=/daSyncData>Data Sync(Ogg &)</a>
                 <a class="dropdown-item" href=""/>#mySession.</a>
                 <div class="dropdown-divider"></div>
             </div>
@@ -147,112 +147,76 @@
 
 
 
-        <!-- Icon Cards-->
-        <div class="row" style="margin: 1px">
-            <div class="col-lg-3">
-                <div class="card text-white bg-primary o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-comments"></i>
-                        </div>
-                        <div class="mr-5" style="line-height:1">
-                            <p> SQL_Name Count: xxxx </p>
-                            <p> Executions : xxxx </p>
-                            <p> CpuTime : xxxx </p>
-                        </div>
+
+        <div class="card-header">
+            <i class="fas fa-table">SQL_ID 와 SQL_NAME으로 상세 SQL을 검색 할 수 있습니다. (ex: sql_id : 2th6ph3p1c02s )</i>
+
+            <p>
+            <form class="d-none d-md-inline-block form-inline form-row" action="sqlDetail">
+                <div class=" input-group">
+                    <div class="col-auto input-group">
+                        <select name="searchType">
+                            <option value="SQLID" selected>Sql_Id</option>
+                            <option value="SQLNAME" >SqlName (Xml)</option>
+                        </select>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">Maindb Details (Go Top SQL)</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                    </span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card text-white bg-warning o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-list"></i>
-                        </div>
-                        <div class="mr-5" style="line-height:1">
-                            <p> SQL_Name Count: xxxx </p>
-                            <p> Executions : xxxx </p>
-                            <p> CpuTime : xxxx </p>
-                        </div>
+                    <div >
+                        <input type="text" name="sqlString" class="form-control" value="2th6ph3p1c02s" placeholder="Sql id..." aria-label="Search" aria-describedby="basic-addon2">
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">Mpdb Details (Go Top SQL)</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                    </span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card text-white bg-success o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-shopping-cart"></i>
-                        </div>
-                        <div class="mr-5" style="line-height:1">
-                            <p> SQL_Name Count: xxxx </p>
-                            <p> Executions : xxxx </p>
-                            <p> CpuTime : xxxx </p>
-                        </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">Cartdb Details (Go Top SQL)</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                    </span>
-                    </a>
+
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="card text-white bg-danger o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-life-ring"></i>
-                        </div>
-                        <div class="mr-5" style="line-height:1">
-                            <p> SQL_Name Count: xxxx </p>
-                            <p> Executions : xxxx </p>
-                            <p> CpuTime : xxxx </p>
-                        </div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">Dpdb Details (Go Top SQL)</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                    </span>
-                    </a>
-                </div>
+            </form>
+            </p>
+        </div>
+
+        <div class="card-body">
+            <div class="">
+
+                <table class="table table-bordered" id="sqlDetail">
+
+                    <tbody>
+                    <tr>
+                        <th>inst_id</th><td>1</td>
+                        <th>sql_Id</th><td>2th6ph3p1c02s</td>
+                        <th>sql_Name(Xml)</th><td colspan="3">2th6ph3p1c02s</td>
+                    </tr>
+                    <tr>
+                        <th>plan_hash_value</th><td>943387038</td>
+                        <th>SchemaName</th><td>TMALL</td>
+                        <th>Module</th><td>JDBC Thin Client</td>
+                        <th>Program_ID</th><td></td>
+                    </tr>
+                    <tr>
+                        <th>Executions</th><td>4</td>
+                        <th>buffer Gets</th><td>16</td>
+                        <th>Blocks / Exec</th><td>4</td>
+                        <th>stat4</th><td></td>
+                    </tr>
+                    <tr>
+                        <th>LastActiveTime</th><td>2019-02-08 15:35:19.0</td>
+                        <th>FirstLoadTime</th><td>2019-01-24/10:10:44</td>
+                        <th>Col3</th><td></td>
+                        <th>Col4</th><td></td>
+                    </tr>
+                    <tr>
+                        <th>SQL Full Text</th>
+                        <td colspan="100%" style="max-width: 900px" >
+                        <pre >
+                            <code  >SELECT /*(orderMyShopping.xml) 윤남영 2009.07.10 orderMyShopping.getRefundStl */             CASE WHEN t_a.cybr_mny_rfnd_yn = &#39;Y&#39; THEN &#39;S캐시&#39;               WHEN t_a.cybr_mny_rfnd_cd = &#39;01&#39; THEN &#39;OK캐시백(충전포인트)&#39;               ELSE &#39;무통장입금&#39;          END cybr_mny_rfnd_yn  /* 환불 방법        */             , decodeparam (t_a.rfnd_acct_no)  rfnd_acct_no                            /* 환불 계좌        */             , t_a.rfnd_amt                /* 환불 금액        */             , t_a.rfnd_bnk_cd                                                           /* 은행 코드        */             , s_a.dtls_com_nm rfnd_bnk_cd_nm                                            /* 은행명           */             , t_a.rfnd_acct_nm                                                          /* 예금주           */             , t_a.rfnd_stat_cd                                                          /* 환불 상태 코드   */             , s_b.dtls_com_nm rfnd_stat_cd_nm                                           /* 환불 상태명      */             , case when t_a.STL_DY is not null               then case when t_a.STL_DY  &lt;  to_date(&#39;20180526&#39;,&#39;yyyymmdd&#39;) then to_char(to_date(FN_SY_CALENDAR(&#39;+&#39;,&#39;2&#39;, t_a.stl_dy),&#39;yyyymmdd&#39;),&#39;yyyy-mm-dd&#39;)                    else to_char(to_date(FN_SY_CALENDAR(&#39;+&#39;,&#39;1&#39;, t_a.stl_dy),&#39;yyyymmdd&#39;),&#39;yyyy-mm-dd&#39;) end               else &#39;&#39; end as stl_dy  /* 입금예정일 */       FROM  tr_online_refund t_a             , sy_co_detail s_a             , sy_co_detail s_b      WHERE  t_a.ord_no = :1         AND  s_a.grp_cd(+) = &#39;SY003&#39;        AND  s_a.dtls_cd(+) = t_a.rfnd_bnk_cd        AND  s_b.grp_cd = &#39;TR051&#39;        AND  s_b.dtls_cd = t_a.rfnd_stat_cd    </code>
+                        </pre>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
             </div>
         </div>
-        <br>
-        <div class="row" style="margin: 1px">
-            <div class="col-lg-6">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar"></i>
-                        Today DB Sql Ratio</div>
-                    <div class="card-body">
-                        <canvas id="dashboardPieChart" width="50%" height="50"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar"></i>
-                        Sql Ratio Trend</div>
-                    <div class="card-body">
-                        <canvas id="dashboardBarChart" width="50%" height="50"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated yesterday at 2019년 2월 8일 (금) 오후 7시 36분 17초</div>
 
     </section>
 
@@ -291,104 +255,6 @@
 <!-- Custom scripts for all pages-->
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
-
-<script type="text/javascript" >
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    // Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    // Chart.defaults.global.defaultFontColor = '#292b2c';
-
-    // Pie Chart Example
-    var ctx = document.getElementById("dashboardPieChart");
-    var dashboardPieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ["Maindb", "Mpdb", "Cartdb", "Dpdb"],
-            datasets: [{
-                data: [60, 15, 10, 15],
-                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
-                borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
-                borderWidth: 1
-            }],
-        },
-    });
-</script>
-<script type="text/javascript" >
-    var ctx = document.getElementById("dashboardBarChart");
-    var dashboardBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["2019-01-21", "2019-01-22", "2019-01-23", "2019-01-24", "2019-01-25", "2019-01-26"],
-            datasets: [
-                {
-                    label: "Maindb",
-                    data: [60,58,50,46,43,41],
-                    fill: false,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgb(255, 99, 132)",
-                    borderWidth: 1
-                },
-                {
-                    label: "Mpdb",
-                    data: [15,17,18,25,20,22],
-                    fill: false,
-                    backgroundColor: "rgba(255, 159, 64, 0.2)",
-                    borderColor: "rgb(255, 159, 64)",
-                    borderWidth: 1
-                },
-                {
-                    label: "CartDb",
-                    data: [15, 15, 23, 20, 28, 28],
-                    fill: false,
-                    backgroundColor: "rgba(255, 205, 86, 0.2)",
-                    borderColor: "rgb(255, 205, 86)",
-                    borderWidth: 1
-                },
-                {
-                    label: "Dpdb",
-                    data: [10, 10, 9, 9, 9, 9],
-                    fill: false,
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    borderColor: "rgb(75, 192, 192)",
-                    borderWidth: 1
-                }
-            ],
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                    time: {
-                        unit: 'month'
-                    },
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 6
-                    }
-                }],
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'SQL Application Rate(%)'
-                    },
-                    stacked: true,
-                    ticks: {
-                        min: 0,
-                        max: 100,
-                        maxTicksLimit: 5
-                    },
-                    gridLines: {
-                        display: true
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            }
-        }
-    });
-</script>
 
 
 <!-- db Show script -->

@@ -36,16 +36,16 @@ div .sqltext-wrap {
     overflow: hidden;
 }
 
-#sqlDetail > th,
-#sqlDetail > td {
-    width: 160px;
-    padding: 0.3rem;
+#sqlDetail th,
+#sqlDetail td {
+    min-width: 130px;
+    padding: 1rem;
     font-size: 1rem;
     align: left;
     vertical-align: center;
 }
 
-#sqlDetail > code {
+#sqlDetail code {
     vertical-align: center;
     line-height: 1px;
     white-space: pre-wrap;
