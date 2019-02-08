@@ -66,7 +66,7 @@ public class SqasController {
 
         String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
         String searchType = inParams.getOrDefault("searchType", "searchType").toUpperCase();
-        String sqlString = inParams.getOrDefault("sqlString", "sqlString").toUpperCase();
+        String sqlString = inParams.getOrDefault("sqlString", "sqlString");
 
         if (searchType != "" && sqlString != "") {
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
