@@ -3,16 +3,19 @@ package com.st11.dbshow.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.st11.dbshow.config.ApiServerConfig;
-import com.st11.dbshow.repository.SqlAreaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.logging.Logger;
+
 
 @Service
 public class ApiServiceImpl implements ApiService  {
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     ApiServerConfig apiServerConfig;
@@ -28,10 +31,10 @@ public class ApiServiceImpl implements ApiService  {
             urlString = urlString + "/" + arg;
         }
 
-        System.out.println("[ApiService.getApiModels] : " + urlString);
+        logger.info("[ApiService.getApiModels] : " + urlString);
+
 
         modelCollection = mapper.readValue(new URL(urlString), type);
-
 
         return modelCollection;
     }

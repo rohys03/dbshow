@@ -1,10 +1,6 @@
 package com.st11.dbshow.controller;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.st11.dbshow.repository.RefObjectVO;
-import com.st11.dbshow.service.ApiService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
+
+import static com.st11.dbshow.common.DbShow.getParameterMap;
 
 
 @Controller
@@ -27,10 +25,8 @@ public class DefaultController {
 
     @RequestMapping(value = {"", "/", "/index"})
     public String index(HttpServletRequest request, Model model) throws IOException{
-
-        final String apiMethod = "referencedObject";
-
-        Map<String, String[]> inParams = request.getParameterMap();
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
 
         return "index";
     }

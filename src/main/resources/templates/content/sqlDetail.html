@@ -59,6 +59,7 @@
                         <th>buffer Gets</th><td th:text=${sqlVo.bufferGets}>##</td>
                         <th>Blocks / Exec</th><td th:text="${sqlVo.blockPerExec}">##</td>
                         <th>stat4</th><td th:text="null">##</td>
+                        <th>stat4</th><td th:##</td>
                     </tr>
                     <tr>
                         <th>LastActiveTime</th><td th:text="${sqlVo.lastActiveTime}">##</td>
@@ -74,10 +75,7 @@
                         <pre>
                             <code th:text="${sqlVo.sqlFullText}">
                             Select sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number
-                            From gv$sqlSelect
-                            WHERE aaa
-                            sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From
-                            gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sql
+                            From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sqlSelect sql_id, sql_text, executions, buffer_gets, module, last_active_time, first_load_time, child_number From gv$sql
                             </code>
                         </pre>
                     </td>

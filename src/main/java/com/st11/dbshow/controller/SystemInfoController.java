@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 
-import static com.st11.dbshow.util.DbShow.*;
+import static com.st11.dbshow.common.DbShow.*;
 
 
 @Controller
@@ -24,52 +26,43 @@ public class SystemInfoController {
     private ApiService apiService;
 
     @RequestMapping(value = "referencedObject")
-    public String referencedObject(HttpServletRequest request, Model model) throws IOException{
-
+    public String referencedObject(
+            @RequestParam(value = "dbName", required = false) String dbName,
+            @RequestParam(value = "objectType", required = false) String objectType,
+            @RequestParam(value = "owner", required = false) String owner,
+            @RequestParam(value = "objectName", required = false) String objectName,
+            HttpServletRequest request, Model model) throws IOException{
         final String apiMethod = "referencedObject";
 
-        Map<String, String> inParams = getParameterMap(request);
-
-        Collection <RefObjectVO> modelCollection = null;
-
-        String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
-        String objectType = inParams.getOrDefault("objectType", "objectType").toUpperCase();
-        String owner = inParams.getOrDefault("owner", "owner").toUpperCase();
-        String objectName = inParams.getOrDefault("objectName", "objectName").toUpperCase();
-
-        System.out.println("/referencedObject/ " + inParams.toString());
-
-        if (owner != "" && objectName != "") {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<RefObjectVO>>() {
-            }, dbName, objectType, owner, objectName);
-        }
-
         model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("model", modelCollection);
+
+        if (!isNullOrEmpty(dbName) && !isNullOrEmpty(objectType) && !isNullOrEmpty(owner) && !isNullOrEmpty(objectName)) {
+            Collection<RefObjectVO> modelCollection = null;
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<RefObjectVO>>() {
+                    }
+                    , dbName.toUpperCase(), objectType.toUpperCase(), owner.toUpperCase(), objectName.toUpperCase());
+            model.addAttribute("model", modelCollection);
+        }
 
         return "content/referencedObject";
     }
 
-    @RequestMapping(value = "daSyncData")
-    public String daSyncData(HttpServletRequest request, Model model) throws IOException{
+    @RequestMapping(value = "daSyncData", method = RequestMethod.GET)
+    public String daSyncData(
+            @RequestParam(value = "tableName", required = false) String tableName,
+            HttpServletRequest request, Model model) throws IOException{
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
 
         final String apiMethod = "daSyncData";
 
-        Map<String, String> inParams = getParameterMap(request);
-
-        Collection <DaSyncTablesVO> modelCollection = null;
-
-        String tableName = inParams.getOrDefault("tableName", "tableName").toUpperCase();
-
-        System.out.println("/daSyncData/ " + inParams.toString());
-
-        if (tableName != "") {
+        if (!isNullOrEmpty(tableName)) {
+            Collection<DaSyncTablesVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTablesVO>>() {
-            }, tableName);
+                    }
+                    , tableName.toUpperCase());
+            model.addAttribute("model", modelCollection);
         }
-
-        model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("model", modelCollection);
 
         return "content/daSyncData";
     }

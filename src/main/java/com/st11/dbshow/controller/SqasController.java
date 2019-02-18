@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.*;
 
-import static com.st11.dbshow.util.DbShow.*;
+import static com.st11.dbshow.common.DbShow.*;
 
 @Controller
 public class SqasController {
@@ -24,57 +24,47 @@ public class SqasController {
 
     @RequestMapping(value = "dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
-
         model.addAttribute("serverTime", getCurrentTime());
 
         return "content/dashboard";
     }
 
     @RequestMapping(value = {"sqlListByObject"})
-    public String sqlListByObject(HttpServletRequest request, Model model) throws IOException{
-
+    public String sqlListByObject(
+            @RequestParam(value = "dbName", required = false) String dbName,
+            @RequestParam(value = "commandType", required = false) String commandType,
+            @RequestParam(value = "owner", required = false) String owner,
+            @RequestParam(value = "name", required = false) String name,
+            HttpServletRequest request, Model model) throws IOException{
         final String apiMethod = "sqlApplicationList";
 
-        Map<String, String> inParams = getParameterMap(request);
-        Collection <SqlAreaVO> modelCollection = null;
-
-        String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
-        String commandType = inParams.getOrDefault("commandType", "commandType").toUpperCase();
-        String owner = inParams.getOrDefault("owner", "owner").toUpperCase();
-        String name = inParams.getOrDefault("name", "name").toUpperCase();
-
-        System.out.println("/sqlListByObject/ " + inParams.toString());
-
-        if (owner != "" && name != "") {
+        model.addAttribute("serverTime", getCurrentTime());
+        if (!isNullOrEmpty(dbName) && !isNullOrEmpty(commandType) && !isNullOrEmpty(owner) && !isNullOrEmpty(name)) {
+            Collection<SqlAreaVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
             }, dbName, commandType, owner, name);
+            model.addAttribute("model", modelCollection);
         }
-
-        model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("model", modelCollection);
 
         return "content/sqlApplication";
     }
 
     @RequestMapping(value = {"sqlDetail"})
-    public String sqlDetail(HttpServletRequest request, Model model) throws IOException {
-
+    public String sqlDetail(
+            @RequestParam(value = "dbName", required = false) String dbName,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "sqlString", required = false) String sqlString,
+            HttpServletRequest request, Model model) throws IOException {
         final String apiMethod = "sqlDetail";
 
-        Map<String, String> inParams = getParameterMap(request);
-        Collection <SqlAreaVO> modelCollection = null;
-
-        String dbName = inParams.getOrDefault("dbName", "dbName").toUpperCase();
-        String searchType = inParams.getOrDefault("searchType", "searchType").toUpperCase();
-        String sqlString = inParams.getOrDefault("sqlString", "sqlString");
+        model.addAttribute("serverTime", getCurrentTime());
 
         if (searchType != "" && sqlString != "") {
+            Collection<SqlAreaVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
             }, dbName, searchType, sqlString);
+            model.addAttribute("model", modelCollection);
         }
-
-        model.addAttribute("serverTime", getCurrentTime());
-        model.addAttribute("model", modelCollection);
 
         return "content/sqlDetail";
     }

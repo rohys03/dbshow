@@ -1,10 +1,10 @@
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
-build/classes
-build/reports
-build/resources
-build/test-results
-build/tmp
+/build/classes
+/build/reports
+/build/resources
+/build/test-results
+/build/tmp
 bin/
 ### STS ###
 .apt_generated
