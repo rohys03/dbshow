@@ -39,7 +39,7 @@ public class SqasController {
         final String apiMethod = "sqlApplicationList";
 
         model.addAttribute("serverTime", getCurrentTime());
-        if (!isNullOrEmpty(dbName) && !isNullOrEmpty(commandType) && !isNullOrEmpty(owner) && !isNullOrEmpty(name)) {
+        if (!isNullOrEmpty(commandType) && !isNullOrEmpty(owner) && !isNullOrEmpty(name)) {
             Collection<SqlAreaVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
             }, dbName, commandType, owner, name);
@@ -59,7 +59,7 @@ public class SqasController {
 
         model.addAttribute("serverTime", getCurrentTime());
 
-        if (searchType != "" && sqlString != "") {
+        if (!isNullOrEmpty(searchType) && !isNullOrEmpty(sqlString)) {
             Collection<SqlAreaVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
             }, dbName, searchType, sqlString);
