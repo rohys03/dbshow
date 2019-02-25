@@ -49,15 +49,16 @@
             <colgroup>
                 <col class="col60px">
                 <col class="col130px">
+                <!--<col class="col90px">-->
+                <col class="col90px">
+                <col class="col130px">
+                <!--<col class="col130px">-->
+                <col class="col200px">
+                <col class="col90px">
                 <col class="col90px">
                 <col class="col90px">
                 <col class="col130px">
-                <col class="col130px">
-                <col class="col90px">
-                <col class="col90px">
-                <col class="col90px">
-                <col class="col130px">
-                <col class="col130px">
+                <!--<col class="col130px">-->
                 <col class="col60px">
                 <col class="sqltext-wrap col-auto">
             </colgroup>
@@ -65,15 +66,16 @@
             <tr>
                 <th>inst</th>
                 <th>sql_Id</th>
-                <th>plan_Hash</th>
+                <!--<th>plan_Hash</th>-->
                 <th>SchemaNm</th>
                 <th>Module</th>
-                <th>Program_ID</th>
+                <!--<th>Program_ID</th>-->
+                <th class="sqltext-wrap">sqlName</th>
                 <th>Executions</th>
                 <th>BufferGets</th>
                 <th>Block/Exec</th>
                 <th>LastActiveTime</th>
-                <th>FirstLoadTime</th>
+                <!--<th>FirstLoadTime</th>-->
                 <th>Type</th>
                 <th class="sqltext-wrap col-auto">Sql_Text</th>
             </tr>
@@ -83,20 +85,18 @@
             <tr th:each="sqlVo : ${model}">
                 <td th:text="${sqlVo.instId}" ></td>
                 <td><a th:text="${sqlVo.sqlId}" href="#layer2" class="dim-btn-layer" /></td>
-                <td th:text="${sqlVo.planHashValue}"></td>
+                <!--<td th:text="${sqlVo.planHashValue}"></td>-->
                 <td th:text="${sqlVo.parsingSchemaName}"></td>
                 <td th:text="${sqlVo.module}"></td>
-                <td th:text="${sqlVo.programId}"></td>
+                <!--<td th:text="${sqlVo.programId}"></td>-->
+                <td class="sqltext-wrap" th:text="${sqlVo.sqlName}"></td>
                 <td th:text="${sqlVo.executions}"></td>
                 <td th:text="${sqlVo.bufferGets}"></td>
                 <td th:text="${sqlVo.blockPerExec}"></td>
                 <td th:text="${sqlVo.lastActiveTime}"></td>
-                <td th:text="${sqlVo.firstLoadTime}"></td>
+                <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
                 <td th:text="${sqlVo.commandType}"></td>
-                <td class="sqltext-wrap" th:text="${sqlVo.sqlText}">
-                    <
-
-                </td>
+                <td class="sqltext-wrap" th:text="${sqlVo.sqlText}"></td>
             </tr>
             </tbody>
         </table>

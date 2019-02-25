@@ -46,7 +46,7 @@
                     <tr>
                         <th width="12%">inst_id</th><td width="13%" th:text="${sqlVo.instId}">##</td>
                         <th width="12%">sql_Id</th><td width="13%" th:text="${sqlVo.sqlId}">##</td>
-                        <th width="12%">sql_Name(Xml)</th><td colspan="3" th:text="${sqlVo.sqlId}">##</td>
+                        <th width="12%">sql_Name(Xml)</th><td colspan="3" th:text="${sqlVo.sqlName}">##</td>
                     </tr>
                     <tr>
                         <th width="12%">plan_hash_value</th><td width="13%" th:text="${sqlVo.planHashValue}">##</td>
@@ -59,7 +59,6 @@
                         <th>buffer Gets</th><td th:text=${sqlVo.bufferGets}>##</td>
                         <th>Blocks / Exec</th><td th:text="${sqlVo.blockPerExec}">##</td>
                         <th>stat4</th><td th:text="null">##</td>
-                        <th>stat4</th><td th:##</td>
                     </tr>
                     <tr>
                         <th>LastActiveTime</th><td th:text="${sqlVo.lastActiveTime}">##</td>
