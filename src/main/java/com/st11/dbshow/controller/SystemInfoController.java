@@ -2,7 +2,8 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.st11.dbshow.repository.DaSyncTablesVO;
+import com.st11.dbshow.repository.DaSyncTableVO;
+import com.st11.dbshow.repository.DaTableVO;
 import com.st11.dbshow.repository.RefObjectVO;
 import com.st11.dbshow.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,25 @@ public class SystemInfoController {
     @Autowired
     private ApiService apiService;
 
+    @RequestMapping(value = "daTable", method = RequestMethod.GET)
+    public String daTable(
+            @RequestParam(value = "tableName", required = false) String tableName,
+            HttpServletRequest request, Model model) throws IOException{
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
+
+        final String apiMethod = "daTable";
+
+        if (!isNullOrEmpty(tableName)) {
+            Collection<DaTableVO> modelCollection = null;
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {
+                    }
+                    , tableName.toUpperCase());
+            model.addAttribute("model", modelCollection);
+        }
+
+        return "content/daTable";
+    }
     @RequestMapping(value = "referencedObject")
     public String referencedObject(
             @RequestParam(value = "dbName", required = false) String dbName,
@@ -57,8 +77,8 @@ public class SystemInfoController {
         final String apiMethod = "daSyncData";
 
         if (!isNullOrEmpty(tableName)) {
-            Collection<DaSyncTablesVO> modelCollection = null;
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTablesVO>>() {
+            Collection<DaSyncTableVO> modelCollection = null;
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTableVO>>() {
                     }
                     , tableName.toUpperCase());
             model.addAttribute("model", modelCollection);

@@ -32,7 +32,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-wrap" id="dataTable" >
+        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
             <colgroup>
                 <col>
                 <col>
@@ -40,7 +40,7 @@
                 <col>
                 <col>
             </colgroup>
-            <thead class="table-thead-wrap-size">
+            <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>sourceDB</th>
                 <th>TableOwner</th>
@@ -66,10 +66,14 @@
 
 <th:block layout:fragment="content_script">
     <script type="text/javascript" >
-        // Call the dataTables jQuery plugin
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
+            // Call the dataTables jQuery plugin
+            $(document).ready(function() {
+                $('#dataTable').dataTable({
+                    pageLength: 25,
+                    paging: true,
+                    searching: true
+                });
+            });
     </script>
 </th:block>
 </body>

@@ -11,7 +11,6 @@
 <body>
 <th:block layout:fragment="content">
 
-    <!-- DataTables Example -->
     <div class="card-header">
         <div><i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
         </div>
@@ -45,7 +44,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-wrap" id="dataTable" >
+        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
             <colgroup>
                 <col class="col60px">
                 <col class="col130px">
@@ -62,7 +61,7 @@
                 <col class="col60px">
                 <col class="sqltext-wrap col-auto">
             </colgroup>
-            <thead class="table-thead-wrap-size">
+            <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>inst</th>
                 <th>sql_Id</th>
@@ -131,7 +130,11 @@
     <script type="text/javascript" >
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
-    $('#dataTable').DataTable();
+        $('#dataTable').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: true
+        });
     });
     </script>
 </th:block>
