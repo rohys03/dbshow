@@ -35,7 +35,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlDropdown">
                 <h6 class="dropdown-header">SQL 정보:</h6>
-                <a class="dropdown-item" href="/sqlListByObject">SQL 검색.</a>
+                <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
+                <a class="dropdown-item" href="/sqlName">SQL 검색.(by SqlName)</a>
                 <a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
                 <a class="dropdown-item" href=/>#Top SQL.</a>
@@ -63,9 +64,10 @@
             <div class="dropdown-menu" aria-labelledby="sqlAreaDropdown">
                 <h6 class="dropdown-header">지표 관리.</h6>
                 <a class="dropdown-item " href="/dashboard">DB 분산 Kpi.</a>
-                <a class="dropdown-item " href="/daTable">Table 조회.</a>
+                <a class="dropdown-item " href="/daTables">Table 조회.</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">논리 정의</h6>
+                <a class="dropdown-item" href="/logicalArea"/>논리 데이터 영역</a>
                 <a class="dropdown-item" href="#"/>#논리 영역 SQL 조회</a>
                 <a class="dropdown-item" href="#"/>#SQL별 참조 Object.</a>
                 <div class="dropdown-divider"></div>
@@ -78,14 +80,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="testMenuDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Test (realestate)</span>
+                <span>Test</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="testMenuDropDown" >
-                <h6 class="dropdown-header">목록:</h6>
-                <a class="dropdown-item" href="/complexList">단지 목록</a>
-                <a class="dropdown-item" href="/articleList">#매물 목록</a>
-                <a class="dropdown-item" href="/api/articleList">[API] 단지 목록</a>
-                <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">Other Pages:</h6>
                 <a class="dropdown-item" href="404.html">#404 Page</a>
                 <a class="dropdown-item" href="blank.html">#Blank Page</a>

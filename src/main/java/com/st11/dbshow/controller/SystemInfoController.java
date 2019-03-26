@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import static com.st11.dbshow.common.DbShow.*;
@@ -26,25 +27,32 @@ public class SystemInfoController {
     @Autowired
     private ApiService apiService;
 
-    @RequestMapping(value = "daTable", method = RequestMethod.GET)
-    public String daTable(
+    @RequestMapping(value = "daTables", method = RequestMethod.GET)
+    public String daTables (
+            @RequestParam(value = "dbName", required = false) String dbName,
             @RequestParam(value = "tableName", required = false) String tableName,
-            HttpServletRequest request, Model model) throws IOException{
+            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+            Model model) throws URISyntaxException, IOException {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
         model.addAttribute("serverTime", getCurrentTime());
 
-        final String apiMethod = "daTable";
+        final String apiMethod = "daTables";
 
-        if (!isNullOrEmpty(tableName)) {
-            Collection<DaTableVO> modelCollection = null;
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {
-                    }
-                    , tableName.toUpperCase());
-            model.addAttribute("model", modelCollection);
-        }
+        HashMap<String, String> inParam = new HashMap<>();
 
-        return "content/daTable";
+        if (!isNullOrEmpty(dbName)) inParam.put("dbName", dbName.toUpperCase());
+        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+
+        Collection<DaTableVO> modelCollection = null;
+        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {}
+                , inParam);
+        model.addAttribute("model", modelCollection);
+        return "content/daTables";
     }
+
     @RequestMapping(value = "referencedObject")
     public String referencedObject(
             @RequestParam(value = "dbName", required = false) String dbName,

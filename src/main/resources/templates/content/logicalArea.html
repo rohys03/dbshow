@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>DA Data Sync Info</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <!-- DataTables Example -->
+    <div class="card-header">
+        <div><i class="fas fa-table">Table 명을 입력 후 검색을 누루세요.</i>
+        </div>
+        <p>
+        <form class="d-none d-md-inline-block form-inline form-row" action="/logicalArea">
+            <div class="input-group">
+                <div class="col-auto input-group">
+                    <input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..">
+                    <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalAreaCd2)..">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </p>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
+            <colgroup>
+                <col>
+                <col class="col90px">
+                <col>
+                <col class="col90px">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <thead class="thead-light table-thead-wrap-size">
+            <tr>
+                <th>LogicalArea</th>
+                <th>sqlName</th>
+                <th>Sub Area (AreaCd2)</th>
+                <th>sqlName</th>
+                <th>All Instance Cnt</th>
+                <th>Tmall (db1cnt)</th>
+                <th>DPDB (db2cnt)</th>
+                <th>MPDB (db3cnt)</th>
+                <th>other Instance Cnt</th>
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:each="objectVo : ${model}">
+                <td><a th:text="${objectVo.areaCd1}" href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"/></td>
+                <td><a th:text="${objectVo.areaCd1}" href="sqlName.html" th:href="@{sqlName(clctDy=20190318, logicalAreaCd1=${objectVo.areaCd1})}"/></td>
+                <td><a th:text="${objectVo.areaCd2}" href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"/></td>
+                <td><a th:text="${objectVo.areaCd2}" href="sqlName.html" th:href="@{sqlName(clctDy=20190318, logicalAreaCd2=${objectVo.areaCd2})}"/></td>
+                <td th:text="${objectVo.allInstanceCnt}"></td>
+                <td th:text="${objectVo.db1Cnt}"></td>
+                <td th:text="${objectVo.db2Cnt}"></td>
+                <td th:text="${objectVo.db3Cnt}"></td>
+                <td th:text="${objectVo.otherInstanceCnt}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+</th:block>
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                pageLength: 50,
+                paging: false,
+                searching: true
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>
+

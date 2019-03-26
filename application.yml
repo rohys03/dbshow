@@ -2,6 +2,15 @@ spring:
   profiles:
     active: dev
 
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+
   autoconfigure:
     exclude:
     - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -14,9 +23,9 @@ spring:
 server:
   port: 8081
 
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
+#jasypt:
+#  encryptor:
+#    bean: jasyptStringEncryptor
 
 ## Web Page Properties.
 layout:
@@ -29,28 +38,8 @@ dbshowapi:
     sqlDetail: sqlDetail/{dbName}/{searchType}/{searchString}
     refObject: referencedObject/{dbName}/{objectType}/{owner}/{objectName}
     daSyncData: daSyncData/{tableName}
-
----
-spring:
-  profiles: local
-
-  thymeleaf:
-    cache: false
-    check-template: true
-    check-template-location: true
-    content-type: text/html
-    enabled: true
-    encoding: UTF-8
-    mode: HTML5
-
-#
-#  datasource:
-#    db1:
-#      jdbcUrl: jdbc:mysql://localhost:3306/landcrawler?serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8
-#      driver-class-name: com.mysql.jdbc.Driver
-#      username: landcrawler
-#      password: landcrawler
-
+    daTables: datables?tableName=&logicalAreaCd1=&logicalAreaCd2=
+    logicalArea: logicalArea?logicAreaCd=
 
 ---
 spring:
@@ -59,15 +48,6 @@ spring:
   api:
     baseUrl: http://172.28.114.66:8082/api
 
-  thymeleaf:
-    cache: false
-    check-template: true
-    check-template-location: true
-    content-type: text/html
-    enabled: true
-    encoding: UTF-8
-    mode: HTML5
-
 ---
 spring:
   profiles: stage
@@ -75,11 +55,10 @@ spring:
   api:
     baseUrl: http://172.28.114.66:8082/api
 
-  thymeleaf:
-    cache: true
-    check-template: true
-    check-template-location: true
-    content-type: text/html
-    enabled: true
-    encoding: UTF-8
-    mode: HTML5
+---
+spring:
+  profiles: product
+
+  api:
+    baseUrl: http://172.28.113.125:8082/api
+
