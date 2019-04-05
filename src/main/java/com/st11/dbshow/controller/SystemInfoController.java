@@ -78,19 +78,24 @@ public class SystemInfoController {
     @RequestMapping(value = "daSyncData", method = RequestMethod.GET)
     public String daSyncData(
             @RequestParam(value = "tableName", required = false) String tableName,
-            HttpServletRequest request, Model model) throws IOException{
-//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
-        model.addAttribute("serverTime", getCurrentTime());
+            @RequestParam(value = "hostName", required = false) String hostName,
+            Model model) throws URISyntaxException, IOException {
 
         final String apiMethod = "daSyncData";
 
-        if (!isNullOrEmpty(tableName)) {
-            Collection<DaSyncTableVO> modelCollection = null;
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTableVO>>() {
-                    }
-                    , tableName.toUpperCase());
-            model.addAttribute("model", modelCollection);
-        }
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
+        if (!isNullOrEmpty(hostName)) inParam.put("hostName", hostName.toUpperCase());
+
+        Collection<DaSyncTableVO> modelCollection = null;
+        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTableVO>>() {
+                }
+                , inParam);
+        model.addAttribute("model", modelCollection);
+
+//        if (!isNullOrEmpty(tableName)) {
+//        }
 
         return "content/daSyncData";
     }

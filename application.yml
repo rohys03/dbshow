@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: local
 
   thymeleaf:
     cache: false
@@ -40,6 +40,13 @@ dbshowapi:
     daSyncData: daSyncData/{tableName}
     daTables: datables?tableName=&logicalAreaCd1=&logicalAreaCd2=
     logicalArea: logicalArea?logicAreaCd=
+
+---
+spring:
+  profiles: local
+
+  api:
+    baseUrl: http://localhost:8082/api
 
 ---
 spring:

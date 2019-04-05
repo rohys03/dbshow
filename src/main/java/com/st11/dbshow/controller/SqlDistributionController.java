@@ -35,7 +35,7 @@ public class SqlDistributionController {
     }
 
     @RequestMapping(value = "logicalArea", method = RequestMethod.GET)
-    public String daTables (
+    public String logicalArea (
             @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws URISyntaxException, IOException {
@@ -48,6 +48,7 @@ public class SqlDistributionController {
 
         if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+
 
         Collection<AreaInfoVO> modelCollection = null;
         modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<AreaInfoVO>>() {}

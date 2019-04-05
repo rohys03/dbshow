@@ -41,6 +41,11 @@ public class SqasController {
         final String apiMethod = "sqlApplicationList";
 
         model.addAttribute("serverTime", getCurrentTime());
+
+        String[] listItems = {"ALL", "SELECT", "DML", "OTHERS"};
+
+        model.addAttribute("listItems", listItems);
+
         if (!isNullOrEmpty(commandType) && !isNullOrEmpty(owner) && !isNullOrEmpty(name)) {
             Collection<SqlAreaVO> modelCollection = null;
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
@@ -73,7 +78,7 @@ public class SqasController {
 
     @RequestMapping(value = {"sqlName"})
     public String sqlName(
-            @RequestParam(value = "clctDy") final String clctDy,
+            @RequestParam(value = "clctDy", defaultValue = "20190318") final String clctDy,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
             @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,

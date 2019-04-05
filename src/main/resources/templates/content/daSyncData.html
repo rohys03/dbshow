@@ -13,13 +13,18 @@
 
     <!-- DataTables Example -->
     <div class="card-header">
-        <div><i class="fas fa-table">오브젝트명을 입력 후 검색을 누루세요.</i>
-        </div>
         <p>
         <form class="d-none d-md-inline-block form-inline form-row" action="/daSyncData">
             <div class="input-group">
                 <div class="col-auto input-group">
-                    <input type="text" name="tableName" class="form-control" th:value="${param.tableName}" placeholder="Table Name..">
+                    <input type="text" name="tableName" class="form-control" th:value="${param.tableName}" placeholder="Table Name (equal)">
+                </div>
+                <div class="col-auto" >
+                    OR
+                </div>
+                <div class="col-auto input-group">
+                    <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
+                    <input type="text" name="hostName" class="form-control" th:value="${param.hostName}" placeholder="HostName (like)">
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">

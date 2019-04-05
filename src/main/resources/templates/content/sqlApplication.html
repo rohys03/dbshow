@@ -12,17 +12,12 @@
 <th:block layout:fragment="content">
 
     <div class="card-header">
-        <div><i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
-        </div>
         <p>
         <form class="d-none d-md-inline-block form-inline form-row" action="/sqlListByObject">
             <div class="input-group">
                 <div class="col-auto input-group">
-                    <select name="commandType">
-                        <option value="ALL" selected>ALL</option>
-                        <option value="SELECT" >Select</option>
-                        <option value="DML">Dml</option>
-                        <option value="OTHERS">Others</option>
+                    <select name="commandType" >
+                        <option th:each="option : ${listItems}" th:text="${option}" th:value="${option}" th:selected="${param.commandType == null} ? 'ALL' : ${option == param.commandType[0]}"></option>
                     </select>
                 </div>
                 <div class="col-auto input-group">
@@ -42,6 +37,32 @@
         </form>
         </p>
     </div>
+
+    <!--<div class="card-header">-->
+        <!--<form>-->
+            <!--<div class="row">-->
+                <!--<div class="col-auto">-->
+                    <!--<select name="commandType" >-->
+                        <!--<option th:each="option : ${listItems}" th:text="${option}" th:value="${option}" th:selected="${param.commandType == null} ? 'ALL' : ${option == param.commandType[0]}"></option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                    <!--&lt;!&ndash;<input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">&ndash;&gt;-->
+                    <!--<input type="text" name="owner" class="form-control" th:value="${param.owner}" placeholder="Schema Name..">-->
+                <!--</div>-->
+                <!--<div class="d-none d-lg-inline text-black-50 align-bottom"> 그리고 </div>-->
+                <!--<div class="col-md-2">-->
+                    <!--&lt;!&ndash;<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">&ndash;&gt;-->
+                    <!--<input type="text" name="name" class="form-control" th:value="${param.name}" placeholder="Table Name..">-->
+                <!--</div>-->
+                <!--<div class="">-->
+                    <!--<button class="btn btn-primary" type="submit">-->
+                        <!--<i class="fas fa-search"></i>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
 
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
