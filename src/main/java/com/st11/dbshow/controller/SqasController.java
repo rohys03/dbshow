@@ -78,7 +78,7 @@ public class SqasController {
 
     @RequestMapping(value = {"sqlName"})
     public String sqlName(
-            @RequestParam(value = "clctDy", defaultValue = "20190318") final String clctDy,
+//            @RequestParam(value = "clctDy", defaultValue = "20190318") final String clctDy,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
             @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
@@ -87,7 +87,7 @@ public class SqasController {
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(clctDy)) inParam.put("clctDy", clctDy.toUpperCase());
+//        if (!isNullOrEmpty(clctDy)) inParam.put("clctDy", clctDy.toUpperCase());
         if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
