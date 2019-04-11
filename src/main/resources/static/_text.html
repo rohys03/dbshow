@@ -1,0 +1,82 @@
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>CSS</title>
+    <style>
+        .a {
+            border: 1px solid #444444;
+            width: 500px;
+        }
+        .b {
+            border: 1px solid #444444;
+            background-color: #444444;
+            margin: 100px 0px;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }
+    </style>
+
+        <title>11st DB Show - DA Data Sync Info</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <!-- Bootstrap core CSS-->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Page level plugin CSS-->
+        <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin.css" rel="stylesheet">
+
+
+        <!-- dbshow Custom styles for this template-->
+        <link href="css/dbshow.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="a">
+    <div class="b">
+        <h1>Lorem Ipsum Dolor</h1>
+    </div>
+</div>
+
+
+
+
+<div class="card-header d-flex justify-content-between">
+    <div class="p-1">
+        <form class="d-none d-md-inline-block form-inline " action="/daSyncData">
+            <div class="input-group">
+                <div class="col-auto input-group">
+                    <input type="text" name="tableName" class="form-control" value="" placeholder="Table Name (equal)">
+                </div>
+                <div class="" style="align-self:center">
+                    <div class="col-auto" >
+                        OR
+                    </div>
+                </div>
+                <div class="col-auto input-group">
+                    <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
+                    <input type="text" name="hostName" class="form-control" value="" placeholder="HostName (like)">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="text-muted p-1" style="align-self:center">OGG 동기화 현황 최종 수집 일자: 2019-04-08 16:21:45</div>
+</div>
+</div>

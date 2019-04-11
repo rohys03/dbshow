@@ -11,29 +11,25 @@
 <body>
 <th:block layout:fragment="content">
 
-    <!-- DataTables Example -->
-    <div class="card-header">
-        <p>
-        <form class="d-none d-md-inline-block form-inline form-row" action="/daSyncData">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <input type="text" name="tableName" class="form-control" th:value="${param.tableName}" placeholder="Table Name (equal)">
+    <div class="card-header d-flex justify-content-between">
+        <div class="p-1">
+            <form class="d-none d-md-inline-block form-inline form-row" action="/daSyncData">
+                <div class="input-group col-auto">
+                    <div>
+                        <input type="text" name="tableName" class="form-control" th:value="${param.tableName}" placeholder="Table Name (equal)">
+                    </div>
+                    <div>
+                        <input type="text" name="hostName" class="form-control" th:value="${param.hostName}" placeholder="HostName (like)">
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-auto" >
-                    OR
-                </div>
-                <div class="col-auto input-group">
-                    <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
-                    <input type="text" name="hostName" class="form-control" th:value="${param.hostName}" placeholder="HostName (like)">
-                </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        </p>
+            </form>
+        </div>
+        <div class="text-muted" style="align-self:center" th:text="'OGG 동기화 현황 최종 수집 일자: ' + ${#strings.defaultString(#dates.format(daStatMngModel.updateDt, 'yyyy-MM-dd HH:mm:ss'),'No Result ')}"> Updated </div>
     </div>
 
     <div class="card-body">
@@ -61,7 +57,7 @@
                 <td th:text="${objectVo.tableOwner}"></td>
                 <td th:text="${objectVo.tableName}"></td>
                 <td th:text="${objectVo.hostname} + ' (' + ${objectVo.targetDb} + ')'"></td>
-                <td th:text="${objectVo.updateDt}"></td>
+                <td th:text="${#dates.format(objectVo.updateDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
             </tbody>
         </table>

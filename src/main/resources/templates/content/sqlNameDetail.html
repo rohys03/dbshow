@@ -11,16 +11,14 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header">
-        <div><i class="fas fa-table">SQL Command Type 과 검색할 오브젝트명을 입력 후 검색을 누루세요.</i>
-        </div>
-        <p>
-        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlName">
+    <div class="card-header d-flex">
+        <div class="p-1">
+        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlNameDetail">
             <div class="input-group">
                 <div class="col-auto input-group">
-                    <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                    <input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..">
-                    <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..">
+                    <div><input type="text" name="clctDy" class="form-control" th:value="${param.clctDy}" placeholder="clctDy..(<=)"></div>
+                    <div><input type="text" name="dbId" class="form-control" th:value="${param.dbId}" placeholder="dbId..(equal)"></div>
+                    <div><input type="text" name="sqlNameNo" class="form-control" th:value="${param.sqlNameNo}" placeholder="sqlNameNo..(equal)"></div>
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
@@ -29,20 +27,58 @@
                 </div>
             </div>
         </form>
-        </p>
+        </div>
     </div>
 
     <div class="card-body">
+
+        <table class="table table-bordered">
+            <thead class="text-white bg-info" >
+            <tr>
+                <th class="bg-white text-black-50" width="180"><small>*Cumulative value <br>From v$sqlarea</small></th>
+                <th class="text-center">대표 SQL_ID</th>
+                <th class="text-center">Executions</th>
+                <th class="text-center">Buffer Gets</th>
+                <th class="text-center">Elapsed Time</th>
+                <th class="text-center">Disk Reads</th>
+                <th class="text-center">Cpu Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Value.</th>
+                <td th:text="${summaryModel[0].repSqlId}">0</td>
+                <td th:text="${summaryModel[0].executions}">0</td>
+                <td th:text="${summaryModel[0].bufferGets}">0</td>
+                <td th:text="${summaryModel[0].elapsedTime}">0</td>
+                <td th:text="${summaryModel[0].diskReads}">0</td>
+                <td th:text="${summaryModel[0].cpuTime}">0</td>
+            </tr>
+            <tr>
+                <th scope="row">SQL Name</th>
+                <td class="text-nowrap" colspan="6">
+                    <div style="overflow-x: auto;">
+                        <code><pre  th:text="${summaryModel[0].sqlName}"> sqlName.xml</pre></code>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Sql Full Text</th>
+                <td class="text-nowrap" colspan="6" >
+                    <div style="height: 300px; padding: 5px; overflow-y: auto;">
+                        <code style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;" th:text="${summaryModel[0].sqlText}"> Sql Statements.
+                        </code>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
         <table class="table table-bordered table-sm" id="dataTable" >
             <colgroup>
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
-                <col class="sqltext-wrap" style="max-width:600px">
-                <col>
-                <col class="col60px">
-                <col>
-                <col>
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
@@ -62,11 +98,6 @@
                 <th>clctDy</th>
                 <th>dbId</th>
                 <th>SqlNameNo</th>
-                <th class="sqltext-wrap" style="max-width:600px">sqlName</th>
-                <th>대표 Sql ID</th>
-                <th>SchemaNm</th>
-                <th>Module</th>
-                <th>LastActiveTime</th>
                 <th>currTotalExec</th>
                 <th>prevTotalExec</th>
                 <th>execDiff</th>
@@ -84,16 +115,10 @@
             </thead>
 
             <tbody class="table-tbody-wrap-size">
-            <tr th:each="sqlVo : ${model}">
+            <tr th:each="sqlVo : ${histModel}">
                 <td th:text="${sqlVo.clctDy}" ></td>
                 <td th:text="${sqlVo.dbId}" ></td>
                 <td th:text="${sqlVo.sqlNameNo}" ></td>
-                <td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>
-                <td th:text="${sqlVo.repSqlId}"></td>
-                <td th:text="${sqlVo.parsingSchemaName}"></td>
-                <td th:text="${sqlVo.module}"></td>
-                <td th:text="${sqlVo.LastActiveTime}"></td>
-
                 <td th:text="${sqlVo.currTotalExec}"></td>
                 <td th:text="${sqlVo.prevTotalExec}"></td>
                 <td th:text="${sqlVo.execDiff}"></td>
@@ -123,9 +148,9 @@
                 <div class="pop-conts">
                     <!--content //-->
                     <p class="ctxt mb20">Sql Full Text.<br>
-                    구현이 아직 안되었습니다. <br>
-                    popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
-                    jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
+                        구현이 아직 안되었습니다. <br>
+                        popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
+                        jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
                     </p>
 
                     <div class="btn-r">
@@ -139,15 +164,15 @@
 
 <th:block layout:fragment="content_script">
     <script type="text/javascript" >
-    // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        $('#dataTable').dataTable({
-            pageLength: 25,
-            paging: true,
-            searching: true,
-            scrollX:true
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                pageLength: 15,
+                paging: true,
+                searching: false,
+                order:[0, 'desc']
+            });
         });
-    });
     </script>
 </th:block>
 </body>

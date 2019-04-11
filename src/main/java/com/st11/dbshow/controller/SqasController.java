@@ -2,6 +2,7 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.repository.SqlNameMappVO;
 import com.st11.dbshow.repository.SqlNameVO;
 import com.st11.dbshow.service.ApiService;
 import com.st11.dbshow.repository.SqlAreaVO;
@@ -76,27 +77,73 @@ public class SqasController {
         return "content/sqlDetail";
     }
 
-    @RequestMapping(value = {"sqlName"})
+    @RequestMapping(value = {"sqlNameDetail"})
+    public String sqlNameDetail(
+            @RequestParam(value = "clctDy", required = false) final String clctDy,
+            @RequestParam(value = "dbId", required = false) final String dbId,
+            @RequestParam(value = "sqlName", required = false) final String sqlName,
+            @RequestParam(value = "sqlNameNo", required = false) final String sqlNameNo,
+            Model model) throws IOException, URISyntaxException {
+        final String apiMethod = "sqlNameStatsHist";
+        final String apiMethod2 = "sqlNameMappSummary";
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(clctDy)) {
+            inParam.put("clctDy", clctDy.toUpperCase());
+        } else return "content/sqlNameDetail";
+        if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
+        if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
+        if (!isNullOrEmpty(sqlNameNo)) inParam.put("sqlNameNo", sqlNameNo.toUpperCase());
+
+        Collection<SqlNameVO> modelCollection = null;
+        Collection<SqlNameMappVO> modelCollection2 = null;
+
+        if (inParam.containsKey("sqlName") || inParam.containsKey("sqlNameNo")) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+                    }
+                    , inParam);
+
+            inParam.put("clctDy", "20190409");
+            modelCollection2 = apiService.getApiModels(apiMethod2, new TypeReference<Collection<SqlNameMappVO>>() {
+                    }
+                    , inParam);
+        }
+
+        model.addAttribute("histModel", modelCollection);
+        model.addAttribute("summaryModel", modelCollection2);
+
+        System.out.println("[summaryModel]" + modelCollection2.toString());
+
+
+        return "content/sqlNameDetail";
+    }
+
+    @RequestMapping(value = {"sqlNameList"})
     public String sqlName(
-//            @RequestParam(value = "clctDy", defaultValue = "20190318") final String clctDy,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
             @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "sqlName";
+        final String apiMethod = "sqlNameList";
 
         HashMap<String, String> inParam = new HashMap<>();
 
-//        if (!isNullOrEmpty(clctDy)) inParam.put("clctDy", clctDy.toUpperCase());
         if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
         Collection<SqlNameVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {}
-                , inParam);
+
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+                    }
+                    , inParam);
+        }
+
+        model.addAttribute("defaultDate", "20190315");
         model.addAttribute("model", modelCollection);
-        return "content/sqlName";
+        return "content/sqlNameList";
     }
 
 }

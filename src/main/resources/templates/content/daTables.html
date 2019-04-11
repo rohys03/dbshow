@@ -11,35 +11,36 @@
 <body>
 <th:block layout:fragment="content">
 
-    <!-- DataTables Example -->
-    <div class="card-header">
-        <div><i class="fas fa-table">Table 명을 입력 후 검색을 누루세요.</i>
+
+
+    <div class="card-header d-flex justify-content-between">
+        <div class="p-1">
+            <form class="d-none d-md-inline-block form-inline form-row" action="/daTables">
+                <div class="input-group">
+
+                   <!-- <div class="col-auto input-group">
+                        <select name="dbName">
+                            <option value="ALL" selected>ALL</option>
+                            <option value="TMALL" >Tmall</option>
+                            <option value="DPDB">Dpdb</option>
+                            <option value="MPDB">Mpdb</option>
+                        </select>
+                    </div>-->
+
+                    <div class="col-auto input-group">
+                        <input class="col-auto form-control" type="text" name="tableName" th:value="${param.tableName}" placeholder="Table Name..(equal)">
+                        <input class="col-auto form-control" type="text" name="logicalAreaCd1" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..(equal)">
+                        <input class="col-auto form-control" type="text" name="logicalAreaCd2" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalArea2)..(equal)">
+                        <button class="col-auto btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <p>
-        <form class="d-none d-md-inline-block form-inline form-row" action="/daTables">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <select name="dbName">
-                        <option value="ALL" selected>ALL</option>
-                        <option value="TMALL" >Tmall</option>
-                        <option value="DPDB">Dpdb</option>
-                        <option value="MPDB">Mpdb</option>
-                    </select>
-                </div>
-                <div class="col-auto input-group">
-                    <input type="text" name="tableName" class="form-control" th:value="${param.tableName}" placeholder="Table Name..">
-                    <input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..">
-                    <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalAreaCd2)..">
-                </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        </p>
     </div>
+
+
 
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
@@ -68,7 +69,7 @@
 
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${model}">
-                <td th:text="${objectVo.dbName}" ></td>
+                <td th:text="${objectVo.dbName}"></td>
                 <td th:text="${objectVo.tableOwner}"></td>
                 <td th:text="${objectVo.tableName}"></td>
                 <td th:text="${objectVo.logicalAreaCd1} + ' : ' + ${objectVo.logicalAreaCd2}"></td>

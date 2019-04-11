@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Sql Application</title>
+    <title>11st DB Show - Sql Name</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -93,7 +93,7 @@
             <div class="dropdown-menu" aria-labelledby="sqlDropdown">
                 <h6 class="dropdown-header">SQL 정보:</h6>
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
-                <a class="dropdown-item" href="/sqlName">SQL 검색.(by SqlName)</a>
+                <a class="dropdown-item" href="/sqlNameList">SQL 검색.(by SqlName)</a>
                 <a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
                 <a class="dropdown-item" href=""/>#Top SQL.</a>
@@ -152,247 +152,193 @@
     <section id="content-wrapper">
         <!-- Breadcrumbs-->
 
-        <ol class="breadcrumb" >
-            <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Overview</li>
-        </ol>
+        <!--<ol class="breadcrumb" >-->
+        <!--<li class="breadcrumb-item">-->
+        <!--<a href="#">Dashboard</a>-->
+        <!--</li>-->
+        <!--<li class="breadcrumb-item active">Overview</li>-->
+        <!--</ol>-->
+        <ul class="breadcrumb">
+            <li>Parameter:: </li> <li class="breadcrumb-item">clctDy : 20190324</li> <li class="breadcrumb-item">dbId : 1</li> <li class="breadcrumb-item">sqlNameNo : 9208</li>
+        </ul>
 
-        <div class="card-header">
-            <form class="d-none d-md-inline-block form-inline form-row" action="/sqlListByObject">
-                <div class="input-group">
-                    <!--<label class="col-auto input-group"> CommandType:-->
-                    <div class="col-auto input-group">
-                        <select name="commandType">
-                            <option value="ALL" selected>ALL</option>
-                            <option value="SELECT" >Select</option>
-                            <option value="DML">Dml</option>
-                            <option value="OTHERS">Others</option>
-                        </select>
+
+
+
+        <div class="card-header d-flex">
+            <div class="p-1">
+                <form class="d-none d-md-inline-block form-inline form-row" action="/sqlNameDetail">
+                    <div class="input-group">
+                        <div class="col-auto input-group">
+                            <div><input type="text" name="clctDy" class="form-control" value="20190324" placeholder="clctDy..(<=)" onkeypress="characterCheck(this)" ></div>
+                            <div><input type="text" name="dbId" class="form-control" value="1" placeholder="dbId..(equal)" onkeypress="characterCheck(this)"></div>
+                            <div><input type="text" name="sqlNameNo" class="form-control" value="9208" placeholder="sqlNameNo..(equal)" onkeypress="characterCheck(this)"></div>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                    <!--</label>-->
-                    <div class="col-auto input-group">
-                        <!--<input type="text" name="owner" class="form-control" th:value="${inParams.owner}" placeholder="Schema Name..">-->
-                        <input type="text" name="owner" class="form-control" value="TMALL" placeholder="Schema Name..">
-                    </div>
-                    <span class="input-group align-bottom"> 그리고 </span>
-                    <div class="col-auto input-group">
-                        <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
-                        <input type="text" name="name" class="form-control" value="MT_CUPN" placeholder="Table Name..">
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-sm table-wrap" id="dataTable" >
+
+            <table class="table table-bordered">
+                <thead class="text-white bg-info">
+                <tr>
+                    <th class="bg-white text-black-50" width="180"><small>*Cumulative value <br>From v$sqlarea</small></th>
+                    <th class="text-center">대표 SQL_ID</th>
+                    <th class="text-center">Executions</th>
+                    <th class="text-center">Buffer Gets</th>
+                    <th class="text-center">Elapsed Time</th>
+                    <th class="text-center">Disk Reads</th>
+                    <th class="text-center">Cpu Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Value.</th>
+                    <td></td>
+                    <td>6346376909</td>
+                    <td>11854527850</td>
+                    <td>14697905393479</td>
+                    <td>4603756494</td>
+                    <td>2878674560000</td>
+                </tr>
+                <tr>
+                    <th scope="row">SQL Name</th>
+                    <td class="text-nowrap" colspan="6">
+                        <div style="overflow-x: auto;">
+                            <code><pre style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;">/*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */</pre></code>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Sql Full Text</th>
+                    <td class="text-nowrap" colspan="6" >
+                        <div style="height: 300px; padding: 5px; overflow-y: auto;">
+                            <code style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;">
+                                    SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
+
+                            </code>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-sm" id="dataTable" >
                 <colgroup>
                     <col class="col60px">
-                    <col class="col130px">
-                    <!--<col class="col90px">-->
-                    <col class="col90px">
-                    <col class="col130px">
-                    <!--<col class="col130px">-->
-                    <col class="col200px">
-                    <col class="col90px">
-                    <col class="col90px">
-                    <col class="col90px">
-                    <col class="col130px">
-                    <!--<col class="col130px">-->
                     <col class="col60px">
-                    <col class="sqltext-wrap col-auto">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+
                 </colgroup>
                 <thead class="thead-light table-thead-wrap-size">
                 <tr>
-                    <th>inst</th>
-                    <th>sql_Id</th>
-                    <!--<th>plan_Hash</th>-->
-                    <th>SchemaNm</th>
-                    <th>Module</th>
-                    <!--<th>Program_ID</th>-->
-                    <th class="sqltext-wrap">sqlName</th>
-                    <th>Executions</th>
-                    <th>BufferGets</th>
-                    <th>Block/Exec</th>
-                    <th>LastActiveTime</th>
-                    <!--<th>FirstLoadTime</th>-->
-                    <th>Type</th>
-                    <th class="sqltext-wrap col-auto">Sql_Text</th>
+                    <th>clctDy</th>
+                    <th>dbId</th>
+                    <th>SqlNameNo</th>
+                    <th>currTotalExec</th>
+                    <th>prevTotalExec</th>
+                    <th>execDiff</th>
+                    <th>currTotalBget</th>
+                    <th>prevTotalBget</th>
+                    <th>bgetDiff</th>
+                    <th>currTotalCpu</th>
+                    <th>prevTotalCpu</th>
+                    <th>cpuDiff</th>
+                    <th>currTotalElap</th>
+                    <th>prevTotalElap</th>
+                    <th>elapDiff</th>
+
                 </tr>
                 </thead>
 
                 <tbody class="table-tbody-wrap-size">
                 <tr>
+                    <td >20190325</td>
                     <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >5dv59h5xghuyv</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>95</td>
-                    <td>8558</td>
-                    <td>90</td>
-                    <td>2019-03-27 18:52:37.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>UPDATE</td>
-                    <td class="sqltext-wrap">UPDATE mt_cupn   SET      cupn_iss_stat_cd         = :1      ,aprv_dt                  = SYSDATE     ,aprv_no                  = :2      ,update_dt       = SYSDATE   WHERE cupn_no = :3   </td>
+                    <td >9208</td>
+                    <td>5279257601</td>
+                    <td>5195790946</td>
+                    <td>83466655</td>
+                    <td>14707825617</td>
+                    <td>12956493147</td>
+                    <td>3934111488</td>
+                    <td>2343237180000</td>
+                    <td>2305795970000</td>
+                    <td>37441210000</td>
+                    <td>12070127577564</td>
+                    <td>11881031062409</td>
+                    <td>189096515155</td>
+
                 </tr>
                 <tr>
+                    <td >20190324</td>
                     <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >7g7dk5s171bmw</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>6647</td>
-                    <td>84938</td>
-                    <td>13</td>
-                    <td>2019-03-27 18:52:37.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO MT_CUPN_RNG_MAPP ( CUPN_NO, CUPN_EFTV_RNG_NO, CUPN_EFTV_OBJ_CLF_CD, CUPN_EFTV_OBJ_NO, CUPN_EFTV_OBJ_NO2, CUPN_EFTV_OBJ_NO3, CUPN_ISS_MNBD_NO, CUPN_ISS_MNBD_CLF_CD, CUPN_KD_CD, CUPN_ISS_WY_CD, CUPN_TYP_CD, WIRE_WIRELSS_CLF_CD, ISS_CN_BGN_DT, ISS_CN_END_DT, CUPN_ISS_STAT_CD, XSITE_AP_ID, CUPN_ISS_OBJ_CLF_CD, REF_ISS_OBJ_NO, ENG_YN, CALC_DOWN_CD, PRD_KD_CD, CREDIT_CARD_CD, CREDIT_CARD_DTL_CD, PARTNER_CD, MAPP_CREATE_DT, BIG_SELLER_EFTV_YN ) SELECT * FROM ( SELECT /*+ leading(a b c) use_nl(b c) index(a IX4_MT_CUPN) index(b PK_MT_CUPN_ADD_INFO) index(c FK2_MT_CUPN_APL_EXCLD_RNG) */ A.CUPN_NO , CASE WHEN A.CUPN_ISS_OBJ_CLF_CD != &#39;04&#39; AND C.CUPN_NO IS NOT NULL THEN C.CUPN_EFTV_RNG_NO WHEN A.CUPN_ISS_OBJ_CLF_CD = &#39;04&#39; AND C.CUPN_NO IS NULL THEN 0 END AS CUPN_EFTV_RNG_NO , C.CUPN_EFTV_OBJ_CLF_CD , C.CUPN_EFTV_OBJ_NO , C.CUPN_EFTV_OBJ_NO2 , C.CUPN_EFTV_OBJ_NO3 , A.CUPN_ISS_MNBD_NO , A.CUPN_ISS_MNBD_CLF_CD , A.CUPN_KD_CD , A.CUPN_ISS_WY_CD , A.WIRE_WIRELSS_CLF_CD , A.CUPN_TYP_CD , A.ISS_CN_BGN_DT , A.ISS_CN_END_DT , A.CUPN_ISS_STAT_CD , A.XSITE_AP_ID , A.CUPN_ISS_OBJ_CLF_CD , A.REF_ISS_OBJ_NO , A.ENG_YN , A.CALC_DOWN_CD , A.PRD_KD_CD , B.CREDIT_CARD_CD , B.CREDIT_CARD_DTL_CD , ( SELECT /*+ index(p PK_MT_CUPN_PARTNER)*/ WM_CONCAT( PARTNER_CD ) FROM MT_CUPN_PARTNER P WHERE P.CUPN_NO = A.CUPN_NO ) AS PARTNER_CD, SYSDATE AS MAPP_CREATE_DT , A.BIG_SELLER_EFTV_YN FROM MT_CUPN A, MT_CUPN_ADD_INFO B, MT_CUPN_APL_EXCLD_RNG C WHERE A.CUPN_NO = B.CUPN_NO( + ) AND A.CUPN_NO = C.CUPN_NO( + ) AND A.CUPN_APL_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_WY_CD IN ( &#39;02&#39;, &#39;05&#39; ) AND A.CUPN_ISS_STAT_CD IN ( &#39;01&#39;, &#39;03&#39; ) AND A.CALC_DOWN_CD = &#39;01&#39; AND A.CUPN_NO = :B1 ) WHERE CUPN_EFTV_RNG_NO IS NOT NULL </td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >f7c5d2wajjcfa</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_DP_LIVE_CUPN_UPDATE</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>5838</td>
-                    <td>1587135</td>
-                    <td>272</td>
-                    <td>2019-03-27 19:16:26.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO DP_LIVE_MAX_CUPN_GT (CUPN_EFTV_OBJ_NO, CUPN_EFTV_OBJ_CLF_CD,CLF,CUPN_ISS_OBJ_CLF_CD, CUPN_OBJ_RNG_CD) SELECT /*+ ordered use_nl(a b)  index(a IX3_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO , B.CUPN_EFTV_OBJ_CLF_CD, &#39;A&#39;AS CLF, A.CUPN_ISS_OBJ_CLF_CD, A.CUPN_OBJ_RNG_CD FROM MT_CUPN A, MT_CUPN_APL_EXCLD_RNG B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN( &#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;05&#39;,&#39;06&#39;) AND A.CUPN_TYP_CD != &#39;125&#39; AND A.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND NVL(A.DISP_ITM_CUPN_APL_DY_QTY,-1) &lt;&gt; 0 AND NVL(B.PRRT_RNK,-1) &lt;&gt; 0 AND (A.UPDATE_DT &gt;= :B2 AND A.UPDATE_DT &lt;= :B1 ) UNION SELECT /*+ ordered use_nl(b a) index(b IX2_MT_CUPN_APL_EXCLD_RNG) index(a IX4_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO , B.CUPN_EFTV_OBJ_CLF_CD, &#39;A&#39; AS CLF, A.CUPN_ISS_OBJ_CLF_CD, A.CUPN_OBJ_RNG_CD FROM MT_CUPN_APL_EXCLD_RNG B, MT_CUPN A WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN( &#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;05&#39;,&#39;06&#39;) AND A.CUPN_TYP_CD != &#39;125&#39; AND A.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND NVL(A.DISP_ITM_CUPN_APL_DY_QTY,-1) &lt;&gt; 0 AND NVL(B.PRRT_RNK,-1) &lt;&gt; 0 AND (B.UPDATE_DT &gt;= :B2 AND B.UPDATE_DT &lt;= :B1 ) UNION SELECT /*+ ordered use_nl(a b)  index(a IX7_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO , B.CUPN_EFTV_OBJ_CLF_CD, &#39;A&#39;AS CLF, A.CUPN_ISS_OBJ_CLF_CD, A.CUPN_OBJ_RNG_CD FROM MT_CUPN A, MT_CUPN_APL_EXCLD_RNG B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN( &#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;05&#39;,&#39;06&#39;) AND A.CUPN_TYP_CD != &#39;125&#39; AND A.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND NVL(A.DISP_ITM_CUPN_APL_DY_QTY,-1) &lt;&gt; 0 AND NVL(B.PRRT_RNK,-1) &lt;&gt; 0 AND (A.ISS_CN_END_DT &gt;= :B2 AND A.ISS_CN_END_DT &lt;= :B1 ) UNION SELECT /*+ ordered use_nl(a b)  index(a IX6_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO , B.CUPN_EFTV_OBJ_CL</td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >00mghwdjyju90</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_DP_LIVE_CUPN_UPDATE</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>5838</td>
-                    <td>42541</td>
-                    <td>7</td>
-                    <td>2019-03-27 19:16:26.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO DP_LIVE_MAX_CUPN_GT (CUPN_EFTV_OBJ_NO, CUPN_EFTV_OBJ_CLF_CD,CLF, S_DSC_AMT,S_DSC_RT,M_DSC_AMT,M_DSC_RT,W_DSC_AMT,W_DSC_RT, CUPN_ISS_OBJ_CLF_CD,CUPN_OBJ_RNG_CD) SELECT /*+ use_hash(gt a)*/ GT.CUPN_EFTV_OBJ_NO AS PRD_NO, GT.CUPN_EFTV_OBJ_CLF_CD, &#39;B&#39; AS CLF, NVL(A.S_DSC_AMT,0) AS S_DSC_AMT, NVL(A.S_DSC_RT,0) AS S_DSC_RT, NVL(A.M_DSC_AMT,0) AS M_DSC_AMT, NVL(A.M_DSC_RT,0) AS M_DSC_RT, NVL(A.W_DSC_AMT,0) AS W_DSC_AMT, NVL(A.W_DSC_RT,0) AS W_DSC_RT, GT.CUPN_ISS_OBJ_CLF_CD, GT.CUPN_OBJ_RNG_CD FROM DP_LIVE_MAX_CUPN_GT GT, ( SELECT PRD_NO, CUPN_ISS_OBJ_CLF_CD, CUPN_EFTV_OBJ_CLF_CD, CUPN_OBJ_RNG_CD, MAX(S_DSC_AMT) AS S_DSC_AMT, MAX(S_DSC_RT) AS S_DSC_RT , MAX(M_DSC_AMT) AS M_DSC_AMT, MAX(M_DSC_RT) AS M_DSC_RT , MAX(W_DSC_AMT) AS W_DSC_AMT, MAX(W_DSC_RT) AS W_DSC_RT FROM ( SELECT /*+ ordered use_nl(gt b a) */ GT.CUPN_EFTV_OBJ_NO AS PRD_NO, A.CUPN_ISS_OBJ_CLF_CD, A.CUPN_OBJ_RNG_CD, B.CUPN_EFTV_OBJ_CLF_CD, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;02&#39; AND A.DSC_AMT &gt;0 THEN NVL(A.DSC_AMT,0) ELSE 0 END AS S_DSC_AMT, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;02&#39; AND A.DSC_RT &gt;0 THEN NVL(A.DSC_RT,0) ELSE 0 END AS S_DSC_RT, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;01&#39; AND A.WIRE_WIRELSS_CLF_CD IN (&#39;01&#39;,&#39;02&#39;) AND A.DSC_AMT &gt;0 THEN NVL(A.DSC_AMT,0) ELSE 0 END AS M_DSC_AMT, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;01&#39; AND A.WIRE_WIRELSS_CLF_CD IN (&#39;01&#39;,&#39;02&#39;) AND A.DSC_RT &gt;0 THEN NVL(A.DSC_RT,0) ELSE 0 END AS M_DSC_RT, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;01&#39; AND A.WIRE_WIRELSS_CLF_CD IN (&#39;01&#39;,&#39;03&#39;) AND A.DSC_AMT &gt;0 THEN NVL(A.DSC_AMT,0) ELSE 0 END AS W_DSC_AMT, CASE WHEN A.CUPN_ISS_MNBD_CLF_CD =&#39;01&#39; AND A.WIRE_WIRELSS_CLF_CD IN (&#39;01&#39;,&#39;03&#39;) AND A.DSC_RT &gt;0 THEN NVL(A.DSC_RT,0) ELSE 0 END AS W_DSC_RT FROM DP_LIVE_MAX_CUPN_GT GT, MT_CUPN_APL_EXCLD_RNG B, MT_CUPN A WHERE GT.CUPN_EFTV_OBJ_NO = B.CUPN_EFTV_OBJ_NO AND A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN (&#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD = &#39;03&#39; AND A.CUPN_TYP_CD != &#39;125&#39; AND A.CUPN_KD_CD = &#39;01&#39; AND A.ISS_CN_BGN_DT &lt;</td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >a7rc3gxv0232p</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_SRCH_LOG_INSERT_DISTRBT</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>1121</td>
-                    <td>50694</td>
-                    <td>45</td>
-                    <td>2019-03-27 19:15:00.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO SRCH_INC_PRD_DISTRBT_GT (PRD_NO, DML_TYPE, LOG_DATE, TABLE_NAME, VIEW_NAME,CTLG_NO) SELECT /*+ leading(cupn b) index(b ix3_pd_prd) */ A.PRD_NO, &#39;U&#39;, SYSDATE, &#39;MT_CUPN&#39;, &#39;VW_ONEPRD&#39;,0 FROM PD_PRD A, SRCH_INC_PRD_DISTRBT_GT B, (SELECT CUPN_EFTV_OBJ_NO FROM (SELECT /*+ leading(a b) use_nl(a b)  index(a IX2_MT_CUPN_APL_EXCLD_RNG)*/ A.CUPN_EFTV_OBJ_NO FROM MT_CUPN_APL_EXCLD_RNG A, MT_CUPN B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_EFTV_OBJ_CLF_CD=&#39;02&#39; AND A.CUPN_ISS_STAT_CD_DE = &#39;03&#39; AND A.CUPN_DISP_CD = &#39;01&#39; AND NVL(A.PRRT_RNK,-1) &lt;&gt; 0 AND NVL(B.DISP_ITM_CUPN_APL_DY_QTY,-1) &lt;&gt; 0 AND B.CUPN_ISS_WY_CD = &#39;03&#39; AND B.CUPN_ISS_STAT_CD = &#39;03&#39; AND B.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND A.UPDATE_DT &gt;= :B2 AND A.UPDATE_DT &lt;= :B1 UNION ALL SELECT /*+ leading(b a) use_nl(b a) index( b IX3_MT_CUPN)*/ A.CUPN_EFTV_OBJ_NO FROM MT_CUPN_APL_EXCLD_RNG A, MT_CUPN B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_EFTV_OBJ_CLF_CD=&#39;02&#39; AND A.CUPN_ISS_STAT_CD_DE = &#39;03&#39; AND A.CUPN_DISP_CD = &#39;01&#39; AND NVL(A.PRRT_RNK,-1) &lt;&gt; 0 AND NVL(B.DISP_ITM_CUPN_APL_DY_QTY,-1) &lt;&gt; 0 AND B.CUPN_ISS_WY_CD = &#39;03&#39; AND B.CUPN_ISS_STAT_CD = &#39;03&#39; AND B.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND B.UPDATE_DT &gt;= :B2 AND B.UPDATE_DT &lt;= :B1 ) GROUP BY CUPN_EFTV_OBJ_NO ) CUPN WHERE CUPN.CUPN_EFTV_OBJ_NO = A.PRD_NO AND SYSDATE BETWEEN A.SEL_BGN_DY AND A.SEL_END_DY AND A.PRD_NO = B.PRD_NO(+) AND B.PRD_NO IS NULL </td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >8n51jy6gaqjfv</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>6645</td>
-                    <td>39865</td>
-                    <td>6</td>
-                    <td>2019-03-27 18:52:37.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO DP_MYPRICE_CUPN ( CUPN_NO, CUPN_EFTV_RNG_NO, CUPN_ISS_MNBD_CLF_CD, CUPN_KD_CD, WIRE_WIRELSS_CLF_CD, MAX_DSC_AMT, MIN_ORD_AMT, DSC_AMT, DSC_RT, EFTV_BGN_DT, EFTV_END_DT, CUPN_EFTV_OBJ_CLF_CD, CUPN_EFTV_OBJ_NO, CUPN_EFTV_OBJ_NO2, CUPN_EFTV_OBJ_NO3, CUPN_TYP_CD, CREDIT_CARD_CD, CREDIT_CARD_DTL_CD, XSITE_AP_ID, CREATE_DT, UPDATE_DT, REAL_EFTV_END_DT, ISS_CN_END_DT, REF_ISS_OBJ_NO, CUPN_ISS_WY_CD, CUPN_ISS_OBJ_CLF_CD, DUP_DSC_YN, PRD_KD_CD, ENG_YN, BIG_SELLER_EFTV_YN ) SELECT /*+ LEADING(A B C) USE_NL(B C)*/ A.CUPN_NO, NVL(B.CUPN_EFTV_RNG_NO,0) CUPN_EFTV_RNG_NO, A.CUPN_ISS_MNBD_CLF_CD, A.CUPN_KD_CD, A.WIRE_WIRELSS_CLF_CD, CASE WHEN NVL(A.MAX_DSC_AMT,0) &gt; 0 THEN NVL(A.MAX_DSC_AMT,0) ELSE 0 END AS MAX_DSC_AMT, CASE WHEN NVL(A.MIN_ORD_AMT,0) &gt; 0 THEN NVL(A.MIN_ORD_AMT,0) ELSE 0 END AS MIN_ORD_AMT, A.DSC_AMT, A.DSC_RT, A.EFTV_BGN_DT, A.EFTV_END_DT, B.CUPN_EFTV_OBJ_CLF_CD, B.CUPN_EFTV_OBJ_NO, B.CUPN_EFTV_OBJ_NO2, B.CUPN_EFTV_OBJ_NO3, A.CUPN_TYP_CD, :B3 , :B2 , A.XSITE_AP_ID, SYSDATE CREATE_DT, SYSDATE UPDATE_DT, CASE WHEN A.CUPN_EFTV_PRD_BASI_CD = &#39;01&#39; THEN CASE WHEN (A.ISS_CN_END_DT &gt; (TRUNC(SYSDATE) + 0.99999) + INTERVAL &#39;03&#39; YEAR) OR (A.ISS_CN_END_DT + A.ISS_DT_BASI_DD_QTY &gt; (TRUNC(SYSDATE) + 0.99999) + INTERVAL &#39;03&#39; YEAR) THEN (TRUNC(SYSDATE) + 0.99999) + INTERVAL &#39;03&#39; YEAR ELSE A.ISS_CN_END_DT + A.ISS_DT_BASI_DD_QTY END WHEN A.CUPN_EFTV_PRD_BASI_CD = &#39;02&#39; THEN CASE WHEN A.EFTV_END_DT &gt; (TRUNC(SYSDATE) + 0.99999) + INTERVAL &#39;03&#39; YEAR THEN (TRUNC(SYSDATE) + 0.99999) + INTERVAL &#39;03&#39; YEAR ELSE A.EFTV_END_DT END ELSE SYSDATE END AS REAL_EFTV_END_DT, A.ISS_CN_END_DT, A.REF_ISS_OBJ_NO, A.CUPN_ISS_WY_CD, A.CUPN_ISS_OBJ_CLF_CD, NVL(A.DUP_DSC_YN, &#39;N&#39;) AS DUP_DSC_YN, A.PRD_KD_CD, NVL(A.ENG_YN, &#39;N&#39;) AS ENG_YN, A.BIG_SELLER_EFTV_YN FROM MT_CUPN A, MT_CUPN_APL_EXCLD_RNG B WHERE A.CUPN_NO = :B1 AND A.CUPN_NO = B.CUPN_NO(+) AND A.CUPN_APL_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_KD_CD IN (&#39;01&#39;,&#39;03&#39;) AND A.CUPN_ISS_WY_CD &lt;&gt; &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;06&#39;) AND A.CUPN_TYP_C</td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >akbtmxdk5kx75</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_SE_CASH_CUPN_STL</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>2</td>
-                    <td>379</td>
-                    <td>190</td>
-                    <td>2019-03-27 09:01:06.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO SE_CASH_CUPN_STL_DTLS ( CUPN_NO, STL_DY, STL_SEQ, STL_TP, ORD_NO, ORD_PRD_SEQ, CN_YN, MO_DSC_AMT, AF_DSC_AMT, CREATE_DT, CREATE_NO, UPDATE_DT, UPDATE_NO ) SELECT CUPN_NO, STL_DY, SEQ_SE_CASH_CUPN_STL_DTLS.NEXTVAL AS STL_SEQ, STL_TP, ORD_NO, ORD_PRD_SEQ, CN_YN, MO_DSC_AMT, AF_DSC_AMT, SYSDATE, 0, SYSDATE, 0 FROM ( SELECT /*+ LEADING(a b c d) USE_NL(a b c d) NO_MERGE(a) */ D.CUPN_NO, TRUNC(POCNFRM_DT) AS STL_DY, &#39;01&#39; AS STL_TP, A.ORD_NO, A.ORD_PRD_SEQ, &#39;N&#39; AS CN_YN, CASE WHEN D.CUPN_DSC_MTHD_CD = &#39;01&#39; THEN D.CASH_CUPN_AMT WHEN D.CUPN_DSC_MTHD_CD = &#39;02&#39; THEN FLOOR(B.TMALL_DSC_PRC * D.CASH_CUPN_AMT / 100) ELSE 0 END AS MO_DSC_AMT, CASE WHEN D.CUPN_DSC_MTHD_CD = &#39;01&#39; THEN B.TMALL_DSC_PRC - D.CASH_CUPN_AMT WHEN D.CUPN_DSC_MTHD_CD = &#39;02&#39; THEN B.TMALL_DSC_PRC - FLOOR(B.TMALL_DSC_PRC * D.CASH_CUPN_AMT / 100) ELSE 0 END AS AF_DSC_AMT FROM ( SELECT /*+ LEADING(a b) use_nl(b) INDEX(a IX10_TR_ORD_PRD) INDEX(b PK_TR_ORD_CUPN_DSC_DTLS) */ A.POCNFRM_DT , A.ORD_NO , A.ORD_PRD_SEQ FROM TR_ORD_PRD A, TR_ORD_CUPN_DSC_DTLS B WHERE A.ORD_NO = B.ORD_NO AND A.ORD_PRD_SEQ = B.ORD_PRD_SEQ AND A.ORD_NO &lt; 201303230000000 AND A.POCNFRM_DT BETWEEN :B2 AND :B1 AND A.ORD_PRD_STAT = &#39;901&#39; AND B.CUPN_COST_DFRM_MNBD_CLF_CD = &#39;04&#39; AND B.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_ISS_WY_CD &lt;&gt; &#39;03&#39; ) A, TR_ORD_PRD_DSC_DTLS B, MT_ISS_CUPN C, MT_CUPN D WHERE A.ORD_NO = B.ORD_NO AND A.ORD_PRD_SEQ = B.ORD_PRD_SEQ AND B.EVNT_NO = C.ISS_CUPN_NO AND C.CUPN_NO = D.CUPN_NO AND B.CN_YN = &#39;N&#39; AND B.ORD_PRD_CLF = &#39;02&#39; AND B.DSC_CLF = &#39;01&#39; AND D.CUPN_ISS_MNBD_CLF_CD = &#39;01&#39; AND D.CUPN_COST_DFRM_MNBD_CLF_CD = &#39;04&#39; AND D.CUPN_KD_CD = &#39;01&#39; AND D.CUPN_ISS_WY_CD &lt;&gt; &#39;03&#39; UNION ALL SELECT /*+ LEADING(a b c) use_nl(b c) INDEX(a IX10_TR_ORD_PRD) */ B.CUPN_NO , TRUNC(A.POCNFRM_DT) AS STL_DY , &#39;01&#39; AS STL_TP , A.ORD_NO , A.ORD_PRD_SEQ , &#39;N&#39; AS CN_YN , C.TMALL_DSC_PRC - NVL(C.PARTNER_DSC_PRC, 0) AS MO_DSC_AMT , NVL(C.PARTNER_DSC_PRC, 0) AS AF_DSC_AMT FROM TR_ORD_PRD A, TR_ORD_CUPN_DSC_DTLS B, TR_ORD_PRD_DSC_DTLS C WHERE A.ORD_NO =</td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >0f5g51t1939h7</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_PD_EVENT_PRC_APRV_UPD_END(2)</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>1</td>
-                    <td>58</td>
-                    <td>58</td>
-                    <td>2019-03-27 18:00:02.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO PD_STOCK_PRD_GT SELECT :B4 , STOCK_NO FROM PD_STOCK A , (SELECT /*+ NO_MERGE */ A.PRD_NO , B.SEL_PRC V_SEL_PRC , (SELECT /*+ LEADING(X Y) INDEX(Y PK_MT_CUPN) USE_NL(Y) */ CASE WHEN Y.CUPN_DSC_MTHD_CD = &#39;01&#39; THEN B.SEL_PRC - Y.DSC_AMT WHEN Y.CUPN_DSC_MTHD_CD = &#39;02&#39; THEN B.SEL_PRC - TRUNC(((B.SEL_PRC * NVL(Y.DSC_RT, 0)) / 100), -1) ELSE B.SEL_PRC END FROM ( SELECT /*+ INDEX(A FK1_MT_CUPN_APL_EXCLD_RNG) */DISTINCT CUPN_NO FROM MT_CUPN_APL_EXCLD_RNG A WHERE A.USE_YN = &#39;Y&#39; AND A.CUPN_ISS_STAT_CD_DE = &#39;03&#39; AND A.CUPN_DISP_CD = &#39;01&#39; AND A.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_EFTV_OBJ_NO = :B1 ) X, MT_CUPN Y WHERE X.CUPN_NO = Y.CUPN_NO AND CUPN_ISS_MNBD_CLF_CD = &#39;02&#39; AND CUPN_KD_CD = &#39;01&#39; AND CUPN_ISS_WY_CD = &#39;03&#39; AND CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND SYSDATE BETWEEN ISS_CN_BGN_DT AND ISS_CN_END_DT AND CUPN_ISS_STAT_CD = &#39;03&#39; AND ROWNUM &lt;= 1 ) V_SO_DSC_AMT FROM PD_PRD A , PD_PRD_PRC B WHERE A.PRD_NO = B.PRD_NO AND A.PRD_NO = :B1 ) B WHERE A.PRD_NO = B.PRD_NO AND ( ( :B2 &lt;= 0 AND ( ( B.V_SEL_PRC &lt; 10000 AND ADD_PRC &gt; 10000 ) OR ( B.V_SEL_PRC &gt;= 10000 AND ADD_PRC &gt; B.V_SEL_PRC * (:B3 /100) ) OR ( B.V_SEL_PRC &lt; 2000 AND ADD_PRC &lt; 0 ) OR ( B.V_SEL_PRC &gt;= 2000 AND ((((B.V_SO_DSC_AMT) + A.ADD_PRC) &lt;= 0) OR (A.ADD_PRC &lt; (B.V_SEL_PRC/2) - B.V_SEL_PRC)) ) ) ) OR ( :B2 &gt; 0 AND ( ( ADD_PRC &gt; B.V_SEL_PRC * (:B2 /100) ) OR ( ADD_PRC &lt; 0 AND (((ADD_PRC * -1) / B.V_SEL_PRC) * 100) &gt; 99 ) ) ) ) AND A.PRD_STCK_STAT_CD != &#39;03&#39; </td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >fqv17527grx1v</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_CO_LIVE_CHNG_LOG</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>231</td>
-                    <td>9799607</td>
-                    <td>42423</td>
-                    <td>2019-03-27 19:15:10.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO CO_LIVE_CHG_PRD(PRD_NO,CHG_DT) SELECT DISTINCT PRD_NO,:B1 FROM ( SELECT /*+ index(a IX9_PD_PRD)*/ PRD_NO FROM PD_PRD A WHERE UPDATE_DT &gt;= :B2 AND UPDATE_DT &lt;= :B1 AND DISP_CTGR_NO_DE &gt;0 UNION ALL SELECT /*+ index(a IX5_PD_PRD_PRC)*/PRD_NO FROM PD_PRD_PRC A WHERE UPDATE_DT &gt;= :B2 AND UPDATE_DT &lt;= :B1 UNION ALL SELECT /*+ index(a IX3_PD_PRD_ATTR_COMP)*/OBJ_PRD_NO AS PRD_NO FROM PD_PRD_ATTR_COMP A WHERE (UPDATE_DT &gt;= :B2 AND UPDATE_DT &lt;= :B1 ) AND OBJ_CLF_CD = &#39;01&#39; UNION ALL SELECT /*+ index(a IX3_PD_PRD_ITM)*/ PRD_NO FROM PD_PRD_ITM A WHERE UPDATE_DT &gt;= :B2 AND UPDATE_DT &lt;= :B1 UNION ALL SELECT /*+ index(b IX4_PD_PRD_ITM)*/ PRD_NO FROM PD_PRD_ITM B WHERE SVC_END_DY &gt;= :B2 AND SVC_END_DY &lt;= :B1 UNION ALL SELECT /*+ index(a ix1_se_fee_itm_hist)*/ DISTINCT TO_NUMBER(SEL_FEE_APL_OBJ_NO) AS PRD_NO FROM SE_FEE_ITM_HIST WHERE FEE_KD_CD = &#39;03&#39; AND FEE_TYP_CD = &#39;03101&#39; AND SEL_FEE_APL_OBJ_CLF_CD=&#39;02&#39; AND HIST_OCCR_DT &gt;= :B2 AND HIST_OCCR_DT &lt;= :B1 UNION ALL SELECT /*+ leading(a b) use_nl(b)  index(a IX3_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO FROM MT_CUPN A, MT_CUPN_APL_EXCLD_RNG B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN( &#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;05&#39;,&#39;06&#39;) AND A.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND (A.UPDATE_DT &gt;= :B2 AND A.UPDATE_DT &lt;= :B1 ) UNION ALL SELECT /*+ leading(b a) use_nl(a) index(b IX2_MT_CUPN_APL_EXCLD_RNG) index(a IX4_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO FROM MT_CUPN_APL_EXCLD_RNG B, MT_CUPN A WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CLF_CD IN( &#39;01&#39;,&#39;02&#39;) AND A.CUPN_ISS_WY_CD = &#39;03&#39; AND A.CUPN_ISS_STAT_CD IN (&#39;03&#39;,&#39;04&#39;,&#39;05&#39;,&#39;06&#39;) AND A.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_EFTV_OBJ_CLF_CD = &#39;02&#39; AND A.CUPN_ISS_OBJ_CLF_CD = &#39;02&#39; AND (B.UPDATE_DT &gt;= :B2 AND B.UPDATE_DT &lt;= :B1 ) UNION ALL SELECT /*+ leading(a b) use_nl(b)  index(a IX7_MT_CUPN)*/ B.CUPN_EFTV_OBJ_NO FROM MT_CUPN A, MT_CUPN_APL_EXCLD_RNG B WHERE A.CUPN_NO = B.CUPN_NO AND A.CUPN_ISS_MNBD_CL</td>
-                </tr>
-                <tr>
-                    <td >1</td>
-                    <td><a href="#layer2" class="dim-btn-layer" >gwsdq8phb7x37</a></td>
-                    <!--<td th:text="${sqlVo.planHashValue}"></td>-->
-                    <td>TMALL</td>
-                    <td>SP_SE_STLPROC_MONITOR</td>
-                    <!--<td th:text="${sqlVo.programId}"></td>-->
-                    <td class="sqltext-wrap"></td>
-                    <td>62</td>
-                    <td>2982</td>
-                    <td>48</td>
-                    <td>2019-03-27 19:10:32.0</td>
-                    <!--<td th:text="${sqlVo.firstLoadTime}"></td>-->
-                    <td>INSERT</td>
-                    <td class="sqltext-wrap">INSERT INTO SE_BIZPROC_MONITOR ( STL_DY, STL_CD, STL_DTL_CD, SOURCE_VAL, TARGET_VAL, RESULT_VAL, CREATE_DT, CREATE_NO ) SELECT /*+ LEADING(A B) USE_NL(B) */ :B2 , &#39;04&#39; AS STL_CD, STL_DTL_CD, 0, 0, SUM(CASE WHEN STL_DTL_CD = &#39;0120&#39; THEN DTL_COMPARE WHEN STL_DTL_CD = &#39;0121&#39; THEN SUM_COMPARE ELSE 0 END) AS RESULT_VAL, SYSDATE, 0 FROM ( SELECT NVL(SUM(CASE WHEN TMALL_DSC_PRC &lt;&gt; MO OR SELLER_DSC_PRC &lt;&gt; SO OR PARTNER_DSC_PRC &lt;&gt; PA THEN 1 END), 0) AS DTL_COMPARE , NVL(SUM(CASE WHEN TMALL_DSC_PRC+SELLER_DSC_PRC+PARTNER_DSC_PRC &lt;&gt; MO+SO+PA THEN 1 END),0) AS SUM_COMPARE FROM ( SELECT /*+ LEADING(x y) USE_NL(y) INDEX(y pk_tr_ord_prd_dsc_dv_dtls) */ X.* , (IMDT_DSC_MYCO_AMT + SLCT_DSC_MYCO_AMT + BONUS_DSC_MYCO_AMT) AS MO , (IMDT_DSC_SELLER_AMT + SLCT_DSC_SELLER_AMT + BONUS_DSC_SELLER_AMT + SO_IMDT_DSC_AMT+SO_BONUS_DSC_AMT) AS SO , (IMDT_DSC_PTNR_AMT + SLCT_DSC_PTNR_AMT + BONUS_DSC_PTNR_AMT) AS PA FROM ( SELECT /*+ LEADING(a b) USE_NL(a b) INDEX(b IX1_TR_ORD_PRD_DSC_DTLS) INDEX(a ix5_tr_ord_prd) */ A.ORD_NO, A.ORD_PRD_SEQ , SUM(B.TMALL_DSC_PRC-B.PARTNER_DSC_PRC) AS TMALL_DSC_PRC , SUM(B.SELLER_DSC_PRC) AS SELLER_DSC_PRC , SUM(B.PARTNER_DSC_PRC) AS PARTNER_DSC_PRC FROM TR_ORD_PRD A, TR_ORD_PRD_DSC_DTLS B WHERE A.ORD_NO = B.ORD_NO AND A.ORD_PRD_SEQ = B.ORD_PRD_SEQ AND A.ORD_PRD_STAT NOT IN (&#39;A01&#39;, &#39;B01&#39;, &#39;C01&#39;) AND A.ORD_DT &gt;= :B1 AND B.DSC_CLF IN (&#39;01&#39;, &#39;09&#39;) AND B.ORD_PRD_CLF = &#39;02&#39; AND B.CN_YN = &#39;N&#39; GROUP BY A.ORD_NO, A.ORD_PRD_SEQ ) X, TR_ORD_PRD_DSC_DV_DTLS Y WHERE X.ORD_NO = Y.ORD_NO AND X.ORD_PRD_SEQ = Y.ORD_PRD_SEQ AND 0 = (SELECT /*+ LEADING(a b c) USE_NL(b c) */ NVL(COUNT(*), 0) FROM TR_ORD_PRD_DSC_DTLS A, TR_ORD_CUPN_DSC_DTLS B, MT_CUPN C WHERE A.ORD_NO = B.ORD_NO AND (CASE WHEN A.DSC_CLF = &#39;01&#39; THEN B.ISS_CUPN_NO WHEN A.DSC_CLF = &#39;09&#39; THEN B.CUPN_NO END) = A.EVNT_NO AND B.CUPN_NO = C.CUPN_NO AND A.ORD_NO = X.ORD_NO AND A.ORD_PRD_SEQ = X.ORD_PRD_SEQ AND B.CUPN_ISS_MNBD_CLF_CD = &#39;02&#39; AND B.CUPN_KD_CD = &#39;01&#39; AND B.CUPN_DSC_MTHD_CD = &#39;02&#39; AND B.DUP_DSC_YN = &#39;N&#39; AND C.CUPN_</td>
+                    <td >9208</td>
+                    <td>5195790946</td>
+                    <td>5107597311</td>
+                    <td>88193635</td>
+                    <td>12956493147</td>
+                    <td>15100441654</td>
+                    <td>2952366207</td>
+                    <td>2305795970000</td>
+                    <td>2265970870000</td>
+                    <td>39825100000</td>
+                    <td>11881031062409</td>
+                    <td>11679484999541</td>
+                    <td>201546062868</td>
+
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at 2019년 3월 27일 (수) 오후 7시 17분 22초</div>
+        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at null</div>
 
+        <br>
+
+        <table class="table-bordered">
+            <tr>
+                <td width="200">SqlText</td>
+                <td>
+                    <div>
+                        <code>
+                            <pre style="white-space: pre-wrap;word-break: break-all;">
+                                SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt   </pre>
+                        </code>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
     </section>
 
     <!-- Sticky Footer -->
@@ -456,9 +402,10 @@
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
         $('#dataTable').dataTable({
-            pageLength: 25,
+            pageLength: 15,
             paging: true,
-            searching: true
+            searching: false,
+            order:[0, 'desc']
         });
     });
 </script>

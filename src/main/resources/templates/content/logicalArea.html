@@ -35,10 +35,8 @@
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
             <colgroup>
-                <col>
-                <col class="col90px">
-                <col>
-                <col class="col90px">
+                <col style="width:400px">
+                <col style="width:400px">
                 <col>
                 <col>
                 <col>
@@ -48,9 +46,7 @@
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>LogicalArea</th>
-                <th>sqlName</th>
                 <th>Sub Area (AreaCd2)</th>
-                <th>sqlName</th>
                 <th>All Instance Cnt</th>
                 <th>Tmall (db1cnt)</th>
                 <th>DPDB (db2cnt)</th>
@@ -61,10 +57,22 @@
 
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${model}">
-                <td><a th:text="${objectVo.areaCd1}" href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"/></td>
-                <td><a th:text="${objectVo.areaCd1}" href="sqlName.html" th:href="@{sqlName(logicalAreaCd1=${objectVo.areaCd1})}"/></td>
-                <td><a th:text="${objectVo.areaCd2}" href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"/></td>
-                <td><a th:text="${objectVo.areaCd2}" href="sqlName.html" th:href="@{sqlName(logicalAreaCd2=${objectVo.areaCd2})}"/></td>
+                <td>
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}" class="d-flex flex-row" style="width: 400px">
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameList.html" th:href="@{sqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                    </div>
+                </td>
+
+                <td>
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}" class="d-flex flex-row" style="width: 400px">
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameList.html" th:href="@{sqlNameList(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                    </div>
+                </td>
+
                 <td th:text="${objectVo.allInstanceCnt}"></td>
                 <td th:text="${objectVo.db1Cnt}"></td>
                 <td th:text="${objectVo.db2Cnt}"></td>

@@ -2,6 +2,7 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.repository.DaStatMngVO;
 import com.st11.dbshow.repository.DaSyncTableVO;
 import com.st11.dbshow.repository.DaTableVO;
 import com.st11.dbshow.repository.RefObjectVO;
@@ -37,6 +38,7 @@ public class SystemInfoController {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
         model.addAttribute("serverTime", getCurrentTime());
 
+
         final String apiMethod = "daTables";
 
         HashMap<String, String> inParam = new HashMap<>();
@@ -47,7 +49,8 @@ public class SystemInfoController {
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
         Collection<DaTableVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {}
+        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {
+                }
                 , inParam);
         model.addAttribute("model", modelCollection);
         return "content/daTables";
@@ -81,6 +84,10 @@ public class SystemInfoController {
             @RequestParam(value = "hostName", required = false) String hostName,
             Model model) throws URISyntaxException, IOException {
 
+        Collection<DaStatMngVO> daStatMngModels = apiService.getLastDaStatMng("TMALL", "DA_SYNC_TABLES");
+        model.addAttribute("daStatMngModel", daStatMngModels.toArray()[0]);
+//        System.out.println("[daStatMngModel]" + model.toString());
+
         final String apiMethod = "daSyncData";
 
         HashMap<String, String> inParam = new HashMap<>();
@@ -89,9 +96,15 @@ public class SystemInfoController {
         if (!isNullOrEmpty(hostName)) inParam.put("hostName", hostName.toUpperCase());
 
         Collection<DaSyncTableVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTableVO>>() {
-                }
-                , inParam);
+
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaSyncTableVO>>() {
+                    }
+                    , inParam);
+
+            System.out.println(modelCollection.toString());
+
+        }
         model.addAttribute("model", modelCollection);
 
 //        if (!isNullOrEmpty(tableName)) {
