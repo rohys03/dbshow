@@ -67,6 +67,12 @@
 
             <div id="includedContent" layout:fragment="content">
             </div>
+
+            <div class="card-footer small text-muted">
+                <ul class="row" style="list-style: none;">
+                    <li>Parameter:: </li> <li th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>
+                </ul>
+            </div>
         </section>
 
         <!-- Sticky Footer -->

@@ -26,7 +26,7 @@ public class SystemController {
     private ApiService apiService;
 
     @RequestMapping(value = "dbDistributionStats", method = RequestMethod.GET)
-    public String daTables (
+    public String dbDistributionKpiWeekly (
             @RequestParam(value = "cnt", required = false, defaultValue = "30") String cnt,
             Model model) throws URISyntaxException, IOException {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
@@ -44,5 +44,25 @@ public class SystemController {
                 , inParam);
         model.addAttribute("model", modelCollection);
         return "content/dbDistributionStats";
+    }
+    @RequestMapping(value = "dbDistributionStats2", method = RequestMethod.GET)
+    public String dbDistributionKpiDaily (
+            @RequestParam(value = "cnt", required = false, defaultValue = "30") String cnt,
+            Model model) throws URISyntaxException, IOException {
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
+
+        final String apiMethod = "dbKpiStatDaily";
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(cnt)) inParam.put("cnt", cnt);
+
+        Collection<DbKpiStatVO> modelCollection = null;
+        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DbKpiStatVO>>() {
+                }
+                , inParam);
+        model.addAttribute("model", modelCollection);
+        return "content/dbDistributionStats2";
     }
 }

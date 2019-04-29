@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>DashBoard</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!-- Icon Cards-->
+
+    <div class="card-header d-flex">
+    </div>
+    <div class="card-body">
+        <div class="chart-content">
+            <canvas id="dashboardBarChart" height="50px" style="border:1px transparent;"></canvas>
+        </div>
+        <br/>
+        <div class="" style="margin: 1px">
+            <table class="table table-bordered table-sm" id="dataTable" >
+                <colgroup>
+                    <col class="col90px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+
+                </colgroup>
+                <thead class="thead-light table-thead-wrap-size">
+                <tr>
+                    <th>연월-일(Daily)</th>
+                    <th>MainDB<br/>SqlName_Count</th>
+                    <th>DPDB<br/>SqlName_Count</th>
+                    <th>MPDB<br/>SqlName_Count</th>
+                    <th>CartDB<br/>SqlName_Count</th>
+
+                    <th>MainDB<br/>Execution(%)</th>
+                    <th>DPDB<br/>Execution(%)</th>
+                    <th>MPDB<br/>Execution(%)</th>
+                    <th>CartDB<br/>Execution(%)</th>
+                    <th>MainDB<br/>BufferGet(%)</th>
+                    <th>DPDB<br/>BufferGet(%)</th>
+                    <th>MPDB<br/>BufferGet(%)</th>
+                    <th>CartDB<br/>BufferGet(%)</th>
+
+                    <th>MainDB<br/>CpuTime(%)</th>
+                    <th>DPDB<br/>CpuTime(%)</th>
+                    <th>MPDB<br/>CpuTime(%)</th>
+                    <th>CartDB<br/>CpuTime(%)</th>
+                    <th>MainDB<br/>Elap.Time(%)</th>
+                    <th>DPDB<br/>Elap.Time(%)</th>
+                    <th>MPDB<br/>Elap.Time(%)</th>
+                    <th>CartDB<br/>Elap.Time(%)</th>
+
+                </tr>
+                </thead>
+
+                <tbody class="table-tbody-wrap-size">
+
+                <tr th:if="${not #lists.isEmpty(model)}" th:each="statVo : ${model}">
+                    <td th:text="${statVo.clctDy}" ></td>
+
+                    <td th:text="${statVo.db1SqlCnt}" ></td>
+                    <td th:text="${statVo.db2SqlCnt}" ></td>
+                    <td th:text="${statVo.db3SqlCnt}" ></td>
+                    <td th:text="${statVo.db4SqlCnt}" ></td>
+                    <td th:text="${statVo.db1ExecutionRt}" ></td>
+                    <td th:text="${statVo.db2ExecutionRt}" ></td>
+                    <td th:text="${statVo.db3ExecutionRt}" ></td>
+                    <td th:text="${statVo.db4ExecutionRt}" ></td>
+                    <td th:text="${statVo.db1BufferGetRt}" ></td>
+                    <td th:text="${statVo.db2BufferGetRt}" ></td>
+                    <td th:text="${statVo.db3BufferGetRt}" ></td>
+                    <td th:text="${statVo.db4BufferGetRt}" ></td>
+                    <td th:text="${statVo.db1CpuTimeRt}" ></td>
+                    <td th:text="${statVo.db2CpuTimeRt}" ></td>
+                    <td th:text="${statVo.db3CpuTimeRt}" ></td>
+                    <td th:text="${statVo.db4CpuTimeRt}" ></td>
+                    <td th:text="${statVo.db1ElapseTimeRt}" ></td>
+                    <td th:text="${statVo.db2ElapseTimeRt}" ></td>
+                    <td th:text="${statVo.db3ElapseTimeRt}" ></td>
+                    <td th:text="${statVo.db4ElapseTimeRt}" ></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_script">
+
+    <!--<script type="text/javascript" >-->
+        <!--var v_lavels = ['2019-01-21', '2019-01-22', '2019-01-23', '2019-01-24', '2019-01-25', '2019-01-26'];-->
+        <!--var v_maindb_data = [60,58,50,46,43,41];-->
+        <!--var v_dpdb_data = [10, 10, 9, 9, 9, 9];-->
+        <!--var v_mpdb_data = [15,17,18,25,20,22];-->
+        <!--var v_cartdb_data = [15, 15, 23, 20, 28, 28];-->
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var v_lavels = new Array();
+        var v_maindb_data = new Array();
+        var v_dpdb_data = new Array();
+        var v_mpdb_data = new Array();
+        var v_cartdb_data = new Array();
+
+        /*[# th:each="statVo : ${model}"]*/
+
+        v_lavels.push("[(${statVo.clctDy})]");
+        v_maindb_data.push("[(${statVo.db1ExecutionRt})]");
+        v_dpdb_data.push("[(${statVo.db2ExecutionRt})]");
+        v_mpdb_data.push("[(${statVo.db3ExecutionRt})]");
+        v_cartdb_data.push("[(${statVo.db4ExecutionRt})]");
+
+        /*[/]*/
+
+        /*]]>*/
+        var ctx = document.getElementById("dashboardBarChart");
+        var dashboardBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: v_lavels,
+                datasets: [
+                    {
+                        label: "Maindb",
+                        data: v_maindb_data,
+                        fill: false,
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgb(255, 99, 132)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "Dpdb",
+                        data: v_dpdb_data,
+                        fill: false,
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderColor: "rgb(75, 192, 192)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "Mpdb",
+                        data: v_mpdb_data,
+                        fill: false,
+                        backgroundColor: "rgba(255, 159, 64, 0.2)",
+                        borderColor: "rgb(255, 159, 64)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "CartDb",
+                        data: v_cartdb_data,
+                        fill: false,
+                        backgroundColor: "rgba(255, 205, 86, 0.2)",
+                        borderColor: "rgb(255, 205, 86)",
+                        borderWidth: 1
+                    }
+                ],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        maxBarThickness: 30,
+                        time: {
+                            unit: 'month'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 6
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'SQL Application Rate(%)'
+                        },
+                        stacked: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            maxTicksLimit: 5
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

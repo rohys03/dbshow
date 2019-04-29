@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - DashBoard</title>
+    <title>11st DB Show - DA Data Sync Info</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,17 +47,17 @@
 
     <!-- Navbar Search -->
     <!--
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
-    -->
+        </form>
+        -->
 
     <ul class="navbar-nav ml-auto">
         <li>
@@ -120,7 +120,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlAreaDropdown">
                 <h6 class="dropdown-header">지표 관리.</h6>
-                <a class="dropdown-item " href="/dashboard">DB 분산 Kpi.</a>
+                <a class="dropdown-item " href="/dbDistributionStats">DB 분산 Kpi(Week).</a>
+                <a class="dropdown-item " href="/dbDistributionStats2">DB 분산 Kpi(Day).</a>
                 <a class="dropdown-item " href="/daTables">Table 조회.</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">논리 정의</h6>
@@ -158,260 +159,3391 @@
         <!--</li>-->
         <!--<li class="breadcrumb-item active">Overview</li>-->
         <!--</ol>-->
-        <ul class="breadcrumb">
-            <li>Parameter:: </li>
-        </ul>
+        <!--<ul class="breadcrumb">-->
+        <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
+        <!--</ul>-->
 
 
 
-        <!-- Icon Cards-->
 
-        <div class="card-header d-flex">
+
+
+        <div class="card-header d-flex justify-content-between">
+            <div class="p-1">
+                <form class="d-none d-md-inline-block form-inline form-row" action="/daTables">
+                    <div class="input-group">
+
+                        <!-- <div class="col-auto input-group">
+                        <select name="dbName">
+                            <option value="ALL" selected>ALL</option>
+                            <option value="TMALL" >Tmall</option>
+                            <option value="DPDB">Dpdb</option>
+                            <option value="MPDB">Mpdb</option>
+                        </select>
+                    </div>-->
+
+                        <div class="col-auto input-group">
+                            <input class="col-auto form-control" type="text" name="tableName" value="" placeholder="Table Name..(equal)">
+                            <input class="col-auto form-control" type="text" name="logicalAreaCd1" value="AD" placeholder="LogicalAreaCd1..(equal)">
+                            <input class="col-auto form-control" type="text" name="logicalAreaCd2" value="" placeholder="Sub (LogicalArea2)..(equal)">
+                            <button class="col-auto btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
+
+
+
         <div class="card-body">
-            <div class="chart-content">
-                <canvas id="dashboardBarChart" height="50px" style="border:1px transparent;"></canvas>
-            </div>
-            <br/>
-            <div class="" style="margin: 1px">
-                <table class="table table-bordered table-sm" id="dataTable" >
-                    <colgroup>
-                        <col class="col90px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
-                        <col class="col60px">
+            <table class="table table-bordered table-sm table-wrap" id="dataTable" >
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead class="thead-light table-thead-wrap-size">
+                <tr>
+                    <th>DB Name</th>
+                    <th>TableOwner</th>
+                    <th>TableName</th>
+                    <th>LogicalArea(: Sub)</th>
+                    <th>PhysicalArea</th>
+                    <th>Comments</th>
+                    <th>Table Created Dt</th>
+                    <th>표준대상여부</th>
+                </tr>
+                </thead>
 
-                    </colgroup>
-                    <thead class="thead-light table-thead-wrap-size">
-                    <tr>
-                        <th>연월-주(Week)</th>
-                        <th>MainDB<br/>SqlName_Count</th>
-                        <th>DPDB<br/>SqlName_Count</th>
-                        <th>MPDB<br/>SqlName_Count</th>
-                        <th>CartDB<br/>SqlName_Count</th>
-
-                        <th>MainDB<br/>Execution(%)</th>
-                        <th>DPDB<br/>Execution(%)</th>
-                        <th>MPDB<br/>Execution(%)</th>
-                        <th>CartDB<br/>Execution(%)</th>
-                        <th>MainDB<br/>BufferGet(%)</th>
-                        <th>DPDB<br/>BufferGet(%)</th>
-                        <th>MPDB<br/>BufferGet(%)</th>
-                        <th>CartDB<br/>BufferGet(%)</th>
-
-                        <th>MainDB<br/>CpuTime(%)</th>
-                        <th>DPDB<br/>CpuTime(%)</th>
-                        <th>MPDB<br/>CpuTime(%)</th>
-                        <th>CartDB<br/>CpuTime(%)</th>
-                        <th>MainDB<br/>Elap.Time(%)</th>
-                        <th>DPDB<br/>Elap.Time(%)</th>
-                        <th>MPDB<br/>Elap.Time(%)</th>
-                        <th>CartDB<br/>Elap.Time(%)</th>
-
-                    </tr>
-                    </thead>
-
-                    <tbody class="table-tbody-wrap-size">
-
-                    <tr>
-                        <td >201904-3W</td>
-
-                        <td >17198</td>
-                        <td >121</td>
-                        <td >320</td>
-                        <td >80</td>
-                        <td >83.95</td>
-                        <td >0.65</td>
-                        <td >12.25</td>
-                        <td >3.16</td>
-                        <td >73.09</td>
-                        <td >0.92</td>
-                        <td >21.68</td>
-                        <td >4.31</td>
-                        <td >57.53</td>
-                        <td >0.32</td>
-                        <td >39.22</td>
-                        <td >2.94</td>
-                        <td >57.53</td>
-                        <td >0.32</td>
-                        <td >39.22</td>
-                        <td >2.94</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201904-2W</td>
-
-                        <td >17092</td>
-                        <td >117</td>
-                        <td >357</td>
-                        <td >71</td>
-                        <td >84.47</td>
-                        <td >0.64</td>
-                        <td >13.57</td>
-                        <td >1.31</td>
-                        <td >70.13</td>
-                        <td >0.76</td>
-                        <td >25.38</td>
-                        <td >3.72</td>
-                        <td >53.24</td>
-                        <td >0.26</td>
-                        <td >43.17</td>
-                        <td >3.33</td>
-                        <td >53.24</td>
-                        <td >0.26</td>
-                        <td >43.17</td>
-                        <td >3.33</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201904-1W</td>
-
-                        <td >17105</td>
-                        <td >113</td>
-                        <td >357</td>
-                        <td >73</td>
-                        <td >84.03</td>
-                        <td >0.66</td>
-                        <td >14.09</td>
-                        <td >1.23</td>
-                        <td >70.93</td>
-                        <td >0.67</td>
-                        <td >24.88</td>
-                        <td >3.53</td>
-                        <td >51.21</td>
-                        <td >0.26</td>
-                        <td >45.24</td>
-                        <td >3.28</td>
-                        <td >51.21</td>
-                        <td >0.26</td>
-                        <td >45.24</td>
-                        <td >3.28</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201903-4W</td>
-
-                        <td >17023</td>
-                        <td >133</td>
-                        <td >349</td>
-                        <td >73</td>
-                        <td >83.15</td>
-                        <td >1.37</td>
-                        <td >14.29</td>
-                        <td >1.19</td>
-                        <td >71.9</td>
-                        <td >0.99</td>
-                        <td >23.71</td>
-                        <td >3.41</td>
-                        <td >43.94</td>
-                        <td >7.75</td>
-                        <td >45.91</td>
-                        <td >2.4</td>
-                        <td >43.94</td>
-                        <td >7.75</td>
-                        <td >45.91</td>
-                        <td >2.4</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201903-3W</td>
-
-                        <td >16941</td>
-                        <td >148</td>
-                        <td >351</td>
-                        <td >75</td>
-                        <td >82.58</td>
-                        <td >2.39</td>
-                        <td >13.91</td>
-                        <td >1.11</td>
-                        <td >70.39</td>
-                        <td >1.37</td>
-                        <td >24.98</td>
-                        <td >3.26</td>
-                        <td >48.31</td>
-                        <td >14.12</td>
-                        <td >34.88</td>
-                        <td >2.7</td>
-                        <td >48.31</td>
-                        <td >14.12</td>
-                        <td >34.88</td>
-                        <td >2.7</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201903-2W</td>
-
-                        <td >16885</td>
-                        <td >151</td>
-                        <td >343</td>
-                        <td >74</td>
-                        <td >83.29</td>
-                        <td >1.89</td>
-                        <td >13.32</td>
-                        <td >1.5</td>
-                        <td >63.46</td>
-                        <td >1.15</td>
-                        <td >31.98</td>
-                        <td >3.42</td>
-                        <td >43.78</td>
-                        <td >13.78</td>
-                        <td >39.21</td>
-                        <td >3.23</td>
-                        <td >43.78</td>
-                        <td >13.78</td>
-                        <td >39.21</td>
-                        <td >3.23</td>
-
-                    </tr>
-
-                    <tr>
-                        <td >201903-1W</td>
-
-                        <td >16619</td>
-                        <td >148</td>
-                        <td >301</td>
-                        <td >69</td>
-                        <td >81.79</td>
-                        <td >2.23</td>
-                        <td >14.62</td>
-                        <td >1.36</td>
-                        <td >69.88</td>
-                        <td >1.28</td>
-                        <td >25.0</td>
-                        <td >3.85</td>
-                        <td >40.66</td>
-                        <td >13.23</td>
-                        <td >43.33</td>
-                        <td >2.78</td>
-                        <td >40.66</td>
-                        <td >13.23</td>
-                        <td >43.33</td>
-                        <td >2.78</td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                <tbody class="table-tbody-wrap-size">
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_AGREE_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:17:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_EMAIL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:16:28.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_EMAIL_HASH</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:16:04.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_EMAIL_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:15:09.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_MEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:32:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_MEM_DLGTN_LOGIN_LOG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:32:37.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_MEM_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:32:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_MEM_LOGIN_LOG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:33:18.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_PROCPNC</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:12:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNCY_PROCPNC_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:12:32.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNC_TER_RQST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2017-03-02 14:44:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNC_TER_RQST_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2017-03-02 14:44:38.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNC_TRSF_RQST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2017-03-02 14:41:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AGNC_TRSF_RQST_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2017-03-02 14:43:40.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_AMT_AUTO_CHRG_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-06-12 15:04:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_APPLY_RESTRICT_BBS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-04-11 17:42:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_APPLY_RESTRICT_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-04-11 17:42:55.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BID_BGN_PRC_BASI</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-01-24 18:08:07.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BID_ITEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:15:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_ATTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:12:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_DSBL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:11:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_DSBL_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:11:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-22 16:11:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_MNL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-07-24 10:05:11.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BIZ_AUTHR_MNL_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-07-24 10:06:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_BUY_CNVR_RT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2017-07-25 10:49:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CHRG_MEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:47:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CHRG_MEMO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:47:51.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_INV_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:45:12.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:46:28.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_KEYWD_MST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:47:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_TGT_SLCT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:49:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_11ST_BEST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-12-01 16:27:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_11ST_BEST_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-12-01 16:27:51.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_AFT_ISPT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-01-29 10:02:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_AFT_ISPT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-01-29 10:02:44.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_BID_KEYWD_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-15 18:12:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_BULK_RQST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-08-28 11:30:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_BULK_RQST_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-08-28 11:31:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_CTGR_CLICK_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-04-10 15:48:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_CTGR_CLICK_SUM_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-09-26 11:17:07.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_DISP_SNAPS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_EXC_LOG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:38:29.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_EXPS_MAP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:41:07.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_EXT_LIVE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-04-14 11:37:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_EXT_LIVE_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-04-14 11:37:19.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_FEE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:43:27.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_FEE_DETAIL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:43:52.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_FEE_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:49:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ILLEGAL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:48:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_IP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:39:01.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_IP_MIG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-01-11 14:42:30.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-02-28 03:58:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-02-28 03:58:21.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO_PRD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-02-28 03:58:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO_PRD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-02-28 03:58:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISPT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-10-11 14:36:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISPT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-10-11 14:36:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISPT_RPT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-10-29 17:12:18.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_KEYWD_LIST_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 21:52:07.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_KEYWD_LOG_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 21:52:07.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_KEYWD_PKG_RESV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-29 17:45:04.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:40:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:46:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:39:37.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_KEYWD_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-03-28 10:36:11.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_KEYWD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:47:51.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_KEYWD_SCOR_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-05-13 16:56:02.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_N_KEYWD_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-24 15:34:24.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_QLTY_SCORE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-01-16 11:32:50.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_QTY_SCOR_AVG_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-05-13 16:55:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_QTY_SCOR_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-05-13 16:55:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_REPKG_KEYWD_BF</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-15 18:13:32.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_KEYWD_PKG_ATTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-29 17:44:56.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_KEYWD_REC_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-29 17:44:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_OBJ_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-15 18:13:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_OBJ_KEYWD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-15 18:13:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_SEASON_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-29 17:44:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SELLER_MEMO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-10-11 14:37:07.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-16 04:26:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_MD_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:44:51.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:48:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_TRC_BID_RNK_DY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-12-29 15:19:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_TRC_BID_RNK_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-05-31 01:48:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_TRC_DY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-05-31 01:51:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_TRC_DY_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-03-08 09:52:27.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_TRC_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-05-31 01:50:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DB_LOCKER</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:37.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DEAL_PRMT_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-15 18:29:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DEAL_PRMT_MSTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-15 18:29:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DEAL_PRMT_RWRD_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-05-15 18:29:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_BDSC_EFCNC_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-12-04 14:09:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_BDSC_KEYWD_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-12-04 14:09:27.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_CYCL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:14:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_FEE_MNL_UPDATE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-01-06 15:53:03.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_FEE_MNL_UPDATE_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-01-06 15:52:44.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:18:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_OBJ_REFUND_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:08:49.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_OBJ_RPT_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:35:03.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_OBJ_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:05:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_REL_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:10:01.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_REL_OBJ_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:13:44.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SGST_ITM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-12-20 18:16:30.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SGST_ITM_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-11-07 18:02:37.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SGST_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-12-20 18:16:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SPCE_AREA</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:06:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SPCE_FEE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:13:50.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_UNSOLD_AREA</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-08-17 16:21:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_UNSOLD_AREA_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-08-17 15:56:40.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_UNSOLD_AREA_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-08-17 16:21:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_UNSOLD_AREA_LAST_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-08-17 16:58:05.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_AGNCY_MEM_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:47:50.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_CPC</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:44:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_CPC_CART</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:47:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_DISP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:44:11.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_DISP_CART</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:46:42.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_EXT_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:45:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_MSTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:43:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_TRGT_CPC_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:46:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ETA_TRGT_DISP_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-11-19 19:45:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_GOODWILL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:48:07.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_GOODWILL_APV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:47:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_ITEM_DSC_INFO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:53:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_ATTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:41:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_BID_BGN_PRC</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-06-14 17:05:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_BID_BGN_PRC_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-01-24 18:10:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_PKG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:40:31.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_PKG_ADD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-08 19:57:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_PKG_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:44:30.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_PKG_QTY_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 11:26:42.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_RECM_CTGR_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-03-02 20:19:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_RECM_SEL_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-03-02 20:19:48.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_REC_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 15:17:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_REC_TARGET_CHK</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 11:39:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KW_RESV_EXPT_SELLER</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-10 14:58:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_KW_RESV_EXPT_SELLER_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-10 14:58:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_LNK_API_INVK_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:02.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MD_RISE_ADVRT_CUPN</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-09-18 16:19:48.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MEMBER</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-12-23 18:07:38.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_ADV_ITEM_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-03 18:03:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_DSC_INFO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_SMS_EMAIL_CHRG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_SMS_EMAIL_CHRG_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:48.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_SMS_EMAIL_SEND_FAIL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-06-13 10:39:38.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_SMS_EMAIL_SUBTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:53.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_SMS_EMAIL_SUBTR_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-16 11:06:56.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_BUY_DISP_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:11.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_DISP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-12 10:24:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_DISP_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_PLAY_INFO_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:17.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_PRD_DISP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-07-19 14:54:21.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_SPNSR_MIG_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-02-27 18:18:13.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NOT_MATCH_KEYWD_DISP_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-02-05 11:25:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NTCE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-08-21 11:51:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NTCE_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-08-21 11:52:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NTCE_TGT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-21 10:45:12.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NTCE_VIEW</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-15 18:11:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_NTCE_VIEW_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-15 18:11:40.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PCID_MEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-10-06 17:27:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PCID_MEM_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-05-31 01:50:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PNT_PLUS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-04-13 11:42:42.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PNT_PLUS_RNK</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-06-15 16:02:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_POP_KEYWD_REC_CTGR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-06-14 17:04:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_POP_SRCH_KEYWD_MOBILE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-04-12 13:31:32.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRD_RECM_KEYWD_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-08-20 09:46:55.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRMT_ITEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:05.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRMT_ITEM_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRMT_MSTR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRMT_MSTR_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_PRMT_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:17.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RECM_PRD_BUY_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-07-29 14:04:32.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_REGION</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-09-15 20:58:27.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RESTRICT_KEYWD_FOR_PRD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 11:38:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_BOOKMARK_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-05-03 10:40:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_BUY_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-04-09 14:43:25.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_CUPN_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-09-18 16:19:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_CUPN_BUY_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-09-18 16:19:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_CUPN_USE_INFO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-09-18 16:20:03.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_PRMT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-04-09 14:43:31.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RWRD_DAY_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RWRD_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:21.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_RWRD_DTLS_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-11-28 18:08:25.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SCTGR_KEYWD_PKG_QTY_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 11:27:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SEASON_EVT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:42:29.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SEASON_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-12-01 11:42:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SELLER_BOOKMARK</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:04:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SELLER_BOOKMARK_CPC_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-08-28 11:30:39.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SELLER_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:33:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SELLER_SUM_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2014-03-28 02:33:31.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SLCT_BID_PART_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:05:07.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SUGGEST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:48:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_SUGGEST_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-02-08 10:48:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TERM_DIC</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2015-07-16 13:32:49.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:53:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:55:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 20:56:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:18:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:19:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:19:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV_KEYWD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:20:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:21:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT_DY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:52.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:24:11.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:24:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CTG_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:24:28.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:24:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_INV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:24:51.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_INV_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_KEYWD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:21.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_REGION</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:28.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_REGION_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-02 21:25:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_TRC_STATS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-11-24 21:01:52.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>AD_YAHOO_INV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-03-05 20:09:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADVRT_AREA</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-03-28 05:53:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADVRT_EVENT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-04-28 15:58:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADVRT_EVENT_DETAIL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-04-28 15:58:02.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_APPLY_MSG_LST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-10-07 18:04:44.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_BID_SCORE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-10-07 18:04:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_CTG_REST_INFO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-06-11 05:05:31.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_CUPN_PRD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-07-08 19:41:47.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_EMAIL_PRD_INFO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-05-20 04:38:22.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_EMAIL_SCHEDULE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-05-20 04:38:22.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_ITEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-09-25 02:29:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_REFUND_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-01-07 10:50:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_SALES</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-01-18 15:40:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_SPONSOR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-11-13 03:52:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_APPLY_RESTRICT_ITEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-12-09 16:12:31.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_APPLY_RESTRICT_SELLER</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-11-03 18:27:32.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_APPLY_RESTRICT_SELLER_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-08-16 11:38:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_APPLY_LOG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2010-05-12 14:55:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_LIST_ADVRT_CUPN</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-07-21 19:03:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-07-21 19:03:01.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_ADVRT_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-07-21 19:02:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-01-12 10:41:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_RECOMMEND_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-07-21 19:03:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:20:00.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY_GRP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-12-14 04:06:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY_GRP_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-03-31 17:55:18.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:39:09.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPROVE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-05-19 18:06:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPROVE_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-05-19 18:06:25.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_QTY_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-01-20 18:53:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_REFUND_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-08-14 18:49:01.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-08-30 03:02:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_REL_OBJ_APPLY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:40:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_REL_OBJ_APPLY_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-07-19 02:41:21.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_REL_REL_OBJ_APPLY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-11-13 03:48:53.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_SGMT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-01-20 18:50:04.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_SGMT_MAP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-01-20 18:50:20.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_POP_REPRSNT_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-06-02 15:33:40.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_POP_SRCH_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2012-06-15 02:38:14.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_PRD_DISP_ROUND_GRP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-06-16 18:03:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_PRD_DISP_ROUND_TMP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2011-06-16 18:03:16.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_TRC_DY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-11-09 16:21:17.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_TRC_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2013-05-31 02:34:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_TRC_MON</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-11-09 16:21:17.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>DP_TRC_WEEK</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2009-11-09 16:21:17.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td>TOP_ADVERT_FEE_WEEK_GT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-01-31 13:35:14.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_BID_BGN_PRC_BASI</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 10:29:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_INV_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:12.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_KEYWD_MST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:30.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CMP_TGT_SLCT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:41.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_CTGR_CLICK_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-16 15:27:30.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_EXPS_MAP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:41.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ILLEGAL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:33.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_IP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:34.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_ISO_PRD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:52.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_OBJ_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:41.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_KEYWD_REC_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:06.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_RESV_SEASON_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:11.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_MD_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_CPC_SGST_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_CYCL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_REL_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:59.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SGST_ITM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:57.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SPCE_AREA</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:02.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_DISP_SPCE_FEE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:24.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_GOODWILL</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:13:51.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_GOODWILL_APV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:16.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_BID_BGN_PRC</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 10:30:52.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_PKG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_KEYWD_REC_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:45.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MEMBER</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MM_ADV_ITEM_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:42.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:43.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_DISP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_PLAY_INFO_SUM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:56.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_MOVIE_PRD_DISP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_REGION</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:03.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_BUY_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:25.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_CUPN_BUY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:04.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_RISE_CUPN_BUY_DTLS</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_SEASON_EVT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:29.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_SEASON_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:35.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_SELLER_BOOKMARK</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 10:32:01.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:05.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:23.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_INV_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:41.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT_DY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CMP_REPORT_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:13:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_CTG</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:12.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_INV</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:05.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:31.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_REGION</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>AD_TGT_REPORT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADVRT_AREA</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_CUPN_PRD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:15.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_EMAIL_SCHEDULE</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:16:36.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_ITEM</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:19:58.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_REFUND_OBJ</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:46.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_SALES</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:14:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_ADV_SPONSOR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:10.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_LIST_ADVRT_CUPN</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:15:19.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:18:08.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_MD_RECOMMEND_ADVRT</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:26.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 13:50:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_APPLY_GRP</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 13:26:05.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_OBJ_STAT_HIST</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:13:27.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_DISP_REL_OBJ_APPLY</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:17:25.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_POP_REPRSNT_KEYWD</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2018-07-18 13:48:44.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td>DP_TRC_HR</td>
+                    <td>AD : null</td>
+                    <td></td>
+                    <td></td>
+                    <td>2016-06-02 22:13:27.0</td>
+                    <td>Y</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at 2019년 4월 25일 (목) 오후 7시 28분 33초</div>
 
 
+        <div class="card-footer small text-muted">
+            <ul class="row" style="list-style: none;">
+
+                <li>Parameter:: </li> <li>logicalAreaCd1 : AD</li>
+            </ul>
+        </div>
     </section>
 
     <!-- Sticky Footer -->
@@ -450,158 +3582,14 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
-
-<!--<script type="text/javascript" >-->
-<!--var v_lavels = ['2019-01-21', '2019-01-22', '2019-01-23', '2019-01-24', '2019-01-25', '2019-01-26'];-->
-<!--var v_maindb_data = [60,58,50,46,43,41];-->
-<!--var v_dpdb_data = [10, 10, 9, 9, 9, 9];-->
-<!--var v_mpdb_data = [15,17,18,25,20,22];-->
-<!--var v_cartdb_data = [15, 15, 23, 20, 28, 28];-->
-
-<script>
-    /*<![CDATA[*/
-
-    var v_lavels = new Array();
-    var v_maindb_data = new Array();
-    var v_dpdb_data = new Array();
-    var v_mpdb_data = new Array();
-    var v_cartdb_data = new Array();
-
-
-
-    v_lavels.push("201904-3W");
-    v_maindb_data.push("83.95");
-    v_dpdb_data.push("0.65");
-    v_mpdb_data.push("12.25");
-    v_cartdb_data.push("3.16");
-
-
-
-    v_lavels.push("201904-2W");
-    v_maindb_data.push("84.47");
-    v_dpdb_data.push("0.64");
-    v_mpdb_data.push("13.57");
-    v_cartdb_data.push("1.31");
-
-
-
-    v_lavels.push("201904-1W");
-    v_maindb_data.push("84.03");
-    v_dpdb_data.push("0.66");
-    v_mpdb_data.push("14.09");
-    v_cartdb_data.push("1.23");
-
-
-
-    v_lavels.push("201903-4W");
-    v_maindb_data.push("83.15");
-    v_dpdb_data.push("1.37");
-    v_mpdb_data.push("14.29");
-    v_cartdb_data.push("1.19");
-
-
-
-    v_lavels.push("201903-3W");
-    v_maindb_data.push("82.58");
-    v_dpdb_data.push("2.39");
-    v_mpdb_data.push("13.91");
-    v_cartdb_data.push("1.11");
-
-
-
-    v_lavels.push("201903-2W");
-    v_maindb_data.push("83.29");
-    v_dpdb_data.push("1.89");
-    v_mpdb_data.push("13.32");
-    v_cartdb_data.push("1.5");
-
-
-
-    v_lavels.push("201903-1W");
-    v_maindb_data.push("81.79");
-    v_dpdb_data.push("2.23");
-    v_mpdb_data.push("14.62");
-    v_cartdb_data.push("1.36");
-
-
-
-
-    /*]]>*/
-    var ctx = document.getElementById("dashboardBarChart");
-    var dashboardBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: v_lavels,
-            datasets: [
-                {
-                    label: "Maindb",
-                    data: v_maindb_data,
-                    fill: false,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgb(255, 99, 132)",
-                    borderWidth: 1
-                },
-                {
-                    label: "Dpdb",
-                    data: v_dpdb_data,
-                    fill: false,
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    borderColor: "rgb(75, 192, 192)",
-                    borderWidth: 1
-                },
-                {
-                    label: "Mpdb",
-                    data: v_mpdb_data,
-                    fill: false,
-                    backgroundColor: "rgba(255, 159, 64, 0.2)",
-                    borderColor: "rgb(255, 159, 64)",
-                    borderWidth: 1
-                },
-                {
-                    label: "CartDb",
-                    data: v_cartdb_data,
-                    fill: false,
-                    backgroundColor: "rgba(255, 205, 86, 0.2)",
-                    borderColor: "rgb(255, 205, 86)",
-                    borderWidth: 1
-                }
-            ],
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                    maxBarThickness: 50,
-                    time: {
-                        unit: 'week'
-                    },
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 6
-                    }
-                }],
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'SQL Application Rate(%)'
-                    },
-                    stacked: true,
-                    ticks: {
-                        min: 0,
-                        max: 100,
-                        maxTicksLimit: 5
-                    },
-                    gridLines: {
-                        display: true
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            }
-        }
+<script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: true
+        });
     });
 </script>
 
@@ -612,3 +3600,4 @@
 </body>
 
 </html>
+

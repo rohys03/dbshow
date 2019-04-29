@@ -10,9 +10,9 @@
         <!--</li>-->
         <!--<li class="breadcrumb-item active">Overview</li>-->
     <!--</ol>-->
-    <ul class="breadcrumb">
-        <li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>
-    </ul>
+    <!--<ul class="breadcrumb">-->
+        <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
+    <!--</ul>-->
 </div>
  <!--<div class="col-2" th:text="${res.key + ' : '}"></div><div class="col-6" th:text="${res.value[0] + ' / '}"></div>-->
 
@@ -67,7 +67,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlAreaDropdown">
                 <h6 class="dropdown-header">지표 관리.</h6>
-                <a class="dropdown-item " href="/dashboard">DB 분산 Kpi.</a>
+                <a class="dropdown-item " href="/dbDistributionStats">DB 분산 Kpi(Week).</a>
+                <a class="dropdown-item " href="/dbDistributionStats2">DB 분산 Kpi(Day).</a>
                 <a class="dropdown-item " href="/daTables">Table 조회.</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">논리 정의</h6>
