@@ -456,20 +456,6 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
-<script type="text/javascript" >
-    // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        $('#dataTable').dataTable({
-            // pageLength: 25,
-            paging: false,
-            searching: true,
-            scrollX:true,
-            columnDefs: [
-                {width: 80, targets:0}
-            ]
-        });
-    });
-</script>
 
 <script>
     /*<![CDATA[*/
@@ -533,6 +519,7 @@
 
 
     /*]]>*/
+
     v_lavels.reverse();
     v_maindb_data.reverse();
     v_dpdb_data.reverse();
@@ -616,6 +603,23 @@
         }
     });
 </script>
+
+<script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            // pageLength: 25,
+            searching: false,
+            paging: false,
+            scrollX:true,
+            columnDefs: [
+                {width: 80, targets:0}
+            ],
+            order:[0, 'desc']
+        });
+    });
+</script>
+
 
 
 <!-- db Show script -->
