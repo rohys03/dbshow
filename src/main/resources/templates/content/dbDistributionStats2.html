@@ -40,7 +40,7 @@
                 </colgroup>
                 <thead class="thead-light table-thead-wrap-size">
                 <tr>
-                    <th>연월-일(Daily)</th>
+                    <th class="">연월-일(Daily)</th>
                     <th>MainDB<br/>SqlName_Count</th>
                     <th>DPDB<br/>SqlName_Count</th>
                     <th>MPDB<br/>SqlName_Count</th>
@@ -206,6 +206,22 @@
             }
         });
     </script>
+
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                // pageLength: 25,
+                paging: false,
+                searching: true,
+                scrollX:true,
+                columnDefs: [
+                    {width: 80, targets:0}
+                ]
+            });
+        });
+    </script>
+
 </th:block>
 
 </body>
