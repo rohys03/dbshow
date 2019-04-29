@@ -533,6 +533,12 @@
 
 
     /*]]>*/
+    v_lavels.reverse();
+    v_maindb_data.reverse();
+    v_dpdb_data.reverse();
+    v_mpdb_data.reverse();
+    v_cartdb_data.reverse();
+
     var ctx = document.getElementById("dashboardBarChart");
     var dashboardBarChart = new Chart(ctx, {
         type: 'bar',
