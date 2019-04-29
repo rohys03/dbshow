@@ -14,4 +14,5 @@ public interface ApiService {
     Collection getApiModels(String apiUrl, TypeReference type, String ... apiParams) throws IOException;
     Collection getApiModels(String apiUrl, TypeReference type, HashMap<String, String> apiParams) throws IOException, URISyntaxException;
     Collection<DaStatMngVO> getLastDaStatMng(String dbName, String statName) throws IOException, URISyntaxException;
+    String getApiString(String apiUrl, HashMap<String, String> apiParams) throws URISyntaxException;
 }

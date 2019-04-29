@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>Sql Application</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <div class="card-header d-flex">
+        <div class="p-1">
+            <form class="d-none d-md-inline-block form-inline form-row" action="/daTopsql">
+                <div class="input-group col-auto">
+                    <div>
+                        <input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..">
+                    </div>
+                    <div>
+                        <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalAreaCd2)..">
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<div class="text-muted" style="align-self:center" th:text="'OGG 동기화 현황 최종 수집 일자: ' + ${#strings.defaultString(#dates.format(daStatMngModel.updateDt, 'yyyy-MM-dd HH:mm:ss'),'No Result ')}"> Updated </div>-->
+    </div>
+
+    <div class="card-body">
+        <table class="table-bordered table">
+            <tr>
+                <td th:text="${model.statNm}">Fail</td>
+                <td th:text="${model.createDt}">Fail</td>
+                <td th:text="${#dates.format(model.createDt, 'yyyyMMdd')}">Fail</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
+            <colgroup>
+                <col class="col60px">
+                <col class="col130px">
+                <!--<col class="col90px">-->
+                <col class="col90px">
+                <col class="col130px">
+                <!--<col class="col130px">-->
+                <col class="col200px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col90px">
+                <col class="col130px">
+                <!--<col class="col130px">-->
+                <col class="col60px">
+                <col class="sqltext-wrap col-auto">
+            </colgroup>
+            <thead class="thead-light table-thead-wrap-size">
+            <tr>
+                <th>inst</th>
+                <th>sql_Id</th>
+                <!--<th>plan_Hash</th>-->
+                <th>SchemaNm</th>
+                <th>Module</th>
+                <!--<th>Program_ID</th>-->
+                <th class="sqltext-wrap">sqlName</th>
+                <th>Executions</th>
+                <th>BufferGets</th>
+                <th>Block/Exec</th>
+                <th>LastActiveTime</th>
+                <!--<th>FirstLoadTime</th>-->
+                <th>Type</th>
+                <th class="sqltext-wrap col-auto">Sql_Text</th>
+            </tr>
+            </thead>
+
+            <!--<tbody class="table-tbody-wrap-size">-->
+            <!--<tr th:if="${not #lists.isEmpty(model)}" th:each="sqlVo : ${model}">-->
+            <!--&lt;!&ndash;<tr th:if="${not #strings.listIsEmpty(model)}" th:each="sqlVo : ${model}">&ndash;&gt;-->
+                <!--<td th:text="${sqlVo.instId}" ></td>-->
+                <!--<td><a th:text="${sqlVo.sqlId}" href="#layer2" class="dim-btn-layer" /></td>-->
+                <!--&lt;!&ndash;<td th:text="${sqlVo.planHashValue}"></td>&ndash;&gt;-->
+                <!--<td th:text="${sqlVo.parsingSchemaName}"></td>-->
+                <!--<td th:text="${sqlVo.module}"></td>-->
+                <!--&lt;!&ndash;<td th:text="${sqlVo.programId}"></td>&ndash;&gt;-->
+                <!--<td class="sqltext-wrap" th:text="${sqlVo.sqlName}"></td>-->
+                <!--<td th:text="${sqlVo.executions}"></td>-->
+                <!--<td th:text="${sqlVo.bufferGets}"></td>-->
+                <!--<td th:text="${sqlVo.blockPerExec}"></td>-->
+                <!--<td th:text="${sqlVo.lastActiveTime}"></td>-->
+                <!--&lt;!&ndash;<td th:text="${sqlVo.firstLoadTime}"></td>&ndash;&gt;-->
+                <!--<td th:text="${sqlVo.commandType}"></td>-->
+                <!--<td class="sqltext-wrap" th:text="${sqlVo.sqlText}"></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        </table>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_aside">
+    <div class="dim-layer">
+
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <!--content //-->
+                    <p class="ctxt mb20">Sql Full Text.<br>
+                    구현이 아직 안되었습니다. <br>
+                    popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
+                    jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
+                    </p>
+
+                    <div class="btn-r">
+                        <a href="#" class="dim-btn-layerClose">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: true
+        });
+    });
+    </script>
+</th:block>
+</body>
+</html>
+

@@ -4,18 +4,21 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.st11.dbshow.config.ApiServerConfig;
 import com.st11.dbshow.repository.DaStatMngVO;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Logger;
 import org.apache.http.client.utils.URIBuilder;
-
+import org.springframework.web.client.RestTemplate;
 
 
 @Service
@@ -63,6 +66,31 @@ public class ApiServiceImpl implements ApiService  {
         modelCollection = mapper.readValue(new URL(uriBuilder.toString()), type);
 
         return modelCollection;
+    }
+
+
+    @Override
+    public String getApiString(String apiUrl, HashMap<String, String> apiParams) throws URISyntaxException {
+
+        String urlString = apiServerConfig.getBaseUrl() + "/" + apiUrl;
+
+        URIBuilder uriBuilder = new URIBuilder(urlString);
+
+        for(String key : apiParams.keySet()) {
+            uriBuilder.addParameter(key,apiParams.get(key));
+        }
+
+        logger.info("[ApiService.getApiModels].map : " + uriBuilder.toString());
+
+        URI uri = new URI(uriBuilder.toString());
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> entity = restTemplate.getForEntity(uri, String.class);
+
+        if (entity.getStatusCode() == HttpStatus.OK) {
+            return entity.getBody();
+        } else
+            return null;
     }
 
     public Collection<DaStatMngVO> getLastDaStatMng(String dbName, String statName) throws IOException, URISyntaxException {

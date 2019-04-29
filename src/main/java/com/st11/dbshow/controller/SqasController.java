@@ -2,6 +2,8 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.st11.dbshow.repository.DaStatMngVO;
 import com.st11.dbshow.repository.SqlNameMappVO;
 import com.st11.dbshow.repository.SqlNameVO;
 import com.st11.dbshow.service.ApiService;
@@ -104,7 +106,8 @@ public class SqasController {
                     }
                     , inParam);
 
-            inParam.put("clctDy", "20190409");
+            inParam.remove("clctDy");
+            System.out.println("[sqlNameMappSummary]" + inParam.toString());
             modelCollection2 = apiService.getApiModels(apiMethod2, new TypeReference<Collection<SqlNameMappVO>>() {
                     }
                     , inParam);
@@ -141,9 +144,42 @@ public class SqasController {
                     , inParam);
         }
 
+
         model.addAttribute("defaultDate", "20190315");
         model.addAttribute("model", modelCollection);
         return "content/sqlNameList";
+    }
+
+    @RequestMapping(value = {"daTopSql"})
+    public String daTopSql(
+            @RequestParam(value = "clctDy", required = false) final String clctDy,
+            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+            Model model) throws IOException, URISyntaxException {
+        final String apiMethod = "dbshow/getLastDaStatMng2";
+
+        HashMap<String, String> inParam = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        DaStatMngVO daStatMngVO = new DaStatMngVO();
+
+        inParam.put("dbName", "PMETA");
+        inParam.put("statName", "DA_SQLNAME_MAPP");
+//        if (!isNullOrEmpty(clctDy)) inParam.put("clctDy", clctDy.toUpperCase());
+//        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+//        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+
+        String modelCollection = null;
+
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiString(apiMethod, inParam);
+
+            daStatMngVO = objectMapper.readValue(modelCollection, DaStatMngVO.class);
+        }
+
+        System.out.println("[daTopSql] result: " + daStatMngVO.toString());
+
+        model.addAttribute("model", daStatMngVO);
+        return "content/daTopSql";
     }
 
 }

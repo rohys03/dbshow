@@ -82,7 +82,7 @@
             </thead>
 
             <tbody class="table-tbody-wrap-size">
-            <tr th:each="sqlVo : ${model}">
+            <tr th:if="${not #lists.isEmpty(model)}" th:each="sqlVo : ${model}">
                 <td th:text="${sqlVo.clctDy}" ></td>
                 <td th:text="${sqlVo.dbId}" ></td>
                 <td th:text="${sqlVo.sqlNameNo}" ></td>
@@ -143,8 +143,8 @@
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
         $('#dataTable').dataTable({
-            pageLength: 25,
-            paging: true,
+            // pageLength: 25,
+            paging: false,
             searching: true,
             scrollX:true
         });

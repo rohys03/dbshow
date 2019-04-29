@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Sql Name</title>
+    <title>11st DB Show - DashBoard</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -159,186 +159,259 @@
         <!--<li class="breadcrumb-item active">Overview</li>-->
         <!--</ol>-->
         <ul class="breadcrumb">
-            <li>Parameter:: </li> <li class="breadcrumb-item">clctDy : 20190324</li> <li class="breadcrumb-item">dbId : 1</li> <li class="breadcrumb-item">sqlNameNo : 9208</li>
+            <li>Parameter:: </li>
         </ul>
 
 
 
+        <!-- Icon Cards-->
 
         <div class="card-header d-flex">
-            <div class="p-1">
-                <form class="d-none d-md-inline-block form-inline form-row" action="/sqlNameDetail">
-                    <div class="input-group">
-                        <div class="col-auto input-group">
-                            <div><input type="text" name="clctDy" class="form-control" value="20190324" placeholder="clctDy..(<=)" onkeypress="characterCheck(this)" ></div>
-                            <div><input type="text" name="dbId" class="form-control" value="1" placeholder="dbId..(equal)" onkeypress="characterCheck(this)"></div>
-                            <div><input type="text" name="sqlNameNo" class="form-control" value="9208" placeholder="sqlNameNo..(equal)" onkeypress="characterCheck(this)"></div>
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+        </div>
+        <div class="card-body">
+            <div class="chart-content">
+                <canvas id="dashboardBarChart" height="50px" style="border:1px transparent;"></canvas>
+            </div>
+            <br/>
+            <div class="" style="margin: 1px">
+                <table class="table table-bordered table-sm" id="dataTable" >
+                    <colgroup>
+                        <col class="col90px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+                        <col class="col60px">
+
+                    </colgroup>
+                    <thead class="thead-light table-thead-wrap-size">
+                    <tr>
+                        <th>연월-주(Week)</th>
+                        <th>MainDB<br/>SqlName_Count</th>
+                        <th>DPDB<br/>SqlName_Count</th>
+                        <th>MPDB<br/>SqlName_Count</th>
+                        <th>CartDB<br/>SqlName_Count</th>
+
+                        <th>MainDB<br/>Execution(%)</th>
+                        <th>DPDB<br/>Execution(%)</th>
+                        <th>MPDB<br/>Execution(%)</th>
+                        <th>CartDB<br/>Execution(%)</th>
+                        <th>MainDB<br/>BufferGet(%)</th>
+                        <th>DPDB<br/>BufferGet(%)</th>
+                        <th>MPDB<br/>BufferGet(%)</th>
+                        <th>CartDB<br/>BufferGet(%)</th>
+
+                        <th>MainDB<br/>CpuTime(%)</th>
+                        <th>DPDB<br/>CpuTime(%)</th>
+                        <th>MPDB<br/>CpuTime(%)</th>
+                        <th>CartDB<br/>CpuTime(%)</th>
+                        <th>MainDB<br/>Elap.Time(%)</th>
+                        <th>DPDB<br/>Elap.Time(%)</th>
+                        <th>MPDB<br/>Elap.Time(%)</th>
+                        <th>CartDB<br/>Elap.Time(%)</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-tbody-wrap-size">
+
+                    <tr>
+                        <td >201904-3W</td>
+
+                        <td >17198</td>
+                        <td >121</td>
+                        <td >320</td>
+                        <td >80</td>
+                        <td >83.95</td>
+                        <td >0.65</td>
+                        <td >12.25</td>
+                        <td >3.16</td>
+                        <td >73.09</td>
+                        <td >0.92</td>
+                        <td >21.68</td>
+                        <td >4.31</td>
+                        <td >57.53</td>
+                        <td >0.32</td>
+                        <td >39.22</td>
+                        <td >2.94</td>
+                        <td >57.53</td>
+                        <td >0.32</td>
+                        <td >39.22</td>
+                        <td >2.94</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201904-2W</td>
+
+                        <td >17092</td>
+                        <td >117</td>
+                        <td >357</td>
+                        <td >71</td>
+                        <td >84.47</td>
+                        <td >0.64</td>
+                        <td >13.57</td>
+                        <td >1.31</td>
+                        <td >70.13</td>
+                        <td >0.76</td>
+                        <td >25.38</td>
+                        <td >3.72</td>
+                        <td >53.24</td>
+                        <td >0.26</td>
+                        <td >43.17</td>
+                        <td >3.33</td>
+                        <td >53.24</td>
+                        <td >0.26</td>
+                        <td >43.17</td>
+                        <td >3.33</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201904-1W</td>
+
+                        <td >17105</td>
+                        <td >113</td>
+                        <td >357</td>
+                        <td >73</td>
+                        <td >84.03</td>
+                        <td >0.66</td>
+                        <td >14.09</td>
+                        <td >1.23</td>
+                        <td >70.93</td>
+                        <td >0.67</td>
+                        <td >24.88</td>
+                        <td >3.53</td>
+                        <td >51.21</td>
+                        <td >0.26</td>
+                        <td >45.24</td>
+                        <td >3.28</td>
+                        <td >51.21</td>
+                        <td >0.26</td>
+                        <td >45.24</td>
+                        <td >3.28</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201903-4W</td>
+
+                        <td >17023</td>
+                        <td >133</td>
+                        <td >349</td>
+                        <td >73</td>
+                        <td >83.15</td>
+                        <td >1.37</td>
+                        <td >14.29</td>
+                        <td >1.19</td>
+                        <td >71.9</td>
+                        <td >0.99</td>
+                        <td >23.71</td>
+                        <td >3.41</td>
+                        <td >43.94</td>
+                        <td >7.75</td>
+                        <td >45.91</td>
+                        <td >2.4</td>
+                        <td >43.94</td>
+                        <td >7.75</td>
+                        <td >45.91</td>
+                        <td >2.4</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201903-3W</td>
+
+                        <td >16941</td>
+                        <td >148</td>
+                        <td >351</td>
+                        <td >75</td>
+                        <td >82.58</td>
+                        <td >2.39</td>
+                        <td >13.91</td>
+                        <td >1.11</td>
+                        <td >70.39</td>
+                        <td >1.37</td>
+                        <td >24.98</td>
+                        <td >3.26</td>
+                        <td >48.31</td>
+                        <td >14.12</td>
+                        <td >34.88</td>
+                        <td >2.7</td>
+                        <td >48.31</td>
+                        <td >14.12</td>
+                        <td >34.88</td>
+                        <td >2.7</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201903-2W</td>
+
+                        <td >16885</td>
+                        <td >151</td>
+                        <td >343</td>
+                        <td >74</td>
+                        <td >83.29</td>
+                        <td >1.89</td>
+                        <td >13.32</td>
+                        <td >1.5</td>
+                        <td >63.46</td>
+                        <td >1.15</td>
+                        <td >31.98</td>
+                        <td >3.42</td>
+                        <td >43.78</td>
+                        <td >13.78</td>
+                        <td >39.21</td>
+                        <td >3.23</td>
+                        <td >43.78</td>
+                        <td >13.78</td>
+                        <td >39.21</td>
+                        <td >3.23</td>
+
+                    </tr>
+
+                    <tr>
+                        <td >201903-1W</td>
+
+                        <td >16619</td>
+                        <td >148</td>
+                        <td >301</td>
+                        <td >69</td>
+                        <td >81.79</td>
+                        <td >2.23</td>
+                        <td >14.62</td>
+                        <td >1.36</td>
+                        <td >69.88</td>
+                        <td >1.28</td>
+                        <td >25.0</td>
+                        <td >3.85</td>
+                        <td >40.66</td>
+                        <td >13.23</td>
+                        <td >43.33</td>
+                        <td >2.78</td>
+                        <td >40.66</td>
+                        <td >13.23</td>
+                        <td >43.33</td>
+                        <td >2.78</td>
+
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at 2019년 4월 25일 (목) 오후 7시 28분 33초</div>
 
-        <div class="card-body">
 
-            <table class="table table-bordered">
-                <thead class="text-white bg-info">
-                <tr>
-                    <th class="bg-white text-black-50" width="180"><small>*Cumulative value <br>From v$sqlarea</small></th>
-                    <th class="text-center">대표 SQL_ID</th>
-                    <th class="text-center">Executions</th>
-                    <th class="text-center">Buffer Gets</th>
-                    <th class="text-center">Elapsed Time</th>
-                    <th class="text-center">Disk Reads</th>
-                    <th class="text-center">Cpu Time</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>Value.</th>
-                    <td></td>
-                    <td>6346376909</td>
-                    <td>11854527850</td>
-                    <td>14697905393479</td>
-                    <td>4603756494</td>
-                    <td>2878674560000</td>
-                </tr>
-                <tr>
-                    <th scope="row">SQL Name</th>
-                    <td class="text-nowrap" colspan="6">
-                        <div style="overflow-x: auto;">
-                            <code><pre style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;">/*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */</pre></code>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Sql Full Text</th>
-                    <td class="text-nowrap" colspan="6" >
-                        <div style="height: 300px; padding: 5px; overflow-y: auto;">
-                            <code style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;">
-                                    SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-                                        SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt
-
-                            </code>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-sm" id="dataTable" >
-                <colgroup>
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-
-                </colgroup>
-                <thead class="thead-light table-thead-wrap-size">
-                <tr>
-                    <th>clctDy</th>
-                    <th>dbId</th>
-                    <th>SqlNameNo</th>
-                    <th>currTotalExec</th>
-                    <th>prevTotalExec</th>
-                    <th>execDiff</th>
-                    <th>currTotalBget</th>
-                    <th>prevTotalBget</th>
-                    <th>bgetDiff</th>
-                    <th>currTotalCpu</th>
-                    <th>prevTotalCpu</th>
-                    <th>cpuDiff</th>
-                    <th>currTotalElap</th>
-                    <th>prevTotalElap</th>
-                    <th>elapDiff</th>
-
-                </tr>
-                </thead>
-
-                <tbody class="table-tbody-wrap-size">
-                <tr>
-                    <td >20190325</td>
-                    <td >1</td>
-                    <td >9208</td>
-                    <td>5279257601</td>
-                    <td>5195790946</td>
-                    <td>83466655</td>
-                    <td>14707825617</td>
-                    <td>12956493147</td>
-                    <td>3934111488</td>
-                    <td>2343237180000</td>
-                    <td>2305795970000</td>
-                    <td>37441210000</td>
-                    <td>12070127577564</td>
-                    <td>11881031062409</td>
-                    <td>189096515155</td>
-
-                </tr>
-                <tr>
-                    <td >20190324</td>
-                    <td >1</td>
-                    <td >9208</td>
-                    <td>5195790946</td>
-                    <td>5107597311</td>
-                    <td>88193635</td>
-                    <td>12956493147</td>
-                    <td>15100441654</td>
-                    <td>2952366207</td>
-                    <td>2305795970000</td>
-                    <td>2265970870000</td>
-                    <td>39825100000</td>
-                    <td>11881031062409</td>
-                    <td>11679484999541</td>
-                    <td>201546062868</td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at null</div>
-
-        <br>
-
-        <table class="table-bordered">
-            <tr>
-                <td width="200">SqlText</td>
-                <td>
-                    <div>
-                        <code>
-                            <pre style="white-space: pre-wrap;word-break: break-all;">
-                                SELECT /*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */    MAIN.*    , NVL((SELECT  /*+ leading(a b) use_nl(a b) */                                case when b.cupn_dsc_mthd_cd = &#39;01&#39; then                                        b.dsc_amt                                    when b.cupn_dsc_mthd_cd = &#39;02&#39; then                                        trunc(MAIN.sel_prc * b.dsc_rt / 100, -1)                                    else 0                                end so_dsc_amt   </pre>
-                        </code>
-
-                    </div>
-                </td>
-            </tr>
-        </table>
     </section>
 
     <!-- Sticky Footer -->
@@ -357,27 +430,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
-    <div class="dim-layer">
-
-        <div class="dimBg"></div>
-        <div id="layer2" class="pop-layer">
-            <div class="pop-container">
-                <div class="pop-conts">
-                    <!--content //-->
-                    <p class="ctxt mb20">Sql Full Text.<br>
-                        구현이 아직 안되었습니다. <br>
-                        popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
-                        jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
-                    </p>
-
-                    <div class="btn-r">
-                        <a href="#" class="dim-btn-layerClose">Close</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </aside>
 
@@ -398,15 +450,158 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
-<script type="text/javascript" >
-    // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        $('#dataTable').dataTable({
-            pageLength: 15,
-            paging: true,
-            searching: false,
-            order:[0, 'desc']
-        });
+
+<!--<script type="text/javascript" >-->
+<!--var v_lavels = ['2019-01-21', '2019-01-22', '2019-01-23', '2019-01-24', '2019-01-25', '2019-01-26'];-->
+<!--var v_maindb_data = [60,58,50,46,43,41];-->
+<!--var v_dpdb_data = [10, 10, 9, 9, 9, 9];-->
+<!--var v_mpdb_data = [15,17,18,25,20,22];-->
+<!--var v_cartdb_data = [15, 15, 23, 20, 28, 28];-->
+
+<script>
+    /*<![CDATA[*/
+
+    var v_lavels = new Array();
+    var v_maindb_data = new Array();
+    var v_dpdb_data = new Array();
+    var v_mpdb_data = new Array();
+    var v_cartdb_data = new Array();
+
+
+
+    v_lavels.push("201904-3W");
+    v_maindb_data.push("83.95");
+    v_dpdb_data.push("0.65");
+    v_mpdb_data.push("12.25");
+    v_cartdb_data.push("3.16");
+
+
+
+    v_lavels.push("201904-2W");
+    v_maindb_data.push("84.47");
+    v_dpdb_data.push("0.64");
+    v_mpdb_data.push("13.57");
+    v_cartdb_data.push("1.31");
+
+
+
+    v_lavels.push("201904-1W");
+    v_maindb_data.push("84.03");
+    v_dpdb_data.push("0.66");
+    v_mpdb_data.push("14.09");
+    v_cartdb_data.push("1.23");
+
+
+
+    v_lavels.push("201903-4W");
+    v_maindb_data.push("83.15");
+    v_dpdb_data.push("1.37");
+    v_mpdb_data.push("14.29");
+    v_cartdb_data.push("1.19");
+
+
+
+    v_lavels.push("201903-3W");
+    v_maindb_data.push("82.58");
+    v_dpdb_data.push("2.39");
+    v_mpdb_data.push("13.91");
+    v_cartdb_data.push("1.11");
+
+
+
+    v_lavels.push("201903-2W");
+    v_maindb_data.push("83.29");
+    v_dpdb_data.push("1.89");
+    v_mpdb_data.push("13.32");
+    v_cartdb_data.push("1.5");
+
+
+
+    v_lavels.push("201903-1W");
+    v_maindb_data.push("81.79");
+    v_dpdb_data.push("2.23");
+    v_mpdb_data.push("14.62");
+    v_cartdb_data.push("1.36");
+
+
+
+
+    /*]]>*/
+    var ctx = document.getElementById("dashboardBarChart");
+    var dashboardBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: v_lavels,
+            datasets: [
+                {
+                    label: "Maindb",
+                    data: v_maindb_data,
+                    fill: false,
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgb(255, 99, 132)",
+                    borderWidth: 1
+                },
+                {
+                    label: "Dpdb",
+                    data: v_dpdb_data,
+                    fill: false,
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "rgb(75, 192, 192)",
+                    borderWidth: 1
+                },
+                {
+                    label: "Mpdb",
+                    data: v_mpdb_data,
+                    fill: false,
+                    backgroundColor: "rgba(255, 159, 64, 0.2)",
+                    borderColor: "rgb(255, 159, 64)",
+                    borderWidth: 1
+                },
+                {
+                    label: "CartDb",
+                    data: v_cartdb_data,
+                    fill: false,
+                    backgroundColor: "rgba(255, 205, 86, 0.2)",
+                    borderColor: "rgb(255, 205, 86)",
+                    borderWidth: 1
+                }
+            ],
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    maxBarThickness: 50,
+                    time: {
+                        unit: 'week'
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'SQL Application Rate(%)'
+                    },
+                    stacked: true,
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        maxTicksLimit: 5
+                    },
+                    gridLines: {
+                        display: true
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            }
+        }
     });
 </script>
 
@@ -417,4 +612,3 @@
 </body>
 
 </html>
-
