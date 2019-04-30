@@ -13,51 +13,50 @@
 
     <div class="card-header d-flex">
     </div>
+
     <div class="card-body">
-        <div class="" style="margin: 1px">
-            <table class="table table-bordered table-sm" id="dataTable" >
-                <colgroup>
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
-                    <col class="col60px">
+        <table class="table table-bordered table-sm" id="dataTable" >
+            <colgroup>
+                <col class="">
+                <col class="">
+                <col class="">
+                <col class="">
+                <col class="">
 
-                    <col class="col60px">
-                    <col class="col130px">
-                    <col class="col130px sqltext-wrap" style="max-width:600px">
-                </colgroup>
-                <thead class="thead-light table-thead-wrap-size">
-                <tr>
-                    <th>WordNo</th>
-                    <th>단어구분명</th>
-                    <th>단어명(기본)</th>
-                    <th>단어명(영문)</th>
-                    <th>약어명(영문)</th>
+                <col class="">
+                <col class="">
+                <col style="width:300px; max-width:600px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+            </colgroup>
+            <thead class="thead-light table-thead-wrap-size">
+            <tr>
+                <th>번호</th>
+                <th>단어구분명</th>
+                <th>단어명(기본)</th>
+                <th>단어명(영문)</th>
+                <th>약어명(영문)</th>
 
-                    <th>주제영역명</th>
-                    <th>사용여부</th>
-                    <th>단어설명</th>
-                </tr>
-                </thead>
+                <th>주제영역명</th>
+                <th>사용여부</th>
+                <th>단어설명</th>
+            </tr>
+            </thead>
 
-                <tbody class="table-tbody-wrap-size">
+            <tbody class="table-tbody-wrap-size">
 
-                <tr th:if="${not #lists.isEmpty(model)}" th:each="statVo : ${model}">
-                    <td th:text="${statVo.wordNo}" ></td>
+            <tr th:if="${not #lists.isEmpty(model)}" th:each="statVo : ${model}">
+                <td th:text="${statVo.wordNo}" ></td>
 
-                    <td th:text="${statVo.WordClfNm}" ></td>
-                    <td th:text="${statVo.basiWordNm}" ></td>
-                    <td th:text="${statVo.engWordNm}" ></td>
-                    <td th:text="${statVo.engAbrvtNm}" ></td>
-                    <td th:text="${statVo.subjAreaNm}" ></td>
-                    <td th:text="${statVo.useYn}" ></td>
-                    <td th:text="${statVo.wordDesc}" ></td>
+                <td th:text="${statVo.WordClfNm}" ></td>
+                <td th:text="${statVo.basiWordNm}" ></td>
+                <td th:text="${statVo.engWordNm}" ></td>
+                <td th:text="${statVo.engAbrvtNm}" ></td>
+                <td th:text="${statVo.subjAreaNm}" ></td>
+                <td th:text="${statVo.useYn}" ></td>
+                <td th:text="${statVo.wordDesc}" ></td>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
@@ -77,12 +76,12 @@
             scrollX:true,
 
             columnDefs: [
-                {width: 80, targets:0},
-                {width: 100, targets:1},
+                {width: 60, targets:0},
+                {width: 120, targets:1},
                 // {width: 80, targets:2},
                 // {width: 80, targets:4},
                 // {width: 80, targets:5},
-                // {width: 80, targets:6},
+                {width: 160, targets:6},
                 {width: 80, targets:7}
             ],
         });
