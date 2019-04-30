@@ -1,6 +1,7 @@
 package com.st11.dbshow.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.repository.DaStdWordDicVO;
 import com.st11.dbshow.repository.DaTableVO;
 import com.st11.dbshow.repository.DbKpiStatVO;
 import com.st11.dbshow.service.ApiService;
@@ -64,5 +65,25 @@ public class SystemController {
                 , inParam);
         model.addAttribute("model", modelCollection);
         return "content/dbDistributionStats2";
+    }
+    @RequestMapping(value = "daStdWordDic", method = RequestMethod.GET)
+    public String daStdWordDic (
+            @RequestParam(value = "word", required = false) String word,
+            Model model) throws URISyntaxException, IOException {
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
+
+        final String apiMethod = "daStdWordDicList";
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(word)) inParam.put("word", word);
+
+        Collection<DaStdWordDicVO> modelCollection = null;
+        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaStdWordDicVO>>() {
+                }
+                , inParam);
+        model.addAttribute("model", modelCollection);
+        return "content/daStdWordDic";
     }
 }
