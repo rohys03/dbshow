@@ -140,6 +140,7 @@
         var v_dpdb_data = new Array();
         var v_mpdb_data = new Array();
         var v_cartdb_data = new Array();
+        var v_prmtdb_data = new Array();
 
         /*[# th:each="statVo : ${model}"]*/
 
@@ -148,6 +149,7 @@
         v_dpdb_data.push("[(${statVo.db2ExecutionRt})]");
         v_mpdb_data.push("[(${statVo.db3ExecutionRt})]");
         v_cartdb_data.push("[(${statVo.db4ExecutionRt})]");
+        v_prmtdb_data.push("[(${statVo.db5ExecutionRt})]");
 
         /*[/]*/
 
@@ -158,6 +160,7 @@
         v_dpdb_data.reverse();
         v_mpdb_data.reverse();
         v_cartdb_data.reverse();
+        v_prmtdb_data.reverse();
 
         var ctx = document.getElementById("dashboardBarChart");
         var dashboardBarChart = new Chart(ctx, {

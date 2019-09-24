@@ -36,6 +36,11 @@
                     <col class="col60px">
                     <col class="col60px">
                     <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
 
                 </colgroup>
                 <thead class="thead-light table-thead-wrap-size">
@@ -45,24 +50,31 @@
                     <th>DPDB<br/>SqlName_Count</th>
                     <th>MPDB<br/>SqlName_Count</th>
                     <th>CartDB<br/>SqlName_Count</th>
+                    <th>PrmtDB<br/>SqlName_Count</th>
 
                     <th>MainDB<br/>Execution(%)</th>
                     <th>DPDB<br/>Execution(%)</th>
                     <th>MPDB<br/>Execution(%)</th>
                     <th>CartDB<br/>Execution(%)</th>
+                    <th>PrmtDB<br/>Execution(%)</th>
+
                     <th>MainDB<br/>BufferGet(%)</th>
                     <th>DPDB<br/>BufferGet(%)</th>
                     <th>MPDB<br/>BufferGet(%)</th>
                     <th>CartDB<br/>BufferGet(%)</th>
+                    <th>PrmtDB<br/>BufferGet(%)</th>
 
                     <th>MainDB<br/>CpuTime(%)</th>
                     <th>DPDB<br/>CpuTime(%)</th>
                     <th>MPDB<br/>CpuTime(%)</th>
                     <th>CartDB<br/>CpuTime(%)</th>
+                    <th>PrmtDB<br/>CpuTime(%)</th>
+
                     <th>MainDB<br/>Elap.Time(%)</th>
                     <th>DPDB<br/>Elap.Time(%)</th>
                     <th>MPDB<br/>Elap.Time(%)</th>
                     <th>CartDB<br/>Elap.Time(%)</th>
+                    <th>PrmtDB<br/>Elap.Time(%)</th>
 
                 </tr>
                 </thead>
@@ -76,22 +88,27 @@
                     <td th:text="${statVo.db2SqlCnt}" ></td>
                     <td th:text="${statVo.db3SqlCnt}" ></td>
                     <td th:text="${statVo.db4SqlCnt}" ></td>
+                    <td th:text="${statVo.db5SqlCnt}" ></td>
                     <td th:text="${statVo.db1ExecutionRt}" ></td>
                     <td th:text="${statVo.db2ExecutionRt}" ></td>
                     <td th:text="${statVo.db3ExecutionRt}" ></td>
                     <td th:text="${statVo.db4ExecutionRt}" ></td>
+                    <td th:text="${statVo.db5ExecutionRt}" ></td>
                     <td th:text="${statVo.db1BufferGetRt}" ></td>
                     <td th:text="${statVo.db2BufferGetRt}" ></td>
                     <td th:text="${statVo.db3BufferGetRt}" ></td>
                     <td th:text="${statVo.db4BufferGetRt}" ></td>
+                    <td th:text="${statVo.db5BufferGetRt}" ></td>
                     <td th:text="${statVo.db1CpuTimeRt}" ></td>
                     <td th:text="${statVo.db2CpuTimeRt}" ></td>
                     <td th:text="${statVo.db3CpuTimeRt}" ></td>
                     <td th:text="${statVo.db4CpuTimeRt}" ></td>
+                    <td th:text="${statVo.db5CpuTimeRt}" ></td>
                     <td th:text="${statVo.db1ElapseTimeRt}" ></td>
                     <td th:text="${statVo.db2ElapseTimeRt}" ></td>
                     <td th:text="${statVo.db3ElapseTimeRt}" ></td>
                     <td th:text="${statVo.db4ElapseTimeRt}" ></td>
+                    <td th:text="${statVo.db5ElapseTimeRt}" ></td>
 
                 </tr>
                 </tbody>
@@ -111,6 +128,7 @@
         var v_dpdb_data = new Array();
         var v_mpdb_data = new Array();
         var v_cartdb_data = new Array();
+        var v_prmtdb_data = new Array();
 
         /*[# th:each="statVo : ${model}"]*/
 
@@ -119,6 +137,7 @@
         v_dpdb_data.push("[(${statVo.db2ExecutionRt})]");
         v_mpdb_data.push("[(${statVo.db3ExecutionRt})]");
         v_cartdb_data.push("[(${statVo.db4ExecutionRt})]");
+        v_prmtdb_data.push("[(${statVo.db5ExecutionRt})]");
 
         /*[/]*/
 
@@ -129,6 +148,7 @@
         v_dpdb_data.reverse();
         v_mpdb_data.reverse();
         v_cartdb_data.reverse();
+        v_prmtdb_data.reverse();
 
         var ctx = document.getElementById("dashboardBarChart");
         var dashboardBarChart = new Chart(ctx, {
@@ -166,6 +186,14 @@
                         fill: false,
                         backgroundColor: "rgba(255, 205, 86, 0.2)",
                         borderColor: "rgb(255, 205, 86)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "PrmtDb",
+                        data: v_cartdb_data,
+                        fill: false,
+                        backgroundColor: "rgba(132, 94, 141, 0.2)",
+                        borderColor: "rgb(132, 94, 141)",
                         borderWidth: 1
                     }
                 ],
