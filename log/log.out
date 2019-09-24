@@ -1,0 +1,166 @@
+Unable to locate an executable at "/usr/bin/java/bin/java" (-1)
+Unable to locate an executable at "/usr/bin/bin/java" (-1)
+Unable to locate an executable at "/usr/bin/bin/java" (-1)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+20190917 10:22:04.988 [main] INFO c.s.d.DbshowApplication - Starting DbshowApplication on SKP1003167IM001.local with PID 18508 (/Users/1003167/dev/IdeaProjects/dbshow/build/libs/dbshow-0.0.1-SNAPSHOT.jar started by 1003167 in /Users/1003167/dev/IdeaProjects/dbshow/sh) 
+20190917 10:22:05.004 [main] INFO c.s.d.DbshowApplication - The following profiles are active: stage 
+20190917 10:22:07.068 [main] WARN o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.st11.dbshow]' package. Please check your configuration. 
+20190917 10:22:08.370 [main] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http) 
+20190917 10:22:08.441 [main] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"] 
+20190917 10:22:08.457 [main] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+20190917 10:22:08.457 [main] INFO o.a.c.c.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.13 
+20190917 10:22:08.487 [main] INFO o.a.c.c.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/1003167/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.] 
+20190917 10:22:08.737 [main] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+20190917 10:22:08.737 [main] INFO o.s.w.c.ContextLoader - Root WebApplicationContext: initialization completed in 2723 ms 
+20190917 10:22:09.163 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+20190917 10:22:09.608 [main] INFO o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index 
+20190917 10:22:09.615 [main] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class 
+20190917 10:22:09.615 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor' 
+20190917 10:22:09.617 [main] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+20190917 10:22:09.731 [main] INFO o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled. 
+20190917 10:22:09.732 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+ 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+20190917 10:52:33.671 [main] INFO c.s.d.DbshowApplication - Starting DbshowApplication on SKP1003167IM001.local with PID 18829 (/Users/1003167/dev/IdeaProjects/dbshow/build/libs/dbshow-0.0.1-SNAPSHOT.jar started by 1003167 in /Users/1003167/dev/IdeaProjects/dbshow/sh) 
+20190917 10:52:33.673 [main] INFO c.s.d.DbshowApplication - The following profiles are active: stage 
+20190917 10:52:34.504 [main] WARN o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.st11.dbshow]' package. Please check your configuration. 
+20190917 10:52:35.129 [main] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http) 
+20190917 10:52:35.144 [main] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"] 
+20190917 10:52:35.154 [main] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+20190917 10:52:35.155 [main] INFO o.a.c.c.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.13 
+20190917 10:52:35.168 [main] INFO o.a.c.c.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/1003167/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.] 
+20190917 10:52:35.293 [main] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+20190917 10:52:35.293 [main] INFO o.s.w.c.ContextLoader - Root WebApplicationContext: initialization completed in 1373 ms 
+20190917 10:52:35.536 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+20190917 10:52:35.866 [main] INFO o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index 
+20190917 10:52:35.872 [main] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class 
+20190917 10:52:35.872 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor' 
+20190917 10:52:35.875 [main] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+20190917 10:52:35.883 [main] INFO o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled. 
+20190917 10:52:35.884 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+ 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+20190917 10:54:18.291 [main] INFO c.s.d.DbshowApplication - Starting DbshowApplication on SKP1003167IM001.local with PID 19011 (/Users/1003167/dev/IdeaProjects/dbshow/build/libs/dbshow-0.0.1-SNAPSHOT.jar started by 1003167 in /Users/1003167/dev/IdeaProjects/dbshow/sh) 
+20190917 10:54:18.294 [main] INFO c.s.d.DbshowApplication - The following profiles are active: stage 
+20190917 10:54:18.868 [main] WARN o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.st11.dbshow]' package. Please check your configuration. 
+20190917 10:54:19.360 [main] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http) 
+20190917 10:54:19.374 [main] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"] 
+20190917 10:54:19.384 [main] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+20190917 10:54:19.384 [main] INFO o.a.c.c.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.13 
+20190917 10:54:19.399 [main] INFO o.a.c.c.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/1003167/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.] 
+20190917 10:54:19.486 [main] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+20190917 10:54:19.486 [main] INFO o.s.w.c.ContextLoader - Root WebApplicationContext: initialization completed in 1020 ms 
+20190917 10:54:19.749 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+20190917 10:54:20.047 [main] INFO o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index 
+20190917 10:54:20.053 [main] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class 
+20190917 10:54:20.053 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor' 
+20190917 10:54:20.056 [main] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+20190917 10:54:20.065 [main] INFO o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled. 
+20190917 10:54:20.066 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+ 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.1.RELEASE)
+
+20190917 11:11:13.554 [main] INFO c.s.d.DbshowApplication - Starting DbshowApplication on SKP1003167IM001.local with PID 19232 (/Users/1003167/dev/IdeaProjects/dbshow/build/libs/dbshow-0.0.1-SNAPSHOT.jar started by 1003167 in /Users/1003167/dev/IdeaProjects/dbshow/sh) 
+20190917 11:11:13.558 [main] INFO c.s.d.DbshowApplication - The following profiles are active: stage 
+20190917 11:11:14.732 [main] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http) 
+20190917 11:11:14.747 [main] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"] 
+20190917 11:11:14.759 [main] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+20190917 11:11:14.759 [main] INFO o.a.c.c.StandardEngine - Starting Servlet Engine: Apache Tomcat/9.0.13 
+20190917 11:11:14.778 [main] INFO o.a.c.c.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/1003167/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.] 
+20190917 11:11:15.074 [main] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+20190917 11:11:15.074 [main] INFO o.s.w.c.ContextLoader - Root WebApplicationContext: initialization completed in 1288 ms 
+20190917 11:11:15.281 [main] INFO o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+20190917 11:11:15.600 [main] INFO o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index 
+20190917 11:11:15.661 [main] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"] 
+20190917 11:11:15.678 [main] INFO o.a.t.u.n.NioSelectorPool - Using a shared selector for servlet write/read 
+20190917 11:11:15.693 [main] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path '' 
+20190917 11:11:15.696 [main] INFO c.s.d.DbshowApplication - Started DbshowApplication in 2.767 seconds (JVM running for 3.358) 
+============ DB Show Start ============

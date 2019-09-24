@@ -20,14 +20,6 @@ spring:
     # prefix: /templates/
     # suffix: .html
 
-
-#tomcat:
-#  ajp:
-#    protocol: AJP/1.3
-#    port: 18009
-#    enabled: true
-
-
 server:
   port: 8081
 
