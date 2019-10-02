@@ -3,11 +3,8 @@ package com.st11.dbshow.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.st11.dbshow.repository.DaStatMngVO;
-import com.st11.dbshow.repository.SqlNameMappVO;
-import com.st11.dbshow.repository.SqlNameVO;
+import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
-import com.st11.dbshow.repository.SqlAreaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -144,7 +141,6 @@ public class SqasController {
                     , inParam);
         }
 
-
         model.addAttribute("defaultDate", "20190315");
         model.addAttribute("model", modelCollection);
         return "content/sqlNameList";
@@ -181,5 +177,6 @@ public class SqasController {
         model.addAttribute("model", daStatMngVO);
         return "content/daTopSql";
     }
+
 
 }

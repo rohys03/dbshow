@@ -17,8 +17,9 @@
             <div class="input-group">
                 <div class="col-auto input-group">
                     <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                    <div><input type="text" name="clcyDy1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="YYYYMMDD"></div>
-                    <div><input type="text" name="clctDy2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="YYYYMMDD"></div>
+                    <div><label for="dbId">DB ID</label><input type="text" id="dbId" name="dbId" class="form-control" th:value="${dbId}" placeholder="1"></div>
+                    <div><label for="clctDy1">수집일자1</label><input type="text" id="clctDy1" name="clctDy1" class="form-control" th:value="${param.clctDy1}" placeholder="YYYYMMDD"></div>
+                    <div><label for="clctDy2">수집일자2</label><input type="text" id="clctDy2" name="clctDy2" class="form-control" th:value="${param.clctDy2}" placeholder="YYYYMMDD"></div>
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
@@ -40,6 +41,9 @@
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
+
+                <col class="col60px">   <!-- 순위변동 -->
+
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
@@ -49,14 +53,17 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>Rank</th>
+                <th>일자1.Rank</th>
                 <th>Sql ID</th>
                 <th>SQL Name</th>
+
                 <th>Exec</th>
                 <th>Bget</th>
                 <th>Cpu</th>
                 <th>Elap</th>
-                <th>Rank</th>
+
+                <th>순위변동</th>
+                <th>일자2.Rank</th>
                 <th>Exec</th>
                 <th>Bget</th>
                 <th>Cpu</th>
@@ -67,22 +74,22 @@
 
             <tbody class="table-tbody-wrap-size">
             <tr th:if="${not #lists.isEmpty(model)}" th:each="sqlVo : ${model}">
-                <td th:text="${sqlVo.clctDy}" ></td>
-                <td th:text="${sqlVo.dbId}" ></td>
-                <td th:text="${sqlVo.sqlNameNo}" ></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                <td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+                <td th:text="${sqlVo.rank}" ></td>
+                <td th:text="${sqlVo.sqlId}" ></td>
+                <td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
 
-                <td th:text="${sqlVo.repSqlId}"></td>
-                <td th:text="${sqlVo.parsingSchemaName}"></td>
-                <td th:text="${sqlVo.module}"></td>
-                <td th:text="${sqlVo.LastActiveTime}"></td>
+                <td th:text="${sqlVo.executions}"></td>
+                <td th:text="${sqlVo.bufferGets}"></td>
+                <td th:text="${sqlVo.cpuTime}"></td>
+                <td th:text="${sqlVo.elapsedTime}"></td>
 
-                <td th:text="${sqlVo.currTotalExec}"></td>
-                <td th:text="${sqlVo.prevTotalExec}"></td>
-                <td th:text="${sqlVo.execDiff}"></td>
-                <td th:text="${sqlVo.currTotalBget}"></td>
+                <td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${sqlVo.rank - sqlVo.rank2}" th:styleappend="'background-color: ' + ${T(com.st11.dbshow.common.DbShow).getRankColor(sqlVo.rank, sqlVo.rank2)} + ';'">0</td>
+
+                <td th:text="${sqlVo.rank2}"></td>
+                <td th:text="${sqlVo.executions2}"></td>
+                <td th:text="${sqlVo.bufferGets2}"></td>
+                <td th:text="${sqlVo.cpuTime2}"></td>
+                <td th:text="${sqlVo.elapsedTime2}"></td>
 
             </tr>
             </tbody>
@@ -119,9 +126,9 @@
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
         $('#dataTable').dataTable({
-            // pageLength: 25,
-            paging: false,
-            searching: true,
+            pageLength: 50,
+            paging: true,
+            searching: false,
             scrollX:true
         });
     });

@@ -2,11 +2,8 @@ package com.st11.dbshow.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.st11.dbshow.repository.DaStatMngVO;
-import com.st11.dbshow.repository.SqlNameMappVO;
-import com.st11.dbshow.repository.SqlNameVO;
+import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
-import com.st11.dbshow.repository.SqlAreaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,27 +25,34 @@ public class TopSqlController {
 
     @RequestMapping(value = {"topSqlDayList"})
     public String topSqlDayList(
-            @RequestParam(value = "clcyDy1", required = false) final String clcyDy1,
-            @RequestParam(value = "clcyDy2", required = false) final String clcyDy2,
+            @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
+            @RequestParam(value = "clctDy1", required = false, defaultValue = "99991231") final String clctDy1,
+            @RequestParam(value = "clctDy2", required = false, defaultValue = "99991231") final String clctDy2,
             @RequestParam(value = "orderString", required = false) final String orderString,
             Model model) throws IOException, URISyntaxException {
         final String apiMethod = "topSqlDayList";
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(clcyDy1)) inParam.put("clcyDy1", clcyDy1.toUpperCase());
-        if (!isNullOrEmpty(clcyDy2)) inParam.put("clcyDy2", clcyDy2.toUpperCase());
-        if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
+        if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
+        if (!isNullOrEmpty(clctDy1)) inParam.put("clctDy1", clctDy1.toUpperCase());
+        if (!isNullOrEmpty(clctDy2)) {
+            inParam.put("clctDy2", clctDy2.toUpperCase());
+        } else {
+            inParam.put("clctDy2", clctDy1.toUpperCase());
+        }
+//        if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
 
-        Collection<SqlAreaVO> modelCollection = null;
+        Collection<SqlAreaDiffVO> modelCollection = null;
 
         if (!inParam.isEmpty()) {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaDiffVO>>() {
                     }
                     , inParam);
         }
 
         model.addAttribute("defaultDate", "20190315");
+        model.addAttribute("dbId", dbId);
         model.addAttribute("model", modelCollection);
         return "content/topSqlDayList";
     }

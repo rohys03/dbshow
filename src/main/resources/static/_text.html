@@ -1,82 +1,495 @@
+
+
+<!DOCTYPE html>
 <html lang="ko">
+
 <head>
+    <title>11st DB Show - topSql Day List</title>
     <meta charset="utf-8">
-    <title>CSS</title>
-    <style>
-        .a {
-            border: 1px solid #444444;
-            width: 500px;
-        }
-        .b {
-            border: 1px solid #444444;
-            background-color: #444444;
-            margin: 100px 0px;
-        }
-        h1 {
-            text-align: center;
-            color: #ffffff;
-        }
-    </style>
-
-        <title>11st DB Show - DA Data Sync Info</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
 
-        <!-- Bootstrap core CSS-->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom fonts for this template-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-        <!-- Page level plugin CSS-->
-        <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-        <!-- Custom styles for this template-->
-        <link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
 
 
-        <!-- dbshow Custom styles for this template-->
-        <link href="css/dbshow.css" rel="stylesheet">
+    <!-- dbshow Custom styles for this template-->
+    <link href="css/dbshow.css" rel="stylesheet">
 
 </head>
-<body>
-<div class="a">
-    <div class="b">
-        <h1>Lorem Ipsum Dolor</h1>
-    </div>
-</div>
+
+<body id="page-top">
+
+<header class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <nav class="navbar-light">
+        <a class="navbar-brand mr-1" href="/index" style="color:rgb(255, 102, 102); font-size: 1.5rem;">
+            <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
+            DB Show
+        </a>
+    </nav>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+    </button>
+
+
+    <!-- Navbar Search -->
+    <!--
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    -->
+
+    <ul class="navbar-nav ml-auto">
+        <li>
+            <span class="mr-2 d-none d-lg-inline text-white-50">노영삼 님 안녕하세요.</span>
+        </li>
+    </ul>
+</header>
+
+<section id="wrapper">
+
+    <!-- Sidebar -->
+
+    <ol class="sidebar navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="objectDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>운영 정보 조회</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="objectDropDown" >
+                <h6 class="dropdown-header">System 정보;</h6>
+                <a class="dropdown-item" href=/dashboard>Dashboard.</a>
+                <a class="dropdown-item" href=/referencedObject>참조 Object.</a>
+                <a class="dropdown-item" href=/daSyncData>Data Sync(Ogg &)</a>
+                <a class="dropdown-item" href=""/>#mySession.</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="sqlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>SQL 정보</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="sqlDropdown">
+                <h6 class="dropdown-header">SQL 정보:</h6>
+                <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
+                <a class="dropdown-item" href="/sqlNameList">SQL 검색.(by SqlName)</a>
+                <!--<a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>-->
+                <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Top Sql</h6>
+                <a class="dropdown-item" href=/topSqlDayList>Top SQL(Day)</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>운영 기능</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="opDropdown">
+                <h6 class="dropdown-header">운영 업무.</h6>
+                <a class="dropdown-item active" href=#>#DB Jobs.</a>
+                <a class="dropdown-item" href=#>#Object별 권한.</a>
+                <a class="dropdown-item" href=#>#Plan Management.</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="sqlAreaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>DB 분산</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="sqlAreaDropdown">
+                <h6 class="dropdown-header">지표 관리.</h6>
+                <a class="dropdown-item " href="/dbDistributionStats">DB 분산 Kpi(Week).</a>
+                <a class="dropdown-item " href="/dbDistributionStats2">DB 분산 Kpi(Day).</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">논리 정의</h6>
+                <a class="dropdown-item " href="/daTables">Table 조회.</a>
+                <a class="dropdown-item" href="/logicalArea"/>논리 데이터 영역</a>
+                <a class="dropdown-item" href="#"/>#논리 영역 SQL 조회</a>
+                <a class="dropdown-item" href="#"/>#SQL별 참조 Object.</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">물리 영역 정보</h6>
+                <a class="dropdown-item" href="#"/>#물리 영역 SQL 조회</a>
+                <a class="dropdown-item" href="#"/>#뭐.?.</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="testMenuDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Test</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="testMenuDropDown" >
+                <h6 class="dropdown-header">Other Pages:</h6>
+                <a class="dropdown-item" href="/daStdWordDic">행정표준단어(참고용)</a>
+                <a class="dropdown-item" href="404.html">#404 Page</a>
+                <a class="dropdown-item" href="blank.html">#Blank Page</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+    </ol>
+
+
+    <section id="content-wrapper">
+        <!-- Breadcrumbs-->
+
+        <!--<ol class="breadcrumb" >-->
+        <!--<li class="breadcrumb-item">-->
+        <!--<a href="#">Dashboard</a>-->
+        <!--</li>-->
+        <!--<li class="breadcrumb-item active">Overview</li>-->
+        <!--</ol>-->
+        <!--<ul class="breadcrumb">-->
+        <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
+        <!--</ul>-->
 
 
 
 
-<div class="card-header d-flex justify-content-between">
-    <div class="p-1">
-        <form class="d-none d-md-inline-block form-inline " action="/daSyncData">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <input type="text" name="tableName" class="form-control" value="" placeholder="Table Name (equal)">
-                </div>
-                <div class="" style="align-self:center">
-                    <div class="col-auto" >
-                        OR
+        <div class="card-header d-flex">
+            <div class="p-1">
+                <form id="submit" class="d-none d-md-inline-block form-inline form-row" action="/topSqlDayList">
+                    <div class="input-group" style="margin: 3px;">
+                        <div class="col-auto input-group">
+                            <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
+                            <div><label for="dbId">DB ID</label> <input type="text" id="dbId" name="dbId" class="form-control" value="1" placeholder="1"></div>
+                            <div><label for="clctDy1">수집일자1.</label> <input type="text" id="clctDy1" name="clctDy1" class="form-control" value="20190930" placeholder="YYYYMMDD"></div>
+                            <div><label for="clctDy2">수집일자2.</label> <input type="text" id="clctDy2" name="clctDy2" class="form-control" value="20190915" placeholder="YYYYMMDD"></div>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-sm" id="dataTable" >
+                <colgroup>
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="sqltext-wrap" style="max-width:600px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+
+                    <col class="col60px" style="min-width: 100px">   <!-- 순위변동 -->
+
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+
+                </colgroup>
+                <thead class="thead-light table-thead-wrap-size">
+                <tr>
+                    <th>일자1.Rank</th>
+                    <th>Sql ID</th>
+                    <th>SQL Name</th>
+
+                    <th>Exec</th>
+                    <th>Bget</th>
+                    <th>Cpu</th>
+                    <th>Elap</th>
+
+                    <th>순위변동</th>
+                    <th>일자2.Rank</th>
+                    <th>Exec</th>
+                    <th>Bget</th>
+                    <th>Cpu</th>
+                    <th>Elap</th>
+
+                </tr>
+                </thead>
+
+                <tbody class="table-tbody-wrap-size">
+                <tr>
+                    <td >1</td>
+                    <td >gmr2bwusrk2qd</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=30779">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE , A.FEE_APL_UNIT_CD AS FEE_APL_UNIT_CD FROM SE_FE</a></td>
+
+                    <td>281739456</td>
+                    <td>341062690</td>
+                    <td>5451017979</td>
+                    <td>9977980941</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >2</td>
+                    <td >ghx22cnfk0u62</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13875">SELECT FEE_RATE FROM PD_FEE_EVENT WHERE APL_BGN_DY &lt;= SYSDATE AND APL_END_DY &gt;= SYSDATE AND FEE_RATE</a></td>
+
+                    <td>164290552</td>
+                    <td>495287198</td>
+                    <td>3025607271</td>
+                    <td>5430057007</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >3</td>
+                    <td >gtrrrwbzgv9gz</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13127">SELECT /*+ index_desc(A IX1_MB_FEE_HIST) */ COUNT(*) AS FEE_AGREE_CNT , NVL(MAX(FEE_UPDATE_YN),&#39;N&#39;)</a></td>
+
+                    <td>164286567</td>
+                    <td>492637163</td>
+                    <td>3595286481</td>
+                    <td>6485863622</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >4</td>
+                    <td >9t4n3t9g1bphp</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=12607">SELECT /*+ INDEX(A IX1_SE_FEE_FREE_MEM) */ COUNT(0) AS CNT FROM SE_FEE_FREE_MEM A WHERE MEM_NO = :B1</a></td>
+
+                    <td>164274373</td>
+                    <td>164316266</td>
+                    <td>1928021938</td>
+                    <td>3478074953</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >5</td>
+                    <td >39uusmh84cdpg</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13093">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE , A.FEE_APL_UNIT_CD AS FEE_APL_UNIT_CD , CASE WHE</a></td>
+
+                    <td>164141806</td>
+                    <td>714120844</td>
+                    <td>3721418486</td>
+                    <td>7003941018</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >6</td>
+                    <td >g6jtq7j5b0q6u</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13916">SELECT HGRNK_CTGR_NO FROM DP_DISP_CTGR WHERE DISP_CTGR_NO = :B1</a></td>
+
+                    <td>164033822</td>
+                    <td>495227966</td>
+                    <td>1929093558</td>
+                    <td>3467201112</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >7</td>
+                    <td >327kw1aj0yppg</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13095">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE FROM SE_FEE_ITM A WHERE FEE_KD_CD = :B5 AND FEE_T</a></td>
+
+                    <td>145835276</td>
+                    <td>601910162</td>
+                    <td>2218771023</td>
+                    <td>3982646944</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >8</td>
+                    <td >8bjz3kvuxsffg</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=3500">/* escrow - product - isShockKingDealPrd */</a></td>
+
+                    <td>144727061</td>
+                    <td>450605354</td>
+                    <td>3336232547</td>
+                    <td>6106570901</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td >9</td>
+                    <td >aswrg55k81448</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=6020">/* product.getShockingDealPrd 최영백 2013.12.22 */</a></td>
+
+                    <td>127098653</td>
+                    <td>450217348</td>
+                    <td>3887008590</td>
+                    <td>6891759089</td>
+
+                    <td style="background-color: WHITE;">NEW!</td>
+
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer small text-muted">[content/sqlTopList.html] Updated at null</div>
+
+
+        <div class="card-footer small text-muted">
+            <ul class="row" style="list-style: none;">
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>clctDy1 : 20190930</li> <li>clctDy2 : 20190915</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © 11st DBshow 2019</span>
+            </div>
+        </div>
+    </footer>
+</section>
+
+<!-- Scroll to Top Button-->
+<aside >
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <div class="dim-layer">
+
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <!--content //-->
+                    <p class="ctxt mb20">Sql Full Text.<br>
+                        구현이 아직 안되었습니다. <br>
+                        popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
+                        jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
+                    </p>
+
+                    <div class="btn-r">
+                        <a href="#" class="dim-btn-layerClose">Close</a>
                     </div>
                 </div>
-                <div class="col-auto input-group">
-                    <!--<input type="text" name="name" class="form-control" th:value="${inParams.name}" placeholder="Table Name..">-->
-                    <input type="text" name="hostName" class="form-control" value="" placeholder="HostName (like)">
-                </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
             </div>
-        </form>
+        </div>
     </div>
-    <div class="text-muted p-1" style="align-self:center">OGG 동기화 현황 최종 수집 일자: 2019-04-08 16:21:45</div>
-</div>
-</div>
+
+</aside>
+
+
+<!-- Bootstrap core JavaScript-->
+<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script type="text/javascript" src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Page level plugin JavaScript-->
+<script type="text/javascript" src="vendor/chart.js/Chart.min.js"></script>
+<script type="text/javascript" src="vendor/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script type="text/javascript" src="js/sb-admin.min.js"></script>
+
+
+<script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            pageLength: 50,
+            paging: true,
+            searching: false,
+            scrollX:true
+        });
+    });
+</script>
+
+
+<!-- db Show script -->
+<script type="text/javascript" src="js/dbshow.js"></script>
+
+</body>
+
+</html>
+
