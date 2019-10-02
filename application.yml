@@ -68,12 +68,12 @@ spring:
   profiles: stage
 
   api:
-    baseUrl: http://172.28.114.66:8082/api
+    baseUrl: http://172.28.113.125:8082/api
 
 ---
 spring:
   profiles: product
 
   api:
-    baseUrl: http://172.28.113.125:8082/api
+    baseUrl: http://172.28.37.197:8082/api
 
