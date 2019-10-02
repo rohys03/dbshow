@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -172,13 +171,13 @@
 
         <div class="card-header d-flex">
             <div class="p-1">
-                <form id="submit" class="d-none d-md-inline-block form-inline form-row" action="/topSqlDayList">
-                    <div class="input-group" style="margin: 3px;">
+                <form class="d-none d-md-inline-block form-inline form-row" action="/topSqlDayList">
+                    <div class="input-group">
                         <div class="col-auto input-group">
                             <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                            <div><label for="dbId">DB ID</label> <input type="text" id="dbId" name="dbId" class="form-control" value="1" placeholder="1"></div>
-                            <div><label for="clctDy1">수집일자1.</label> <input type="text" id="clctDy1" name="clctDy1" class="form-control" value="20190930" placeholder="YYYYMMDD"></div>
-                            <div><label for="clctDy2">수집일자2.</label> <input type="text" id="clctDy2" name="clctDy2" class="form-control" value="20190915" placeholder="YYYYMMDD"></div>
+                            <div><label for="dbId">DB ID</label><input type="text" id="dbId" name="dbId" class="form-control" value="1" placeholder="1"></div>
+                            <div><label for="clctDy1">수집일자1</label><input type="text" id="clctDy1" name="clctDy1" class="form-control" value="20190930" placeholder="YYYYMMDD"></div>
+                            <div><label for="clctDy2">수집일자2</label><input type="text" id="clctDy2" name="clctDy2" class="form-control" value="20190924" placeholder="YYYYMMDD"></div>
                         </div>
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
@@ -201,7 +200,7 @@
                     <col class="col60px">
                     <col class="col60px">
 
-                    <col class="col60px" style="min-width: 100px">   <!-- 순위변동 -->
+                    <col class="col60px">   <!-- 순위변동 -->
 
                     <col class="col60px">
                     <col class="col60px">
@@ -242,13 +241,13 @@
                     <td>5451017979</td>
                     <td>9977980941</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: WHITE;">0 &#8657;</td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>1</td>
+                    <td>303965845</td>
+                    <td>1313213753</td>
+                    <td>6314815744</td>
+                    <td>12598226783</td>
 
                 </tr>
                 <tr>
@@ -261,13 +260,13 @@
                     <td>3025607271</td>
                     <td>5430057007</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: #F5B7B1;">&#8593; 3</td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>5</td>
+                    <td>175450909</td>
+                    <td>529355879</td>
+                    <td>3454650432</td>
+                    <td>6698140208</td>
 
                 </tr>
                 <tr>
@@ -280,13 +279,13 @@
                     <td>3595286481</td>
                     <td>6485863622</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: #F5B7B1;"><span>&#8595; -5</span> </td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>8</td>
+                    <td>175136370</td>
+                    <td>525164135</td>
+                    <td>4153288527</td>
+                    <td>8120841560</td>
 
                 </tr>
                 <tr>
@@ -299,13 +298,13 @@
                     <td>1928021938</td>
                     <td>3478074953</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: #F5B7B1;">2</td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>6</td>
+                    <td>175425822</td>
+                    <td>175448930</td>
+                    <td>2192493340</td>
+                    <td>4306281273</td>
 
                 </tr>
                 <tr>
@@ -318,13 +317,13 @@
                     <td>3721418486</td>
                     <td>7003941018</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: #F5B7B1;">4</td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>9</td>
+                    <td>174915420</td>
+                    <td>765620705</td>
+                    <td>4321594601</td>
+                    <td>8937832191</td>
 
                 </tr>
                 <tr>
@@ -337,70 +336,13 @@
                     <td>1929093558</td>
                     <td>3467201112</td>
 
-                    <td style="background-color: WHITE;">NEW!</td>
+                    <td style="background-color: #F5B7B1;">1</td>
 
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-
-                </tr>
-                <tr>
-                    <td >7</td>
-                    <td >327kw1aj0yppg</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13095">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE FROM SE_FEE_ITM A WHERE FEE_KD_CD = :B5 AND FEE_T</a></td>
-
-                    <td>145835276</td>
-                    <td>601910162</td>
-                    <td>2218771023</td>
-                    <td>3982646944</td>
-
-                    <td style="background-color: WHITE;">NEW!</td>
-
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-
-                </tr>
-                <tr>
-                    <td >8</td>
-                    <td >8bjz3kvuxsffg</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=3500">/* escrow - product - isShockKingDealPrd */</a></td>
-
-                    <td>144727061</td>
-                    <td>450605354</td>
-                    <td>3336232547</td>
-                    <td>6106570901</td>
-
-                    <td style="background-color: WHITE;">NEW!</td>
-
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-
-                </tr>
-                <tr>
-                    <td >9</td>
-                    <td >aswrg55k81448</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=6020">/* product.getShockingDealPrd 최영백 2013.12.22 */</a></td>
-
-                    <td>127098653</td>
-                    <td>450217348</td>
-                    <td>3887008590</td>
-                    <td>6891759089</td>
-
-                    <td style="background-color: WHITE;">NEW!</td>
-
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>7</td>
+                    <td>175208985</td>
+                    <td>529198668</td>
+                    <td>2230785340</td>
+                    <td>4342300373</td>
 
                 </tr>
                 </tbody>
@@ -411,7 +353,7 @@
 
         <div class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>dbId : 1</li> <li>clctDy1 : 20190930</li> <li>clctDy2 : 20190915</li>
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>clctDy1 : 20190930</li> <li>clctDy2 : 20190924</li>
             </ul>
         </div>
     </section>

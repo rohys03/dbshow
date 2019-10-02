@@ -83,7 +83,15 @@
                 <td th:text="${sqlVo.cpuTime}"></td>
                 <td th:text="${sqlVo.elapsedTime}"></td>
 
-                <td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${sqlVo.rank2 - sqlVo.rank}" th:styleappend="'background-color: ' + ${T(com.st11.dbshow.common.DbShow).getRankColor(sqlVo.rank2, sqlVo.rank)} + ';'">0</td>
+
+                <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                <td th:with="Diff=${sqlVo.rank2 - sqlVo.rank}"
+                    th:styleappend="'background-color: ' + ${T(com.st11.dbshow.common.DbShow).getRankColor(sqlVo.rank2, sqlVo.rank)} + ';'">
+                    <span th:if="${sqlVo.rank2 == 0}" th:text="NEW!">-</span>
+                    <span th:if="${Diff > 0}" th:text="'&#8593;' + ${Diff}">-</span>
+                    <span th:if="${Diff < 0}" th:text="'&#8595;' + ${Diff}">-</span>
+                    <span th:if="${Diff == 0}" th:text="'&#8594;' + ${Diff}">-</span>
+                </td>
 
                 <td th:text="${sqlVo.rank2}"></td>
                 <td th:text="${sqlVo.executions2}"></td>
