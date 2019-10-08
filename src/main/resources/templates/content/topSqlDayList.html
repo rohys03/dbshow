@@ -11,24 +11,31 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex">
-        <div class="p-1">
-        <form class="d-none d-md-inline-block form-inline form-row" action="/topSqlDayList">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                    <div><label for="dbId">DB ID</label><input type="text" id="dbId" name="dbId" class="form-control" th:value="${dbId}" placeholder="1"></div>
-                    <div><label for="clctDy1">수집일자1</label><input type="text" id="clctDy1" name="clctDy1" class="form-control" th:value="${param.clctDy1}" placeholder="YYYYMMDD"></div>
-                    <div><label for="clctDy2">수집일자2</label><input type="text" id="clctDy2" name="clctDy2" class="form-control" th:value="${param.clctDy2}" placeholder="YYYYMMDD"></div>
+    <div class="card-header">
+        <form class="" action="/topSqlDayList">
+            <div class="form-group">
+                <div class="form-inline">
+                    <label for="dbId" class="mb-2 mr-sm-2">DB ID</label>
+                    <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2">
+                        <option value="1" selected="selected">TMALL</option>
+                        <option value="2">BIDB</option>
+                        <option value="4">DPDB</option>
+                        <option value="5">MPDB</option>
+                        <option value="6">CARTDB</option>
+                        <option value="13">PRMTDB</option>
+                    </select>
+                    <label for="orderString" class="mb-2 mr-sm-2">정렬조건</label><input type="text" id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" th:value="${param.orderString}" placeholder="EXEC_DIFF">
+                    <label class="form-check-label mb-2 mr-sm-2">
+                        <input class="form-check-input" type="checkbox" name="ascending" value="ASC"> 오름차순
+                    </label>
                 </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <div class="form-inline align-bottom">
+                    <label for="clctDy1" class="mb-2 mr-sm-2">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2" th:value="${param.clctDy1}"  placeholder="YYYYMMDD">
+                    <label for="clctDy2" class="mb-2 mr-sm-2">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" th:value="${param.clctDy2}"  placeholder="YYYYMMDD">
+                    <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
             </div>
         </form>
-        </div>
     </div>
 
     <div class="card-body">
@@ -53,7 +60,7 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>일자1.Rank</th>
+                <th>기준일자 Rank</th>
                 <th>Sql ID</th>
                 <th>SQL Name</th>
 
@@ -63,7 +70,7 @@
                 <th>Elap</th>
 
                 <th>순위변동</th>
-                <th>일자2.Rank</th>
+                <th>비교대상 Rank</th>
                 <th>Exec</th>
                 <th>Bget</th>
                 <th>Cpu</th>
@@ -87,10 +94,10 @@
                 <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
                 <td th:with="Diff=${sqlVo.rank2 - sqlVo.rank}"
                     th:styleappend="'background-color: ' + ${T(com.st11.dbshow.common.DbShow).getRankColor(sqlVo.rank2, sqlVo.rank)} + ';'">
-                    <span th:if="${sqlVo.rank2 == 0}" th:text="NEW!">-</span>
-                    <span th:if="${Diff > 0}" th:text="'&#8593;' + ${Diff}">-</span>
-                    <span th:if="${Diff < 0}" th:text="'&#8595;' + ${Diff}">-</span>
-                    <span th:if="${Diff == 0}" th:text="'&#8594;' + ${Diff}">-</span>
+                    <span th:if="${sqlVo.rank2 == 0}" th:text="'NEW!'">-</span>
+                    <span th:if="${sqlVo.rank2 != 0 and Diff > 0}" th:text="'&#8593;' + ${Diff}">-</span>
+                    <span th:if="${sqlVo.rank2 != 0 and Diff < 0}" th:text="'&#8595;' + ${Diff}">-</span>
+                    <span th:if="${sqlVo.rank2 != 0 and Diff == 0}" th:text="'&#8594;' + ${Diff}">-</span>
                 </td>
 
                 <td th:text="${sqlVo.rank2}"></td>

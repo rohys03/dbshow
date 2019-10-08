@@ -169,24 +169,31 @@
 
 
 
-        <div class="card-header d-flex">
-            <div class="p-1">
-                <form class="d-none d-md-inline-block form-inline form-row" action="/topSqlDayList">
-                    <div class="input-group">
-                        <div class="col-auto input-group">
-                            <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                            <div><label for="dbId">DB ID</label><input type="text" id="dbId" name="dbId" class="form-control" value="1" placeholder="1"></div>
-                            <div><label for="clctDy1">수집일자1</label><input type="text" id="clctDy1" name="clctDy1" class="form-control" value="20190930" placeholder="YYYYMMDD"></div>
-                            <div><label for="clctDy2">수집일자2</label><input type="text" id="clctDy2" name="clctDy2" class="form-control" value="20190924" placeholder="YYYYMMDD"></div>
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+        <div class="card-header">
+            <form class="" action="/topSqlDayList">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label for="dbId" class="mb-2 mr-sm-2">DB ID</label>
+                        <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2">
+                            <option value="1" selected="selected">TMALL</option>
+                            <option value="2">BIDB</option>
+                            <option value="4">DPDB</option>
+                            <option value="5">MPDB</option>
+                            <option value="6">CARTDB</option>
+                            <option value="13">PRMTDB</option>
+                        </select>
+                        <label for="orderString" class="mb-2 mr-sm-2">정렬조건</label><input type="text" id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" value="" placeholder="EXEC_DIFF">
+                        <label class="form-check-label" class="mb-2 mr-sm-2">
+                            <input class="form-check-input" type="checkbox" name="ascending" value="ASC"> 오름차순
+                        </label>
                     </div>
-                </form>
-            </div>
+                    <div class="form-inline align-bottom">
+                        <label for="clctDy1" class="mb-2 mr-sm-2">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2 " value="" placeholder="YYYYMMDD">
+                        <label for="clctDy2" class="mb-2 mr-sm-2">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" value="" placeholder="YYYYMMDD">
+                        <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div class="card-body">
@@ -211,7 +218,7 @@
                 </colgroup>
                 <thead class="thead-light table-thead-wrap-size">
                 <tr>
-                    <th>일자1.Rank</th>
+                    <th>기준일자 Rank</th>
                     <th>Sql ID</th>
                     <th>SQL Name</th>
 
@@ -221,7 +228,7 @@
                     <th>Elap</th>
 
                     <th>순위변동</th>
-                    <th>일자2.Rank</th>
+                    <th>비교대상 Rank</th>
                     <th>Exec</th>
                     <th>Bget</th>
                     <th>Cpu</th>
@@ -231,120 +238,7 @@
                 </thead>
 
                 <tbody class="table-tbody-wrap-size">
-                <tr>
-                    <td >1</td>
-                    <td >gmr2bwusrk2qd</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=30779">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE , A.FEE_APL_UNIT_CD AS FEE_APL_UNIT_CD FROM SE_FE</a></td>
 
-                    <td>281739456</td>
-                    <td>341062690</td>
-                    <td>5451017979</td>
-                    <td>9977980941</td>
-
-                    <td style="background-color: WHITE;">0 &#8657;</td>
-
-                    <td>1</td>
-                    <td>303965845</td>
-                    <td>1313213753</td>
-                    <td>6314815744</td>
-                    <td>12598226783</td>
-
-                </tr>
-                <tr>
-                    <td >2</td>
-                    <td >ghx22cnfk0u62</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13875">SELECT FEE_RATE FROM PD_FEE_EVENT WHERE APL_BGN_DY &lt;= SYSDATE AND APL_END_DY &gt;= SYSDATE AND FEE_RATE</a></td>
-
-                    <td>164290552</td>
-                    <td>495287198</td>
-                    <td>3025607271</td>
-                    <td>5430057007</td>
-
-                    <td style="background-color: #F5B7B1;">&#8593; 3</td>
-
-                    <td>5</td>
-                    <td>175450909</td>
-                    <td>529355879</td>
-                    <td>3454650432</td>
-                    <td>6698140208</td>
-
-                </tr>
-                <tr>
-                    <td >3</td>
-                    <td >gtrrrwbzgv9gz</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13127">SELECT /*+ index_desc(A IX1_MB_FEE_HIST) */ COUNT(*) AS FEE_AGREE_CNT , NVL(MAX(FEE_UPDATE_YN),&#39;N&#39;)</a></td>
-
-                    <td>164286567</td>
-                    <td>492637163</td>
-                    <td>3595286481</td>
-                    <td>6485863622</td>
-
-                    <td style="background-color: #F5B7B1;"><span>&#8595; -5</span> </td>
-
-                    <td>8</td>
-                    <td>175136370</td>
-                    <td>525164135</td>
-                    <td>4153288527</td>
-                    <td>8120841560</td>
-
-                </tr>
-                <tr>
-                    <td >4</td>
-                    <td >9t4n3t9g1bphp</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=12607">SELECT /*+ INDEX(A IX1_SE_FEE_FREE_MEM) */ COUNT(0) AS CNT FROM SE_FEE_FREE_MEM A WHERE MEM_NO = :B1</a></td>
-
-                    <td>164274373</td>
-                    <td>164316266</td>
-                    <td>1928021938</td>
-                    <td>3478074953</td>
-
-                    <td style="background-color: #F5B7B1;">2</td>
-
-                    <td>6</td>
-                    <td>175425822</td>
-                    <td>175448930</td>
-                    <td>2192493340</td>
-                    <td>4306281273</td>
-
-                </tr>
-                <tr>
-                    <td >5</td>
-                    <td >39uusmh84cdpg</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13093">SELECT /*+ index(a IX4_SE_FEE_ITM) */ A.FEE AS FEE , A.FEE_APL_UNIT_CD AS FEE_APL_UNIT_CD , CASE WHE</a></td>
-
-                    <td>164141806</td>
-                    <td>714120844</td>
-                    <td>3721418486</td>
-                    <td>7003941018</td>
-
-                    <td style="background-color: #F5B7B1;">4</td>
-
-                    <td>9</td>
-                    <td>174915420</td>
-                    <td>765620705</td>
-                    <td>4321594601</td>
-                    <td>8937832191</td>
-
-                </tr>
-                <tr>
-                    <td >6</td>
-                    <td >g6jtq7j5b0q6u</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=13916">SELECT HGRNK_CTGR_NO FROM DP_DISP_CTGR WHERE DISP_CTGR_NO = :B1</a></td>
-
-                    <td>164033822</td>
-                    <td>495227966</td>
-                    <td>1929093558</td>
-                    <td>3467201112</td>
-
-                    <td style="background-color: #F5B7B1;">1</td>
-
-                    <td>7</td>
-                    <td>175208985</td>
-                    <td>529198668</td>
-                    <td>2230785340</td>
-                    <td>4342300373</td>
-
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -353,7 +247,7 @@
 
         <div class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>dbId : 1</li> <li>clctDy1 : 20190930</li> <li>clctDy2 : 20190924</li>
+                <li>Parameter:: </li>
             </ul>
         </div>
     </section>

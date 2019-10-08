@@ -26,9 +26,10 @@ public class TopSqlController {
     @RequestMapping(value = {"topSqlDayList"})
     public String topSqlDayList(
             @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
-            @RequestParam(value = "clctDy1", required = false, defaultValue = "99991231") final String clctDy1,
+            @RequestParam(value = "clctDy1", defaultValue = "99991231") final String clctDy1,
             @RequestParam(value = "clctDy2", required = false, defaultValue = "99991231") final String clctDy2,
-            @RequestParam(value = "orderString", required = false) final String orderString,
+            @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
+            @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
         final String apiMethod = "topSqlDayList";
 
@@ -40,8 +41,9 @@ public class TopSqlController {
             inParam.put("clctDy2", clctDy2.toUpperCase());
         } else {
             inParam.put("clctDy2", clctDy1.toUpperCase());
-        }
-//        if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
+        };
+        if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
+        if (!isNullOrEmpty(ascending)) inParam.put("ascending", ascending.toUpperCase());
 
         Collection<SqlAreaDiffVO> modelCollection = null;
 
