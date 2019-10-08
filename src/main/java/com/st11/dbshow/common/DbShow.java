@@ -42,39 +42,23 @@ public class DbShow {
 
     public static String getRankColor(int rank2, int rank1) {
 
+        String rankColor = "WHITE";
         int rankDiff = rank1 - rank2;
 
-        if (rankDiff == 0) return "WHITE";
-        if (rank2 == 0) return "WHITE";
+        if (rankDiff == 0) rankColor = "WHITE";
+        if (rank2 == 0) rankColor = "#FFFF00";
 
         // Blue Color
-        else if (rankDiff > 0 && rankDiff <= 10) return "#AED6F1";
-        else if (rankDiff > 10 && rankDiff <= 50) return "#AED6F1";
-        else if (rankDiff > 50) return "#5DADE2";
+        else if (rankDiff > 0 && rankDiff <= 10) rankColor = "#AED6F1";
+        else if (rankDiff > 10 && rankDiff <= 50) rankColor = "#AED6F1";
+        else if (rankDiff > 50) rankColor =  "#5DADE2";
 
         //Red Color
-        else if (rankDiff < 0 && rankDiff >= -10) return "#F5B7B1";
-        else if (rankDiff < 10 && rankDiff >= -50) return "#F1948A";
-        else if (rankDiff < -50) return "#EC7063";
+        else if (rankDiff < 0 && rankDiff >= -10) rankColor = "#F5B7B1";
+        else if (rankDiff < -10 && rankDiff >= -50) rankColor = "#F1948A";
+        else if (rankDiff < -50) rankColor = "#EC7063";
 
-        return "WHITE";
-
-    }
-    public static String getRankColor(int rankDiff) {
-
-//        int rankDiff = rank1 - rank2;
-
-        if (rankDiff == 0) return "WHITE";
-
-        else if (rankDiff > 0 && rankDiff <= 10) return "#AED6F1";
-        else if (rankDiff > 10 && rankDiff <= 50) return "#AED6F1";
-        else if (rankDiff > 50) return "#5DADE2";
-
-        else if (rankDiff < 0 && rankDiff >= -10) return "#F5B7B1";
-        else if (rankDiff < 10 && rankDiff >= -50) return "#F1948A";
-        else if (rankDiff < -50) return "#EC7063";
-
-        return "WHITE";
+        return rankColor;
 
     }
 }
