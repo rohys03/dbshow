@@ -15,8 +15,8 @@
         <form class="" action="/topSqlDayList">
             <div class="form-group">
                 <div class="form-inline">
-                    <label for="dbId" class="mb-2 mr-sm-2">DB ID</label>
-                    <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2">
+                    <label for="dbId" class="mb-2 mr-sm-2 d-block" style="width: 80px;">DB ID</label>
+                    <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 160px;">
                         <option value="1" selected="selected">TMALL</option>
                         <option value="2">BIDB</option>
                         <option value="4">DPDB</option>
@@ -24,14 +24,21 @@
                         <option value="6">CARTDB</option>
                         <option value="13">PRMTDB</option>
                     </select>
-                    <label for="orderString" class="mb-2 mr-sm-2">정렬조건</label><input type="text" id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" th:value="${param.orderString}" placeholder="EXEC_DIFF">
+
+                    <label for="orderString" class="mb-2 mr-sm-2 d-block" style="width: 80px;">정렬기준</label>
+                    <select id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" style="width: 160px;">
+                        <option value="EXEC_DIFF" selected="selected">EXEC_DIFF</option>
+                        <option value="BGET_DIFF">BGET_DIFF</option>
+                        <option value="CPU_DIFF">CPU_DIFF</option>
+                        <option value="ELA_DIFF">ELA_DIFF</option>
+                    </select>
                     <label class="form-check-label mb-2 mr-sm-2">
                         <input class="form-check-input" type="checkbox" name="ascending" value="ASC"> 오름차순
                     </label>
                 </div>
                 <div class="form-inline align-bottom">
-                    <label for="clctDy1" class="mb-2 mr-sm-2">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2" th:value="${param.clctDy1}"  placeholder="YYYYMMDD">
-                    <label for="clctDy2" class="mb-2 mr-sm-2">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" th:value="${param.clctDy2}"  placeholder="YYYYMMDD">
+                    <label for="clctDy1" class="mb-2 mr-sm-2 d-block" style="width: 80px;">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2" style="width: 160px;" th:value="${param.clctDy1}"  placeholder="YYYYMMDD">
+                    <label for="clctDy2" class="mb-2 mr-sm-2 d-block" style="width: 80px;">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" style="width: 160px;"th:value="${param.clctDy2}"  placeholder="YYYYMMDD">
                     <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
             </div>
