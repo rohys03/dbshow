@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 public interface ApiService {
 
+    <T> T getApiModel(String apiUrl, Class<T> type, HashMap<String, String> apiParams) throws IOException, URISyntaxException;
+
     Collection getApiModels(String apiUrl, TypeReference type, String ... apiParams) throws IOException;
     Collection getApiModels(String apiUrl, TypeReference type, HashMap<String, String> apiParams) throws IOException, URISyntaxException;
     Collection<DaStatMngVO> getLastDaStatMng(String dbName, String statName) throws IOException, URISyntaxException;

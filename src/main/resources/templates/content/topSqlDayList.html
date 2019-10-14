@@ -96,7 +96,7 @@
                 <td th:text="${sqlVo.sqlId}" ></td>
                 <td th:if="${#strings.isEmpty(sqlVo.sqlNameNo)}" th:text="${sqlVo.sqlName}"></td>
                 <td th:unless="${#strings.isEmpty(sqlVo.sqlNameNo)}" >
-                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyyMMdd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
                 <td th:text="${sqlVo.executions}"></td>
                 <td th:text="${sqlVo.bufferGets}"></td>
                 <td th:text="${sqlVo.cpuTime}"></td>

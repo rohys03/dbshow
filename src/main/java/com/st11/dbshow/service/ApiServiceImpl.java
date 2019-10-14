@@ -30,6 +30,24 @@ public class ApiServiceImpl implements ApiService  {
     ApiServerConfig apiServerConfig;
 
     @Override
+    public <T> T getApiModel(String apiUrl, Class<T> type, HashMap<String, String> apiParams) throws IOException, URISyntaxException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String urlString = apiServerConfig.getBaseUrl() + "/" + apiUrl;
+
+        URIBuilder uriBuilder = new URIBuilder(urlString);
+
+        for(String key : apiParams.keySet()) {
+            uriBuilder.addParameter(key,apiParams.get(key));
+        }
+
+        logger.info("[ApiService.getApiModel] : " + uriBuilder.toString());
+
+        return type.cast(mapper.readValue(new URL(uriBuilder.toString()), type));
+    }
+
+    @Override
     public Collection getApiModels(String apiUrl, TypeReference type, String ... apiParams) throws IOException {
         Collection<Class> modelCollection;
         ObjectMapper mapper = new ObjectMapper();
