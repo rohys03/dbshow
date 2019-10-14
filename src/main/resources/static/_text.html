@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>11st DB Show - topSql Day List</title>
@@ -172,9 +173,9 @@
         <div class="card-header">
             <form class="" action="/topSqlDayList">
                 <div class="form-group">
-                    <div class="form-inline">
+                    <div class="form-inline" th:with="">
                         <label for="dbId" class="mb-2 mr-sm-2 d-block" style="width: 80px;">DB ID</label>
-                        <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 160px">
+                        <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 160px;">
                             <option value="1" selected="selected">TMALL</option>
                             <option value="2">BIDB</option>
                             <option value="4">DPDB</option>
@@ -183,21 +184,30 @@
                             <option value="13">PRMTDB</option>
                         </select>
 
-                        <label for="orderString" class="mb-2 mr-sm-2 d-block" style="width: 80px; text-align: left">정렬기준</label>
-                        <select id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" style="width: 160px">
+                        <label for="orderString" class="mb-2 mr-sm-2 d-block" style="width: 80px;">정렬기준</label>
+                        <select id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" style="width: 160px;">
                             <option value="EXEC_DIFF" selected="selected">EXEC_DIFF</option>
                             <option value="BGET_DIFF">BGET_DIFF</option>
                             <option value="CPU_DIFF">CPU_DIFF</option>
                             <option value="ELA_DIFF">ELA_DIFF</option>
                         </select>
+
+                        <label for="orderStringList" class="mb-2 mr-sm-2 d-block" style="width: 80px;">정렬기준</label>
+                        <select id="orderStringList" name="orderStringList" class="form-control mb-2 mr-sm-2" style="width: 160px;" th:each="">
+                            <option value="EXEC_DIFF" selected="selected">EXEC_DIFF</option>
+                            <option value="BGET_DIFF">BGET_DIFF</option>
+                            <option value="CPU_DIFF">CPU_DIFF</option>
+                            <option value="ELA_DIFF">ELA_DIFF</option>
+                        </select>
+
                         <label class="form-check-label mb-2 mr-sm-2">
                             <input class="form-check-input" type="checkbox" name="ascending" value="ASC"> 오름차순
                         </label>
                     </div>
                     <div class="form-inline align-bottom">
-                        <label for="clctDy1" class="mb-2 mr-sm-2 d-block" style="width: 80px; text-align: left">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2" style="width: 160px" value="20191002"  placeholder="YYYYMMDD">
-                        <label for="clctDy2" class="mb-2 mr-sm-2 d-block" style="width: 80px; text-align: left">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" style="width: 160px" value="20190925"  placeholder="YYYYMMDD">
-                        <button class="btn btn-outline-info mb-2 mr-sm-2 d-block" type="submit"> 검색 </button>
+                        <label for="clctDy1" class="mb-2 mr-sm-2 d-block" style="width: 80px;">기준일자</label><input type="text" id="clctDy1" name="clctDy1" class="form-control mb-2 mr-sm-2" style="width: 160px;" value="20191014"  placeholder="YYYYMMDD">
+                        <label for="clctDy2" class="mb-2 mr-sm-2 d-block" style="width: 80px;">비교대상</label><input type="text" id="clctDy2" name="clctDy2" class="form-control mb-2 mr-sm-2" style="width: 160px;"value="20191007"  placeholder="YYYYMMDD">
+                        <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                     </div>
                 </div>
             </form>
@@ -247,54 +257,184 @@
                 <tbody class="table-tbody-wrap-size">
                 <tr>
                     <td >1</td>
-                    <td >89p031dvsnznd</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=">SELECT AL.*, CASE WHEN AL.BIG_SELLER_APL_YN = &#39;Y&#39; THEN NVL( (SELECT /*+ index(A PK_MT_PCS_PRD) */ CA</a></td>
+                    <td >54fjjg0scujvt</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172901">/* sellerImdtDscMapper.xml getValidSellerImdtDscListByPrdNo */</a></td>
 
-                    <td>43249568</td>
-                    <td>3818875969</td>
-                    <td>34586027438</td>
-                    <td>83693339070</td>
+                    <td>92743768</td>
+                    <td>405764257</td>
+                    <td>3257371921</td>
+                    <td>6508099928</td>
 
 
                     <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
-                    <td style="background-color: #F5B7B1;">
-
-                        <span>↑2</span>
+                    <td style="background-color: WHITE;">
 
 
+
+                        <span>→0</span>
                     </td>
 
-                    <td>3</td>
-                    <td>44762408</td>
-                    <td>3316015828</td>
-                    <td>35368055539</td>
-                    <td>85751200076</td>
+                    <td>1</td>
+                    <td>95241540</td>
+                    <td>419542821</td>
+                    <td>3478338825</td>
+                    <td>6336850711</td>
 
                 </tr>
                 <tr>
                     <td >2</td>
-                    <td >b9k9xpdw0ux4n</td>
-                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=1&amp;sqlNameNo=2789">/* couponIneterface coupon.interface.getCouponStore */</a></td>
+                    <td >3xatg2kup0mj9</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
 
-                    <td>34879689</td>
-                    <td>3762177468</td>
-                    <td>74259208772</td>
-                    <td>127699252375</td>
+                    <td>13517843</td>
+                    <td>798103149</td>
+                    <td>2807476235</td>
+                    <td>3166533850</td>
 
 
                     <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
-                    <td style="background-color: #F1948A;">
-
-                        <span>↑24</span>
+                    <td style="background-color: WHITE;">
 
 
+
+                        <span>→0</span>
                     </td>
 
-                    <td>26</td>
-                    <td>33511289</td>
-                    <td>1295822543</td>
-                    <td>71343732726</td>
-                    <td>128044159769</td>
+                    <td>2</td>
+                    <td>14904865</td>
+                    <td>872899207</td>
+                    <td>2988769032</td>
+                    <td>3434723423</td>
+
+                </tr>
+                <tr>
+                    <td >3</td>
+                    <td >6qhs6tb4s52jz</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
+
+                    <td>10909333</td>
+                    <td>0</td>
+                    <td>2169871826</td>
+                    <td>2582662035</td>
+
+
+                    <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                    <td style="background-color: WHITE;">
+
+
+
+                        <span>→0</span>
+                    </td>
+
+                    <td>3</td>
+                    <td>10726973</td>
+                    <td>631985770</td>
+                    <td>2081848546</td>
+                    <td>2518175957</td>
+
+                </tr>
+                <tr>
+                    <td >4</td>
+                    <td >gc5n07ssvpuhg</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
+
+                    <td>8742706</td>
+                    <td>489369301</td>
+                    <td>1663295209</td>
+                    <td>1871273818</td>
+
+
+                    <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                    <td style="background-color: WHITE;">
+
+
+
+                        <span>→0</span>
+                    </td>
+
+                    <td>4</td>
+                    <td>10192618</td>
+                    <td>0</td>
+                    <td>1889277926</td>
+                    <td>2163448894</td>
+
+                </tr>
+                <tr>
+                    <td >5</td>
+                    <td >0yky0cqgt59uy</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
+
+                    <td>8046838</td>
+                    <td>458350478</td>
+                    <td>1520899345</td>
+                    <td>1826421514</td>
+
+
+                    <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                    <td style="background-color: WHITE;">
+
+
+
+                        <span>→0</span>
+                    </td>
+
+                    <td>5</td>
+                    <td>7969082</td>
+                    <td>454533293</td>
+                    <td>1487387370</td>
+                    <td>1807599994</td>
+
+                </tr>
+                <tr>
+                    <td >6</td>
+                    <td >b5aqhv4mt90wz</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
+
+                    <td>5688087</td>
+                    <td>268489655</td>
+                    <td>1022835850</td>
+                    <td>1248286744</td>
+
+
+                    <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                    <td style="background-color: WHITE;">
+
+
+
+                        <span>→0</span>
+                    </td>
+
+                    <td>6</td>
+                    <td>5262187</td>
+                    <td>252995845</td>
+                    <td>967258463</td>
+                    <td>1218583125</td>
+
+                </tr>
+                <tr>
+                    <td >7</td>
+                    <td >d1vbhmum83d04</td>
+                    <td><a href="sqlNameDetail?clctDy=20190315&amp;dbId=13&amp;sqlNameNo=172900">/* elvstImdtDsc.xml getValidElvstImdtDscList */</a></td>
+
+                    <td>3688954</td>
+                    <td>212331647</td>
+                    <td>770061190</td>
+                    <td>864012713</td>
+
+
+                    <!--<td th:text="${sqlVo.rank2} == 0 ? 'NEW!' : ${Diff}">-->
+                    <td style="background-color: WHITE;">
+
+
+
+                        <span>→0</span>
+                    </td>
+
+                    <td>7</td>
+                    <td>4086432</td>
+                    <td>233576341</td>
+                    <td>823266615</td>
+                    <td>939867485</td>
 
                 </tr>
                 </tbody>
@@ -305,7 +445,7 @@
 
         <div class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>dbId : 1</li> <li>orderString : BGET_DIFF</li> <li>clctDy1 : 20191002</li> <li>clctDy2 : 20190925</li>
+                <li>Parameter:: </li> <li>dbId : 13</li> <li>orderString : EXEC_DIFF</li> <li>clctDy1 : 20191014</li> <li>clctDy2 : 20191007</li>
             </ul>
         </div>
     </section>

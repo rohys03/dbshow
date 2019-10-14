@@ -10,28 +10,28 @@
 
 <body>
 <th:block layout:fragment="content">
-
+<!--
+    <div th:each="res : ${param}">
+        <div class="row"><div class="col-2" th:text="${res.key + ' : '}"></div><div class="col-6" th:text="${res.value[0]}"></div></div>
+    </div>
+-->
     <div class="card-header">
         <form class="" action="/topSqlDayList">
             <div class="form-group">
                 <div class="form-inline">
                     <label for="dbId" class="mb-2 mr-sm-2 d-block" style="width: 80px;">DB ID</label>
                     <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 160px;">
-                        <option value="1" selected="selected">TMALL</option>
-                        <option value="2">BIDB</option>
-                        <option value="4">DPDB</option>
-                        <option value="5">MPDB</option>
-                        <option value="6">CARTDB</option>
-                        <option value="13">PRMTDB</option>
+                        <option th:with="paramDbId= ${param.dbId == null} ? 'NONE' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                        </option>
                     </select>
 
                     <label for="orderString" class="mb-2 mr-sm-2 d-block" style="width: 80px;">정렬기준</label>
-                    <select id="orderString" name="orderString" class="form-control mb-2 mr-sm-2" style="width: 160px;">
-                        <option value="EXEC_DIFF" selected="selected">EXEC_DIFF</option>
-                        <option value="BGET_DIFF">BGET_DIFF</option>
-                        <option value="CPU_DIFF">CPU_DIFF</option>
-                        <option value="ELA_DIFF">ELA_DIFF</option>
+                    <select id="orderString" name="orderString" class="form-control orderItem mr-sm-2" style="width: 160px;">
+                        <option th:with="paramOrderString= ${param.orderString == null} ? 'NONE' : ${param.orderString.toString()}" th:each="orderItem : ${orderStringList}" th:value="${orderItem}" th:text="${orderItem}" th:selected="${orderItem} == ${paramOrderString}">
+                        </option>
                     </select>
+
+
                     <label class="form-check-label mb-2 mr-sm-2">
                         <input class="form-check-input" type="checkbox" name="ascending" value="ASC"> 오름차순
                     </label>

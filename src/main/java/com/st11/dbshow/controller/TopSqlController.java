@@ -27,7 +27,7 @@ public class TopSqlController {
     public String topSqlDayList(
             @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
             @RequestParam(value = "clctDy1", defaultValue = "99991231") final String clctDy1,
-            @RequestParam(value = "clctDy2", required = false, defaultValue = "99991231") final String clctDy2,
+            @RequestParam(value = "clctDy2", defaultValue = "99991231") final String clctDy2,
             @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
             @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
@@ -53,9 +53,23 @@ public class TopSqlController {
                     , inParam);
         }
 
+        DaDbVO[] daDbVOList = {
+                new DaDbVO(1, "TMALL"),
+                new DaDbVO(4, "DPDB"),
+                new DaDbVO(5, "MPDB"),
+                new DaDbVO(6, "CARTDB"),
+                new DaDbVO(13, "PRMTDB"),
+        };
+        String[] orderStringList = {"EXEC_DIFF", "BGET_DIFF", "CPU_DIFF", "ELAP_DIFF"};
+
         model.addAttribute("defaultDate", "20190315");
         model.addAttribute("dbId", dbId);
         model.addAttribute("model", modelCollection);
+
+
+        model.addAttribute("dbList", daDbVOList);
+        model.addAttribute("orderStringList", orderStringList);
+
         return "content/topSqlDayList";
     }
 }
