@@ -46,11 +46,6 @@
                 <thead class="thead-light table-thead-wrap-size">
                 <tr>
                     <th>연월-주(Week)</th>
-                    <th>MainDB<br/>SqlName</th>
-                    <th>DPDB<br/>SqlName</th>
-                    <th>MPDB<br/>SqlName</th>
-                    <th>CartDB<br/>SqlName</th>
-                    <th>PrmtDB<br/>SqlName</th>
 
                     <th>MainDB<br/>Execution(%)</th>
                     <th>DPDB<br/>Execution(%)</th>
@@ -76,6 +71,12 @@
                     <th>CartDB<br/>Elap.Time(%)</th>
                     <th>PrmtDB<br/>Elap.Time(%)</th>
 
+                    <th>MainDB<br/>SqlName</th>
+                    <th>DPDB<br/>SqlName</th>
+                    <th>MPDB<br/>SqlName</th>
+                    <th>CartDB<br/>SqlName</th>
+                    <th>PrmtDB<br/>SqlName</th>
+
                 </tr>
                 </thead>
 
@@ -84,11 +85,6 @@
                 <tr th:if="${not #lists.isEmpty(model)}" th:each="statVo : ${model}">
                     <td th:text="${statVo.clctMonthWeek}" ></td>
 
-                    <td th:text="${statVo.db1SqlCnt}" ></td>
-                    <td th:text="${statVo.db2SqlCnt}" ></td>
-                    <td th:text="${statVo.db3SqlCnt}" ></td>
-                    <td th:text="${statVo.db4SqlCnt}" ></td>
-                    <td th:text="${statVo.db5SqlCnt}" ></td>
                     <td th:text="${statVo.db1ExecutionRt}" ></td>
                     <td th:text="${statVo.db2ExecutionRt}" ></td>
                     <td th:text="${statVo.db3ExecutionRt}" ></td>
@@ -109,6 +105,12 @@
                     <td th:text="${statVo.db3ElapseTimeRt}" ></td>
                     <td th:text="${statVo.db4ElapseTimeRt}" ></td>
                     <td th:text="${statVo.db5ElapseTimeRt}" ></td>
+
+                    <td th:text="${statVo.db1SqlCnt}" ></td>
+                    <td th:text="${statVo.db2SqlCnt}" ></td>
+                    <td th:text="${statVo.db3SqlCnt}" ></td>
+                    <td th:text="${statVo.db4SqlCnt}" ></td>
+                    <td th:text="${statVo.db5SqlCnt}" ></td>
 
                 </tr>
                 </tbody>

@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Collection;
 
 import static com.st11.dbshow.common.DbShow.*;
 
 @Controller
 public class SqlController {
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     ApiService apiService;
@@ -103,25 +106,40 @@ public class SqlController {
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
                     }
                     , inParam);
-
         }
-
-        inParam.remove("clctDy");
-        SqlNameMappVO sqlNameMappVO = apiService.getApiModel(apiMethod2, SqlNameMappVO.class, inParam);
-
         model.addAttribute("histModel", modelCollection);
-        model.addAttribute("summaryModel", sqlNameMappVO);
 
-        inParam.clear();
-        inParam.put("dbNm", "TMALL");
-        inParam.put("sqlId", sqlNameMappVO.getRepSqlId());
+        DaDbVO[] daDbVOList = {
+                new DaDbVO(1, "TMALL"),
+                new DaDbVO(4, "DPDB"),
+                new DaDbVO(5, "MPDB"),
+                new DaDbVO(6, "CARTDB"),
+                new DaDbVO(13, "PRMTDB"),
+        };
+        model.addAttribute("dbList", daDbVOList);
 
-        DaSqlFullTextVO daSqlFullTextVO = apiService.getApiModel(apiMethod3, DaSqlFullTextVO.class, inParam);
+        try {
+            inParam.clear();
+            if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
+            if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
+            if (!isNullOrEmpty(sqlNameNo)) inParam.put("sqlNameNo", sqlNameNo.toUpperCase());
+            System.out.println("inParam" + inParam.toString());
+            SqlNameMappVO sqlNameMappVO = apiService.getApiModel(apiMethod2, SqlNameMappVO.class, inParam);
 
-//        System.out.println("[daSqlFullTextVO]" + daSqlFullTextVO.toString());
+            model.addAttribute("summaryModel", sqlNameMappVO);
 
-        String sqlFullText = (daSqlFullTextVO.getSqlFullText().isEmpty()) ? sqlNameMappVO.getSqlText() : daSqlFullTextVO.getSqlFullText();
-        model.addAttribute("sqlFullText", sqlFullText);
+            inParam.clear();
+            if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
+            inParam.put("sqlId", sqlNameMappVO.getRepSqlId());
+
+            DaSqlFullTextVO daSqlFullTextVO = apiService.getApiModel(apiMethod3, DaSqlFullTextVO.class, inParam);
+            String sqlFullText = (daSqlFullTextVO.getSqlFullText().isEmpty()) ? sqlNameMappVO.getSqlText() : daSqlFullTextVO.getSqlFullText();
+            model.addAttribute("sqlFullText", sqlFullText);
+
+            System.out.println("[sqlFullText]" + sqlFullText);
+        } catch (NullPointerException e) {
+            logger.info("[sqlNameMappVO] NullPointerException" + inParam.toString());
+        }
 
         return "content/sqlNameDetail";
     }

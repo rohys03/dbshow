@@ -61,15 +61,16 @@ public class TopSqlController {
                 new DaDbVO(6, "CARTDB"),
                 new DaDbVO(13, "PRMTDB"),
         };
+        model.addAttribute("dbList", daDbVOList);
+
         String[] orderStringList = {"EXEC_DIFF", "BGET_DIFF", "CPU_DIFF", "ELAP_DIFF"};
+        model.addAttribute("orderStringList", orderStringList);
 
         model.addAttribute("defaultDate", LocalDateTime.now());;
         model.addAttribute("dbId", dbId);
         model.addAttribute("model", modelCollection);
 
 
-        model.addAttribute("dbList", daDbVOList);
-        model.addAttribute("orderStringList", orderStringList);
 
         return "content/topSqlDayList";
     }

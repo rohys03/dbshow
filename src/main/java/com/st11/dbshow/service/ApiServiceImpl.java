@@ -2,9 +2,9 @@ package com.st11.dbshow.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.st11.dbshow.config.ApiServerConfig;
 import com.st11.dbshow.repository.DaStatMngVO;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +43,13 @@ public class ApiServiceImpl implements ApiService  {
         }
 
         logger.info("[ApiService.getApiModel] : " + uriBuilder.toString());
+        try {
+            return type.cast(mapper.readValue(new URL(uriBuilder.toString()), type));
+        } catch (MismatchedInputException e) {
+            logger.info("[ApiService.getApiModel] MismatchedInputException: " + uriBuilder.toString());
+            return null;
+        }
 
-        return type.cast(mapper.readValue(new URL(uriBuilder.toString()), type));
     }
 
     @Override

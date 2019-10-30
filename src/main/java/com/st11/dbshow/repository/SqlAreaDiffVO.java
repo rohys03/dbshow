@@ -11,5 +11,7 @@ public class SqlAreaDiffVO extends SqlAreaVO {
     private String rowsProcessed2;
     private String cpuTime2;
     private String elapsedTime2;
+    private String statRatio;
+    private String objectNm;
 
 }

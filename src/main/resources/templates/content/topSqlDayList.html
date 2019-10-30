@@ -54,7 +54,9 @@
             <colgroup>
                 <col class="col60px">
                 <col class="col60px">
-                <col class="sqltext-wrap" style="max-width:600px">
+                <col class="col60px">
+                <col class="sqltext-wrap" style="max-width:600px">  <!-- SQL NAME -->
+                <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
@@ -71,17 +73,19 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>기준일자 Rank</th>
+                <th>기준 Rank</th>
+                <th>Ratio</th>
                 <th>Sql ID</th>
                 <th>SQL Name</th>
+                <th>Object Name</th>
 
                 <th>Exec</th>
                 <th>Bget</th>
                 <th>Cpu</th>
                 <th>Elap</th>
 
-                <th>순위변동</th>
-                <th>비교대상 Rank</th>
+                <th>변동</th>
+                <th>비교 Rank</th>
                 <th>Exec</th>
                 <th>Bget</th>
                 <th>Cpu</th>
@@ -93,10 +97,13 @@
             <tbody class="table-tbody-wrap-size">
             <tr th:if="${not #lists.isEmpty(model)}" th:each="sqlVo : ${model}">
                 <td th:text="${sqlVo.rank}" ></td>
+                <td th:text="${sqlVo.statRatio}" ></td>
                 <td th:text="${sqlVo.sqlId}" ></td>
                 <td th:if="${#strings.isEmpty(sqlVo.sqlNameNo)}" th:text="${sqlVo.sqlName}"></td>
                 <td th:unless="${#strings.isEmpty(sqlVo.sqlNameNo)}" >
                     <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+
+                <td th:text="${sqlVo.objectNm}"></td>
                 <td th:text="${sqlVo.executions}"></td>
                 <td th:text="${sqlVo.bufferGets}"></td>
                 <td th:text="${sqlVo.cpuTime}"></td>
