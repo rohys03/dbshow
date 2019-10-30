@@ -1,11 +1,17 @@
 package com.st11.dbshow.common;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.repository.DaDbVO;
+import com.st11.dbshow.repository.SqlAreaVO;
+import com.st11.dbshow.service.ApiService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DbShow {
 
@@ -40,6 +46,7 @@ public class DbShow {
         return true;
     }
 
+
     public static String getRankColor(int rank2, int rank1) {
 
         String rankColor = "WHITE";
@@ -61,4 +68,5 @@ public class DbShow {
         return rankColor;
 
     }
+
 }

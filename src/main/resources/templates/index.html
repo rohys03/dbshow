@@ -28,11 +28,14 @@
                         <i class="fas fa-fw  fa-comments"></i>
                     </div>
                     <span width="50%">
-                            <h6> 공지사항 </h6>
-                            <ol>
+                            <h5> 공지사항 </h5>
+                            <ul>
                                 <li> 11st DB Show 탄생. </li>
-                                <li> 아직 개발중입니다.. </li>
-                            </ol>
+                                <li> 아직 개발중입니다. </li>
+                                <li> 2019.10.23 Sql FullText 를 볼 수 있습니다. </li>
+                                <li> 2019.10.30 TopSql에 SKpay Data가 추가됩니다. (PSKPAYDB, PSKPAYPGDB) </li>
+
+                            </ul>
                         </span>
                 </div>
             </div>
@@ -44,9 +47,32 @@
                     <i class="fas fa-chart-bar"></i> Simple KPI
                 </div>
                 <div class="card-body">
-                        <span width="50%">
-                            <h6>KPI</h6>
-                        </span>
+                    <span width="50%">
+                        <h5>KPI Today (실행횟수 %)</h5>
+                        <table class="table">
+
+                            <thead class="thead-light table-thead-wrap-size">
+                                <tr>
+                                    <th>최종수집일자</th>
+                                    <th>MainDB</th>
+                                    <th>DPDB</th>
+                                    <th>MPDB</th>
+                                    <th>CartDB</th>
+                                    <th>PrmtDB</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:if="${not #lists.isEmpty(kpiStats)}" th:each="statVo : ${kpiStats}">
+                                <td th:text="${statVo.clctDy}" ></td>
+                                <td th:text="${statVo.db1ExecutionRt}" ></td>
+                                <td th:text="${statVo.db2ExecutionRt}" ></td>
+                                <td th:text="${statVo.db3ExecutionRt}" ></td>
+                                <td th:text="${statVo.db4ExecutionRt}" ></td>
+                                <td th:text="${statVo.db5ExecutionRt}" ></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                    </span>
                 </div>
             </div>
         </div>

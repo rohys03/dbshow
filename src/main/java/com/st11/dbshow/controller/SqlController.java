@@ -3,8 +3,10 @@ package com.st11.dbshow.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.st11.dbshow.common.DbShow;
 import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
+import com.st11.dbshow.service.DbShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class SqlController {
 
     @Autowired
     ApiService apiService;
+
+    @Autowired
+    DbShowService dbShowService;
 
     @RequestMapping(value = "dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
@@ -100,7 +105,6 @@ public class SqlController {
         if (!isNullOrEmpty(sqlNameNo)) inParam.put("sqlNameNo", sqlNameNo.toUpperCase());
 
         Collection<SqlNameVO> modelCollection = null;
-        Collection<SqlNameMappVO> modelCollection2 = null;
 
         if (inParam.containsKey("sqlName") || inParam.containsKey("sqlNameNo")) {
             modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
@@ -109,14 +113,7 @@ public class SqlController {
         }
         model.addAttribute("histModel", modelCollection);
 
-        DaDbVO[] daDbVOList = {
-                new DaDbVO(1, "TMALL"),
-                new DaDbVO(4, "DPDB"),
-                new DaDbVO(5, "MPDB"),
-                new DaDbVO(6, "CARTDB"),
-                new DaDbVO(13, "PRMTDB"),
-        };
-        model.addAttribute("dbList", daDbVOList);
+        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
 
         try {
             inParam.clear();
@@ -202,6 +199,5 @@ public class SqlController {
         model.addAttribute("model", daStatMngVO);
         return "content/daTopSql";
     }
-
 
 }

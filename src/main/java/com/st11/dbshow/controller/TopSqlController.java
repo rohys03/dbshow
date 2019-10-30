@@ -3,6 +3,7 @@ package com.st11.dbshow.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
+import com.st11.dbshow.service.DbShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ public class TopSqlController {
 
     @Autowired
     ApiService apiService;
+    @Autowired
+    DbShowService dbShowService;
 
     @RequestMapping(value = {"topSqlDayList"})
     public String topSqlDayList(
@@ -54,24 +57,16 @@ public class TopSqlController {
                     , inParam);
         }
 
-        DaDbVO[] daDbVOList = {
-                new DaDbVO(1, "TMALL"),
-                new DaDbVO(4, "DPDB"),
-                new DaDbVO(5, "MPDB"),
-                new DaDbVO(6, "CARTDB"),
-                new DaDbVO(13, "PRMTDB"),
-        };
-        model.addAttribute("dbList", daDbVOList);
+        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
 
         String[] orderStringList = {"EXEC_DIFF", "BGET_DIFF", "CPU_DIFF", "ELAP_DIFF"};
         model.addAttribute("orderStringList", orderStringList);
 
-        model.addAttribute("defaultDate", LocalDateTime.now());;
+        model.addAttribute("defaultDate", LocalDateTime.now());
         model.addAttribute("dbId", dbId);
         model.addAttribute("model", modelCollection);
 
-
-
         return "content/topSqlDayList";
     }
+
 }
