@@ -11,144 +11,82 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex">
-        <div class="p-1">
-        <form class="d-none d-md-inline-block form-inline form-row" action="/sqlNameList">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <!--<input type="text" name="sqlName" class="form-control" th:value="${param.sqlName}" placeholder="Sql Name..">-->
-                    <div><input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..(equal)"></div>
-                    <div><input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)"></div>
-                </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
+    <div class="card-header">
+        <form class="" action="/sqlNameList">
+            <div class="form-group">
+                <div class="form-inline">
+                    <label for="dbId" class="mb-2 mr-sm-2 d-block" style="width: 50px;">DB ID</label>
+                    <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 200px;">
+                        <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                        </option>
+                    </select>
+
+                    <label for="sqlName" class="mb-2 mr-sm-2 d-block" style="width: 90px;">SqlNameNo</label>
+                    <input type="text" id="sqlName" name="sqlName" class="form-control orderItem mr-sm-2" style="width: 200px;"th:value="${param.sqlName}"
+                           minlength="6" placeholder="sqlName..(Like)">
+
+                    <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
             </div>
         </form>
-        </div>
     </div>
+
 
     <div class="card-body">
         <table class="table table-bordered table-sm" id="dataTable" >
             <colgroup>
                 <col class="col60px">
                 <col class="col60px">
-                <col class="col60px">
                 <col class="sqltext-wrap" style="max-width:600px">
                 <col>
                 <col class="col60px">
-                <col>
-                <col>
                 <col class="col60px">
                 <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-
             </colgroup>
+
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>clctDy</th>
-                <th>dbId</th>
                 <th>SqlNameNo</th>
+                <th>dbId</th>
                 <th class="sqltext-wrap" style="max-width:600px">sqlName</th>
                 <th>대표 Sql ID</th>
                 <th>SchemaNm</th>
                 <th>Module</th>
                 <th>LastActiveTime</th>
-                <th>currTotalExec</th>
-                <th>prevTotalExec</th>
-                <th>execDiff</th>
-                <th>currTotalBget</th>
-                <th>prevTotalBget</th>
-                <th>bgetDiff</th>
-                <th>currTotalCpu</th>
-                <th>prevTotalCpu</th>
-                <th>cpuDiff</th>
-                <th>currTotalElap</th>
-                <th>prevTotalElap</th>
-                <th>elapDiff</th>
-
             </tr>
             </thead>
 
             <tbody class="table-tbody-wrap-size">
-            <tr th:if="${not #lists.isEmpty(model)}" th:each="sqlVo : ${model}">
-                <td th:text="${sqlVo.clctDy}" ></td>
-                <td th:text="${sqlVo.dbId}" ></td>
-                <td th:text="${sqlVo.sqlNameNo}" ></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                <td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+            <tr th:if="${not #lists.isEmpty(sqlNameListVO)}" th:each="sqlNameListVO : ${sqlNameListVO}">
 
-                <td th:text="${sqlVo.repSqlId}"></td>
-                <td th:text="${sqlVo.parsingSchemaName}"></td>
-                <td th:text="${sqlVo.module}"></td>
-                <td th:text="${sqlVo.LastActiveTime}"></td>
+                <td th:text="${sqlNameListVO.sqlNameNo}" ></td>
+                <td th:text="${sqlNameListVO.dbId}" ></td>
+                <td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>
 
-                <td th:text="${sqlVo.currTotalExec}"></td>
-                <td th:text="${sqlVo.prevTotalExec}"></td>
-                <td th:text="${sqlVo.execDiff}"></td>
-                <td th:text="${sqlVo.currTotalBget}"></td>
-                <td th:text="${sqlVo.prevTotalBget}"></td>
-                <td th:text="${sqlVo.bgetDiff}"></td>
-                <td th:text="${sqlVo.currTotalCpu}"></td>
-                <td th:text="${sqlVo.prevTotalCpu}"></td>
-                <td th:text="${sqlVo.cpuDiff}"></td>
-                <td th:text="${sqlVo.currTotalElap}"></td>
-                <td th:text="${sqlVo.prevTotalElap}"></td>
-                <td th:text="${sqlVo.elapDiff}"></td>
+                <td th:text="${sqlNameListVO.repSqlId}"></td>
+                <td th:text="${sqlNameListVO.parsingSchemaName}"></td>
+                <td th:text="${sqlNameListVO.module}"></td>
+                <td th:text="${sqlNameListVO.LastActiveTime}"></td>
 
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlNameDetail.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
-<th:block layout:fragment="content_aside">
-    <div class="dim-layer">
-
-        <div class="dimBg"></div>
-        <div id="layer2" class="pop-layer">
-            <div class="pop-container">
-                <div class="pop-conts">
-                    <!--content //-->
-                    <p class="ctxt mb20">Sql Full Text.<br>
-                    구현이 아직 안되었습니다. <br>
-                    popup/sqlDetailPopup :: sqlFullText 로 데이터 입력이 필요합니다.<br>
-                    jquery 로 div 에 inject Content(SQL) 하는 로직 구현 필요.<br>
-                    </p>
-
-                    <div class="btn-r">
-                        <a href="#" class="dim-btn-layerClose">Close</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</th:block>
 
 <th:block layout:fragment="content_script">
     <script type="text/javascript" >
-    // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        $('#dataTable').dataTable({
-            // pageLength: 25,
-            paging: false,
-            searching: true,
-            scrollX:true
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                pageLength: 50,
+                paging: true,
+                searching: false,
+                scrollX:true
+            });
         });
-    });
     </script>
 </th:block>
 </body>

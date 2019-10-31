@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Collection;
@@ -143,28 +145,36 @@ public class SqlController {
 
     @RequestMapping(value = {"sqlNameList"})
     public String sqlName(
+            @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
-            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
-            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "sqlNameList";
+        final String apiMethod = "jpa/daSqlNameList";
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+        System.out.println("DBID: " + dbId);
+        if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName);
+        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
 
-        Collection<SqlNameVO> modelCollection = null;
+        Collection<SqlNameListVO> modelCollection = null;
 
         if (!inParam.isEmpty()) {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameListVO>>() {
                     }
                     , inParam);
         }
 
-        model.addAttribute("defaultDate", "20190315");
-        model.addAttribute("model", modelCollection);
+        Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
+        DaDbVO allDb = new DaDbVO();
+        allDb.setDbId(0);
+        allDb.setDbNm("ALL");
+        daDbVOList.add(allDb);
+
+        System.out.println(daDbVOList.toString());
+
+        model.addAttribute("dbList", daDbVOList);
+        model.addAttribute("defaultDate", LocalDateTime.now());
+        model.addAttribute("sqlNameListVO", modelCollection);
         return "content/sqlNameList";
     }
 
