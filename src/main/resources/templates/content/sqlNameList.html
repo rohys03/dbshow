@@ -61,7 +61,12 @@
 
                 <td th:text="${sqlNameListVO.sqlNameNo}" ></td>
                 <td th:text="${sqlNameListVO.dbId}" ></td>
-                <td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>
+
+                <td th:if="${#strings.isEmpty(sqlNameListVO.sqlNameNo)}" th:text="${sqlNameListVO.sqlName}"></td>
+                <td th:unless="${#strings.isEmpty(sqlNameListVO.sqlNameNo)}" >
+                    <a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>
+
+                <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
 
                 <td th:text="${sqlNameListVO.repSqlId}"></td>
                 <td th:text="${sqlNameListVO.parsingSchemaName}"></td>
