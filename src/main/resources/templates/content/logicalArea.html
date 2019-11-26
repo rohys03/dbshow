@@ -43,20 +43,20 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>LogicalArea</th>
-                <th>Sub Area (AreaCd2)</th>
-                <th>All Instance Cnt</th>
-                <th>Tmall (db1cnt)</th>
-                <th>DPDB (db2cnt)</th>
-                <th>MPDB (db3cnt)</th>
-                <th>other Instance Cnt</th>
+                <th>논리영역</th>
+                <th>Sub 논리영역</th>
+                <th>총 Table 개수</th>
+                <th>Tmall Table 개수</th>
+                <th>DPDB Table 개수</th>
+                <th>MPDB Table 개수</th>
+                <th>other Table 개수</th>
             </tr>
             </thead>
 
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${model}">
                 <td>
-                    <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}" class="d-flex flex-row" style="width: 400px">
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}" class="d-flex flex-row" style="width: 300px">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
@@ -64,7 +64,7 @@
                 </td>
 
                 <td>
-                    <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}" class="d-flex flex-row" style="width: 400px">
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}" class="d-flex flex-row" style="width: 300px">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
