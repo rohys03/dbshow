@@ -21,9 +21,14 @@
                         </option>
                     </select>
 
-                    <label for="sqlName" class="mb-2 mr-sm-2 d-block" style="width: 90px;">SqlNameNo</label>
-                    <input type="text" id="sqlName" name="sqlName" class="form-control orderItem mr-sm-2" style="width: 200px;"th:value="${param.sqlName}"
-                           minlength="6" placeholder="sqlName..(Like)">
+                    <label for="sqlName" class="mb-2 mr-sm-2 d-block" style="width: 90px;">Sql Name</label>
+                    <input type="text" id="sqlName" name="sqlName" class="form-control orderItem mr-sm-2" style="width: 200px;"th:value="${param.sqlName}" minlength="6" placeholder="sqlName..(Like)">
+<!--
+                    <label for="logicalAreaCd1" class="mb-2 mr-sm-2 d-block" style="width: 90px;">logicalAreaCd1</label>
+                    <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..(equal)">
+                    <label for="logicalAreaCd2" class="mb-2 mr-sm-2 d-block" style="width: 90px;">logicalAreaCd2</label>
+                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)">
+-->
 
                     <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
@@ -46,13 +51,13 @@
 
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>SqlNameNo</th>
-                <th>dbId</th>
-                <th class="sqltext-wrap" style="max-width:600px">sqlName</th>
+                <th>SqlName 번호</th>
+                <th>DB Id</th>
+                <th class="sqltext-wrap" style="max-width:600px">Sql Name</th>
                 <th>대표 Sql ID</th>
-                <th>SchemaNm</th>
-                <th>Module</th>
-                <th>LastActiveTime</th>
+                <th>사용자명</th>
+                <th>모듈명</th>
+                <th>최근수행일시</th>
             </tr>
             </thead>
 

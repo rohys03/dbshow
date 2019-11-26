@@ -59,7 +59,7 @@
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}" class="d-flex flex-row" style="width: 400px">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameList.html" th:href="@{sqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
                     </div>
                 </td>
 
@@ -67,7 +67,7 @@
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}" class="d-flex flex-row" style="width: 400px">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
                         <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameList.html" th:href="@{sqlNameList(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
                     </div>
                 </td>
 

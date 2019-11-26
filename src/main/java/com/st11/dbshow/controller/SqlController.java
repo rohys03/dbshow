@@ -170,12 +170,47 @@ public class SqlController {
         allDb.setDbNm("ALL");
         daDbVOList.add(allDb);
 
-        System.out.println(daDbVOList.toString());
-
         model.addAttribute("dbList", daDbVOList);
         model.addAttribute("defaultDate", LocalDateTime.now());
         model.addAttribute("sqlNameListVO", modelCollection);
         return "content/sqlNameList";
+    }
+
+    @RequestMapping(value = {"logicalAreaSqlNameList"})
+    public String logicalAreaSqlNameList(
+            @RequestParam(value = "dbId", required = false) final String dbId,
+            @RequestParam(value = "sqlName", required = false) final String sqlName,
+            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+            Model model) throws IOException, URISyntaxException {
+        final String apiMethod = "sqlNameList";
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        System.out.println("DBID: " + dbId);
+        if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName);
+        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
+
+        Collection<SqlNameVO> modelCollection = null;
+
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+                    }
+                    , inParam);
+        }
+
+        Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
+        DaDbVO allDb = new DaDbVO();
+        allDb.setDbId(0);
+        allDb.setDbNm("ALL");
+        daDbVOList.add(allDb);
+
+        model.addAttribute("dbList", daDbVOList);
+        model.addAttribute("defaultDate", LocalDateTime.now());
+        model.addAttribute("sqlNameListVO", modelCollection);
+        return "content/logicalAreaSqlNameList";
     }
 
     @RequestMapping(value = {"daTopSql"})
