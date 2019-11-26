@@ -20,7 +20,7 @@
                 <div class="col-auto input-group">
                     <select name="searchType">
                         <option value="SQLID" selected>Sql_Id</option>
-                        <option value="SQLNAME" >SqlName (Xml)</option>
+                        <option value="SQLNAME" >Sql명 (Xml)</option>
                     </select>
                 </div>
                 <div >
@@ -31,7 +31,7 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-
+ㅈ
             </div>
         </form>
         </p>
@@ -46,22 +46,22 @@
                     <tr>
                         <th width="12%">inst_id</th><td width="13%" th:text="${sqlVo.instId}">##</td>
                         <th width="12%">sql_Id</th><td width="13%" th:text="${sqlVo.sqlId}">##</td>
-                        <th width="12%">sql_Name(Xml)</th><td colspan="3" th:text="${sqlVo.sqlName}">##</td>
+                        <th width="12%">sql 명(Xml)</th><td colspan="3" th:text="${sqlVo.sqlName}">##</td>
                     </tr>
                     <tr>
                         <th width="12%">plan_hash_value</th><td width="13%" th:text="${sqlVo.planHashValue}">##</td>
-                        <th width="12%">SchemaName</th><td width="13%" th:text="${sqlVo.parsingSchemaName}">##</td>
-                        <th width="12%">Module</th><td width="13%" th:text="${sqlVo.module}">##</td>
+                        <th width="12%">사용자명</th><td width="13%" th:text="${sqlVo.parsingSchemaName}">##</td>
+                        <th width="12%">모듈명</th><td width="13%" th:text="${sqlVo.module}">##</td>
                         <th width="12%">Program_ID</th><td width="13%" th:text="${sqlVo.programId}">##</td>
                     </tr>
                     <tr>
-                        <th>Executions</th><td th:text="${sqlVo.executions}">##</td>
+                        <th>실행횟수</th><td th:text="${sqlVo.executions}">##</td>
                         <th>buffer Gets</th><td th:text=${sqlVo.bufferGets}>##</td>
                         <th>Blocks / Exec</th><td th:text="${sqlVo.blockPerExec}">##</td>
                         <th>stat4</th><td th:text="null">##</td>
                     </tr>
                     <tr>
-                        <th>LastActiveTime</th><td th:text="${sqlVo.lastActiveTime}">##</td>
+                        <th>최근실행일시</th><td th:text="${sqlVo.lastActiveTime}">##</td>
                         <th>FirstLoadTime</th><td th:text="${sqlVo.firstLoadTime}">##</td>
                         <th>Col3</th><td th:text="null">##</td>
                         <th>Col4</th><td th:text="null">##</td>

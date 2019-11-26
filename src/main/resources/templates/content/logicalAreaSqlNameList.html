@@ -40,10 +40,10 @@
                 <col class="col60px">
                 <col class="col60px">
                 <col class="sqltext-wrap" style="max-width:600px">  <!-- SqlName -->
-                <col>
                 <col class="col60px">
-                <col>
-                <col>
+                <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
 
                 <col class="col60px">
                 <!--<col class="col60px">-->
@@ -66,19 +66,19 @@
             <tr>
                 <!--<th>Data 수집시간</th>-->
                 <th>DB ID</th>
-                <th>SqlName 번호</th>
-                <th class="sqltext-wrap" style="max-width:600px">Sql Name</th>
+                <th>Sql명 번호</th>
+                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
 
                 <th>대표 Sql ID</th>
                 <th>사용자명</th>
                 <th>모듈명</th>
-                <th>최근수행일시</th>
+                <th>최근행일시</th>
 
                 <th>총 수행횟수</th>
                 <!--<th>prevTotalExec</th>-->
                 <!--<th>execDiff</th>-->
 
-                <th>총 BufferGets</th>
+                <th>총 Read Buffer</th>
                 <!--<th>prevTotalBget</th>-->
                 <!--<th>bgetDiff</th>-->
 
@@ -108,17 +108,20 @@
                 <td th:text="${sqlVo.LastActiveTime}"></td>
 
                 <td th:text="${sqlVo.currTotalExec}"></td>
-                <td th:text="${sqlVo.prevTotalExec}"></td>
-                <td th:text="${sqlVo.execDiff}"></td>
+                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
                 <td th:text="${sqlVo.currTotalBget}"></td>
-                <td th:text="${sqlVo.prevTotalBget}"></td>
-                <td th:text="${sqlVo.bgetDiff}"></td>
+                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
                 <td th:text="${sqlVo.currTotalCpu}"></td>
-                <td th:text="${sqlVo.prevTotalCpu}"></td>
-                <td th:text="${sqlVo.cpuDiff}"></td>
+                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
                 <td th:text="${sqlVo.currTotalElap}"></td>
-                <td th:text="${sqlVo.prevTotalElap}"></td>
-                <td th:text="${sqlVo.elapDiff}"></td>
+                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
 
             </tr>
             </tbody>
