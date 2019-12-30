@@ -11,30 +11,32 @@
 <body>
 <th:block layout:fragment="content">
 
-    <!-- DataTables Example -->
+
     <div class="card-header">
-        <p>
-        <form class="d-none d-md-inline-block form-inline form-row" action="/logicalArea">
-            <div class="input-group">
-                <div class="col-auto input-group">
-                    <input type="text" name="logicalAreaCd1" class="form-control" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..">
-                    <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalAreaCd2)..">
-                </div>
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
+        <form class="" action="/logicalArea">
+            <div class="form-group">
+                <div class="form-inline">
+
+                    <label for="logicalAreaCd1" class="mb-2 mr-sm-2 d-block">분류영역1(Main)</label>
+                    <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" minlength="6" placeholder="logicalAreaCd1..(equal)">
+                    <label for="logicalAreaCd2" class="mb-2 mr-sm-2 d-block">분류영역2(Sub)</label>
+                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="6" placeholder="logicalAreaCd2..(equal)">
+
+                    <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
             </div>
         </form>
-        </p>
+    </div>
+
     </div>
 
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
             <colgroup>
-                <col style="width:400px">
-                <col style="width:400px">
+                <col style="width:160px">
+                <col style="width:160px">
+                <col style="width:140px">
+                <col style="width:140px">
                 <col>
                 <col>
                 <col>
@@ -43,8 +45,10 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>논리영역</th>
-                <th>Sub 논리영역</th>
+                <th>분류영역1(Main)</th>
+                <th>분류영역2(Sub)</th>
+                <th>Table 목록</th>
+                <th>SQL 목록</th>
                 <th>총 Table 개수</th>
                 <th>Tmall Table 개수</th>
                 <th>DPDB Table 개수</th>
@@ -56,26 +60,34 @@
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${model}">
                 <td>
-                    <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}" class="d-flex flex-row" style="width: 300px">
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
                 </td>
 
                 <td>
-                    <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}" class="d-flex flex-row" style="width: 300px">
+                    <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table"></i></u></a></div>
-                        <div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle"></i></u></a></div>
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
                 </td>
 
-                <td th:text="${objectVo.allInstanceCnt}"></td>
-                <td th:text="${objectVo.db1Cnt}"></td>
-                <td th:text="${objectVo.db2Cnt}"></td>
-                <td th:text="${objectVo.db3Cnt}"></td>
-                <td th:text="${objectVo.otherInstanceCnt}"></td>
+                <td>
+                    <div style="text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><i class="fas fa-table fa-2x"></i></a></div>
+                </td>
+
+                <td>
+                    <div style="text-align: center"><a href="logicalArea.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><i class="fas fa-question-circle fa-2x"></i></a></div>
+                </td>
+
+                <td style="text-align: right;" th:text="${objectVo.allInstanceCnt}"></td>
+                <td style="text-align: right;" th:text="${objectVo.db1Cnt}"></td>
+                <td style="text-align: right;" th:text="${objectVo.db2Cnt}"></td>
+                <td style="text-align: right;" th:text="${objectVo.db3Cnt}"></td>
+                <td style="text-align: right;" th:text="${objectVo.otherInstanceCnt}"></td>
             </tr>
             </tbody>
         </table>
@@ -88,9 +100,9 @@
         // Call the dataTables jQuery plugin
         $(document).ready(function() {
             $('#dataTable').dataTable({
-                pageLength: 50,
+                pageLength: 200,
                 paging: false,
-                searching: true
+                searching: false
             });
         });
     </script>

@@ -11,36 +11,23 @@
 <body>
 <th:block layout:fragment="content">
 
+    <div class="card-header">
+        <form class="" action="/daTables">
+            <div class="form-group">
+                <div class="form-inline">
 
+                    <label for="tableName" class="mb-2 mr-sm-2 d-block" style="width: 90px;">Table 명</label>
+                    <input type="text" id="tableName" name="tableName" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="6" placeholder="Table Name..(equal)">
+                    <label for="logicalAreaCd1" class="mb-2 mr-sm-2 d-block">분류영역1(Main)</label>
+                    <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" minlength="6" placeholder="logicalAreaCd1..(equal)">
+                    <label for="logicalAreaCd2" class="mb-2 mr-sm-2 d-block">분류영역2(Sub)</label>
+                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="6" placeholder="logicalAreaCd2..(equal)">
 
-    <div class="card-header d-flex justify-content-between">
-        <div class="p-1">
-            <form class="d-none d-md-inline-block form-inline form-row" action="/daTables">
-                <div class="input-group">
-
-                   <!-- <div class="col-auto input-group">
-                        <select name="dbName">
-                            <option value="ALL" selected>ALL</option>
-                            <option value="TMALL" >Tmall</option>
-                            <option value="DPDB">Dpdb</option>
-                            <option value="MPDB">Mpdb</option>
-                        </select>
-                    </div>-->
-
-                    <div class="col-auto input-group">
-                        <input class="col-auto form-control" type="text" name="tableName" th:value="${param.tableName}" placeholder="Table Name..(equal)">
-                        <input class="col-auto form-control" type="text" name="logicalAreaCd1" th:value="${param.logicalAreaCd1}" placeholder="LogicalAreaCd1..(equal)">
-                        <input class="col-auto form-control" type="text" name="logicalAreaCd2" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalArea2)..(equal)">
-                        <button class="col-auto btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-
-
 
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
@@ -91,7 +78,7 @@
             $('#dataTable').dataTable({
                 pageLength: 25,
                 paging: true,
-                searching: true
+                searching: false
             });
         });
     </script>
