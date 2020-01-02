@@ -30,7 +30,7 @@ public class TopSqlController {
     public String topSqlDayList(
             @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
             @RequestParam(value = "clctDy1", required = false) String clctDy1,
-            @RequestParam(value = "clctDy2", defaultValue = "") String clctDy2,
+            @RequestParam(value = "clctDy2", defaultValue = "99991231") String clctDy2,
             @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
             @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
@@ -52,7 +52,7 @@ public class TopSqlController {
         if (!isNullOrEmpty(clctDy2)) {
             inParam.put("clctDy2", clctDy2.replace("-",""));
         } else {
-            inParam.put("clctDy2", clctDy1.replace("-",""));
+            inParam.put("clctDy2", defaultClctDy1.replace("-",""));
         }
         if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
         if (!isNullOrEmpty(ascending)) inParam.put("ascending", ascending.toUpperCase());
