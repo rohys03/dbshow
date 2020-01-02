@@ -30,7 +30,7 @@ public class TopSqlController {
     public String topSqlDayList(
             @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
             @RequestParam(value = "clctDy1", required = false) String clctDy1,
-            @RequestParam(value = "clctDy2", defaultValue = "99991231") String clctDy2,
+            @RequestParam(value = "clctDy2", required = false) String clctDy2,
             @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
             @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
@@ -38,22 +38,26 @@ public class TopSqlController {
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        Date from = new Date();
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String defaultClctDy1 = transFormat.format(from);
+        Calendar cal = Calendar.getInstance();
+
+        Date toDay = new Date();
+        cal.setTime(toDay);
+        cal.add(Calendar.DATE, -7);
+
+        String defaultClctDy1 = transFormat.format(toDay);
+        String defaultClctDy2 = transFormat.format(cal.getTime());
+
 
         if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
-        if (!isNullOrEmpty(clctDy1)) {
-            inParam.put("clctDy1", clctDy1.replace("-",""));
-        } else {
-            inParam.put("clctDy1", defaultClctDy1.replace("-",""));
-        }
 
-        if (!isNullOrEmpty(clctDy2)) {
-            inParam.put("clctDy2", clctDy2.replace("-",""));
-        } else {
-            inParam.put("clctDy2", defaultClctDy1.replace("-",""));
-        }
+        if (isNullOrEmpty(clctDy1)) clctDy1 = defaultClctDy1;
+        if (isNullOrEmpty(clctDy2)) clctDy2 = defaultClctDy2;
+
+        inParam.put("clctDy1", clctDy1.replace("-",""));
+        inParam.put("clctDy2", clctDy2.replace("-",""));
+
+
         if (!isNullOrEmpty(orderString)) inParam.put("orderString", orderString.toUpperCase());
         if (!isNullOrEmpty(ascending)) inParam.put("ascending", ascending.toUpperCase());
 
@@ -72,6 +76,8 @@ public class TopSqlController {
 
         model.addAttribute("defaultDate", LocalDateTime.now());
         model.addAttribute("dbId", dbId);
+        model.addAttribute("clctDy1", clctDy1);
+        model.addAttribute("clctDy2", clctDy2);
         model.addAttribute("model", modelCollection);
 
         return "content/topSqlDayList";
