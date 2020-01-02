@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,8 +29,8 @@ public class TopSqlController {
     @RequestMapping(value = {"topSqlDayList"})
     public String topSqlDayList(
             @RequestParam(value = "dbId", required = false, defaultValue = "1") final String dbId,
-            @RequestParam(value = "clctDy1", defaultValue = "99991231") String clctDy1,
-            @RequestParam(value = "clctDy2", defaultValue = "99991231") String clctDy2,
+            @RequestParam(value = "clctDy1", required = false) String clctDy1,
+            @RequestParam(value = "clctDy2", defaultValue = "") String clctDy2,
             @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
             @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
@@ -37,10 +38,17 @@ public class TopSqlController {
 
         HashMap<String, String> inParam = new HashMap<>();
 
+        Date from = new Date();
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String defaultClctDy1 = transFormat.format(from);
+
         if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
         if (!isNullOrEmpty(clctDy1)) {
             inParam.put("clctDy1", clctDy1.replace("-",""));
+        } else {
+            inParam.put("clctDy1", defaultClctDy1.replace("-",""));
         }
+
         if (!isNullOrEmpty(clctDy2)) {
             inParam.put("clctDy2", clctDy2.replace("-",""));
         } else {

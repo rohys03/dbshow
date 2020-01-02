@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - DA Data Sync Info</title>
+    <title>11st DB Show - Index</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -74,11 +74,11 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="objectDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>운영 정보 조회</span>
+                <span>TABLE 정보</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="objectDropDown" >
-                <h6 class="dropdown-header">System 정보;</h6>
-                <a class="dropdown-item" href=/dashboard>Dashboard.</a>
+                <h6 class="dropdown-header">Object 정보:</h6>
+                <a class="dropdown-item" href=/dbDistributionStats>#Dashboard.</a>
                 <a class="dropdown-item" href=/referencedObject>참조 Object.</a>
                 <a class="dropdown-item" href=/daSyncData>Data Sync(Ogg &)</a>
                 <a class="dropdown-item" href=""/>#mySession.</a>
@@ -91,27 +91,15 @@
                 <span>SQL 정보</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlDropdown">
-                <h6 class="dropdown-header">SQL 정보:</h6>
+                <h6 class="dropdown-header">SQL Application:</h6>
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
                 <a class="dropdown-item" href="/sqlNameList">SQL 검색.(by SqlName)</a>
                 <!--<a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>-->
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Top Sql</h6>
+
+                <h6 class="dropdown-header">Top Sql:</h6>
                 <a class="dropdown-item" href=/topSqlDayList>Top SQL(Day)</a>
-                <div class="dropdown-divider"></div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>운영 기능</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="opDropdown">
-                <h6 class="dropdown-header">운영 업무.</h6>
-                <a class="dropdown-item active" href=#>#DB Jobs.</a>
-                <a class="dropdown-item" href=#>#Object별 권한.</a>
-                <a class="dropdown-item" href=#>#Plan Management.</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
@@ -125,6 +113,7 @@
                 <a class="dropdown-item " href="/dbDistributionStats">DB 분산 Kpi(Week).</a>
                 <a class="dropdown-item " href="/dbDistributionStats2">DB 분산 Kpi(Day).</a>
                 <div class="dropdown-divider"></div>
+
                 <h6 class="dropdown-header">논리 정의</h6>
                 <a class="dropdown-item " href="/daTables">Table 조회.</a>
                 <a class="dropdown-item" href="/logicalArea"/>논리 데이터 영역</a>
@@ -134,6 +123,19 @@
                 <h6 class="dropdown-header">물리 영역 정보</h6>
                 <a class="dropdown-item" href="#"/>#물리 영역 SQL 조회</a>
                 <a class="dropdown-item" href="#"/>#뭐.?.</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>기타 운영</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="opDropdown">
+                <h6 class="dropdown-header">운영 업무.</h6>
+                <a class="dropdown-item active" href=#>#DB Jobs.</a>
+                <a class="dropdown-item" href=#>#Object별 권한.</a>
+                <a class="dropdown-item" href=#>#Plan Management.</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
@@ -168,1000 +170,135 @@
 
 
 
+        <!-- Icon Cards-->
+        <div class="row" style="min-height: 300px; margin: 1px">
 
+            <div class="col-lg-6">
+                <div class="card  o-hidden mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(255, 99, 132, 0.2)">공지사항
+                        <a class="text-black-50 float-right" href="#">
+                            Go 공지사항
+                            <span class="float-right">
+                                <i class="fas float-right fa-angle-double-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body" >
 
-        <div class="card-header">
-            <form class="" action="/logicalArea">
-                <div class="form-group">
-                    <div class="form-inline">
+                        <div class="card-body-icon float-right">
+                            <i class="fas fa-fw  fa-comments"></i>
+                        </div>
+                        <span width="50%">
+                            <h5> 공지사항 </h5>
+                            <ul>
+                                <li> 11st DB Show 탄생. (Beta ver..)</li>
+                                <li> 2019.10.23 Sql FullText 를 볼 수 있습니다. sql application에 함수명을 알 수 있습니다. </li>
+                                <li> 2019.10.30 TopSql에 SKpay Data가 추가됩니다. (PSKPAYDB, PSKPAYPGDB) </li>
 
-                        <label for="logicalAreaCd1" class="mb-2 mr-sm-2 d-block">분류영역1(Main)</label>
-                        <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control orderItem mr-sm-2" style="width: 200px;" value="" minlength="6" placeholder="logicalAreaCd1..(equal)">
-                        <label for="logicalAreaCd2" class="mb-2 mr-sm-2 d-block">분류영역2(Sub)</label>
-                        <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control orderItem mr-sm-2" style="width: 200px;" value="" minlength="6" placeholder="logicalAreaCd2..(equal)">
-
-                        <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
+                            </ul>
+                        </span>
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(255, 159, 64, 0.2)">
+                        <i class="fas fa-chart-bar"></i> Simple KPI
+                    </div>
+                    <div class="card-body">
+                    <span width="50%">
+                        <h5>KPI Today (실행횟수 %)</h5>
+                        <table class="table">
+
+                            <thead class="thead-light table-thead-wrap-size">
+                                <tr>
+                                    <th>최종수집일자</th>
+                                    <th>MainDB</th>
+                                    <th>DPDB</th>
+                                    <th>MPDB</th>
+                                    <th>CartDB</th>
+                                    <th>PrmtDB</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td >20200102</td>
+                                <td >39.12</td>
+                                <td >3.45</td>
+                                <td >53.18</td>
+                                <td >3.38</td>
+                                <td >0.87</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="min-height: 25%; margin: 1px">
+            <div class="col-lg-12">
+                <div class="card mb-3" style="min-height:300px">
+                    <div class="card-header" style="background: rgba(75, 92, 242, 0.25)">
+                        <i class="fas fa-chart-bar"></i> 데이터 수집 현황.
+                    </div>
+                    <!--<div class="card-body">-->
+                        <table class="table table-bordered ">
+                            <caption>Date at collection data</caption>
+                            <thead class="thead-light">
+                            <tr>
+                                <th>DB_ID </th>
+                                <th>DB_NM </th>
+                                <th>DB_SQL_FULLTEXT </th>
+                                <th>DB_SQLAREA </th>
+                                <th>DB_OBJECTS </th>
+                                <th>DB_SYNC_TABLES </th>
+                                <th>DB_SQLNAME_DTL_INFO </th>
+                                <th>DB_SQLNAME_DTL_LIST </th>
+                                <th>DB_SQLNAME_DTL_MAPP </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>TMALL</td>
+                            <td>20200102</td>
+                            <td>20200102</td>
+                            <td>20191230</td>
+                            <td>20191230</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>BIDB</td>
+                            <td>20200102</td>
+                            <td>20200102</td>
+                            <td>20191230</td>
+                            <td>20191230</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                            <tr class="table-info">
+                                <th scope="row">12</th>
+                                <td>PMETA</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>20200102</td>
+                                <td>20200102</td>
+                                <td>20200102</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    <!--</div>-->
+                </div>
+            </div>
         </div>
 
-        </div>
-
-        <div class="card-body">
-            <table class="table table-bordered table-sm table-wrap" id="dataTable" >
-                <colgroup>
-                    <col style="width:160px">
-                    <col style="width:160px">
-                    <col style="width:140px">
-                    <col style="width:140px">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <thead class="thead-light table-thead-wrap-size">
-                <tr>
-                    <th>분류영역1(Main)</th>
-                    <th>분류영역2(Sub)</th>
-                    <th>Table 목록</th>
-                    <th>SQL 목록</th>
-                    <th>총 Table 개수</th>
-                    <th>Tmall Table 개수</th>
-                    <th>DPDB Table 개수</th>
-                    <th>MPDB Table 개수</th>
-                    <th>other Table 개수</th>
-                </tr>
-                </thead>
-
-                <tbody class="table-tbody-wrap-size">
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>AD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=AD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=AD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">331</td>
-                    <td style="text-align: right;">261</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">70</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>AS</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=AS&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=AS&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">48</td>
-                    <td style="text-align: right;">30</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">18</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CC</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=CC&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=CC&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">86</td>
-                    <td style="text-align: right;">57</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">29</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CM</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=CM&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=CM&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">51</td>
-                    <td style="text-align: right;">33</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">18</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CO</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CO_PCS</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=CO&amp;logicalAreaCd2=CO_PCS"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=CO&amp;logicalAreaCd2=CO_PCS"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">20</td>
-                    <td style="text-align: right;">18</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">2</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CO</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CO_SLCT</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=CO&amp;logicalAreaCd2=CO_SLCT"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=CO&amp;logicalAreaCd2=CO_SLCT"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">22</td>
-                    <td style="text-align: right;">22</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>CO</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=CO&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=CO&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">137</td>
-                    <td style="text-align: right;">105</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">32</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>DA</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=DA&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=DA&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">2</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>DP</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=DP&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=DP&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">1180</td>
-                    <td style="text-align: right;">834</td>
-                    <td style="text-align: right;">20</td>
-                    <td style="text-align: right;">326</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MB</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MB&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MB&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">535</td>
-                    <td style="text-align: right;">412</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">123</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MO</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MO&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MO&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">65</td>
-                    <td style="text-align: right;">45</td>
-                    <td style="text-align: right;">11</td>
-                    <td style="text-align: right;">9</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MPV2</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MPV2&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MPV2&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_CUPN</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">43</td>
-                    <td style="text-align: right;">36</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">7</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_CUPN_01</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_01"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_01"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">12</td>
-                    <td style="text-align: right;">6</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">6</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_CUPN_02</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_02"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_02"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">13</td>
-                    <td style="text-align: right;">9</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">4</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_CUPN_LP</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_LP"><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_PD&amp;logicalAreaCd2=MT_CUPN_LP"><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">54</td>
-                    <td style="text-align: right;">44</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">10</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_PD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_PD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">121</td>
-                    <td style="text-align: right;">80</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">41</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>MT_TR</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=MT_TR&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=MT_TR&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">505</td>
-                    <td style="text-align: right;">434</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">71</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>OD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=OD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=OD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">23</td>
-                    <td style="text-align: right;">16</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">7</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>PAY</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=PAY&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=PAY&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">169</td>
-                    <td style="text-align: right;">156</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">13</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=PD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=PD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">1008</td>
-                    <td style="text-align: right;">823</td>
-                    <td style="text-align: right;">4</td>
-                    <td style="text-align: right;">181</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>SE</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=SE&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=SE&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">221</td>
-                    <td style="text-align: right;">210</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">11</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>SM</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=SM&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=SM&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">10</td>
-                    <td style="text-align: right;">7</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">3</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>SPRT</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=SPRT&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=SPRT&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">60</td>
-                    <td style="text-align: right;">60</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>SRCH</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=SRCH&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=SRCH&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">263</td>
-                    <td style="text-align: right;">238</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">25</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>ST</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=ST&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=ST&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">606</td>
-                    <td style="text-align: right;">578</td>
-                    <td style="text-align: right;">10</td>
-                    <td style="text-align: right;">18</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>SY</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=SY&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=SY&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">272</td>
-                    <td style="text-align: right;">238</td>
-                    <td style="text-align: right;">2</td>
-                    <td style="text-align: right;">32</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>TB</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=TB&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=TB&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>TR</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=TR&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=TR&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">396</td>
-                    <td style="text-align: right;">348</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">48</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>TS</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=TS&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=TS&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">118</td>
-                    <td style="text-align: right;">86</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">32</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>TWRD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=TWRD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=TWRD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">35</td>
-                    <td style="text-align: right;">35</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>WM_PD</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=WM_PD&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=WM_PD&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">85</td>
-                    <td style="text-align: right;">68</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">17</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>WM_TR</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=WM_TR&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=WM_TR&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">8</td>
-                    <td style="text-align: right;">7</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <div style="width:200px; flex: 0 0 200px"><span>Undefined</span></div>
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTables(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                            <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd1=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                        </div>
-                    </td>
-
-                    <td>
-
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="daTables?logicalAreaCd1=Undefined&amp;logicalAreaCd2="><i class="fas fa-table fa-2x"></i></a></div>
-                    </td>
-
-                    <td>
-                        <div style="text-align: center"><a href="logicalAreaSqlNameList?logicalAreaCd1=Undefined&amp;logicalAreaCd2="><i class="fas fa-question-circle fa-2x"></i></a></div>
-                    </td>
-
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">1</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                    <td style="text-align: right;">0</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer small text-muted">[content/sqlApplication.html] Updated at 2019년 12월 30일 (월) 오후 5시 22분 37초</div>
 
 
         <div class="card-footer small text-muted">
@@ -1207,17 +344,6 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
-<script type="text/javascript" >
-    // Call the dataTables jQuery plugin
-    $(document).ready(function() {
-        $('#dataTable').dataTable({
-            pageLength: 200,
-            paging: false,
-            searching: false
-        });
-    });
-</script>
-
 
 <!-- db Show script -->
 <script type="text/javascript" src="js/dbshow.js"></script>
@@ -1225,4 +351,3 @@
 </body>
 
 </html>
-
