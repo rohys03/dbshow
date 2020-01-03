@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Index</title>
+    <title>11st DB Show - Sql Name</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -91,15 +91,16 @@
                 <span>SQL 정보</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="sqlDropdown">
+                <h6 class="dropdown-header">Top Sql:</h6>
+                <a class="dropdown-item" href=/topSqlDayListByAwr>Top SQL(AWR)</a>
+                <a class="dropdown-item" href=/topSqlDayList>Top SQL(SGA)</a>
+                <div class="dropdown-divider"></div>
+
                 <h6 class="dropdown-header">SQL Application:</h6>
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
                 <a class="dropdown-item" href="/sqlNameList">SQL 검색.(by SqlName)</a>
                 <!--<a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>-->
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
-                <div class="dropdown-divider"></div>
-
-                <h6 class="dropdown-header">Top Sql:</h6>
-                <a class="dropdown-item" href=/topSqlDayList>Top SQL(Day)</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
@@ -170,135 +171,68 @@
 
 
 
-        <!-- Icon Cards-->
-        <div class="row" style="min-height: 300px; margin: 1px">
 
-            <div class="col-lg-6">
-                <div class="card  o-hidden mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(255, 99, 132, 0.2)">공지사항
-                        <a class="text-black-50 float-right" href="#">
-                            Go 공지사항
-                            <span class="float-right">
-                                <i class="fas float-right fa-angle-double-right"></i></span>
-                        </a>
-                    </div>
-                    <div class="card-body" >
 
-                        <div class="card-body-icon float-right">
-                            <i class="fas fa-fw  fa-comments"></i>
-                        </div>
-                        <span width="50%">
-                            <h5> 공지사항 </h5>
-                            <ul>
-                                <li> 11st DB Show 탄생. (Beta ver..)</li>
-                                <li> 2019.10.23 Sql FullText 를 볼 수 있습니다. sql application에 함수명을 알 수 있습니다. </li>
-                                <li> 2019.10.30 TopSql에 SKpay Data가 추가됩니다. (PSKPAYDB, PSKPAYPGDB) </li>
+        <div class="card-header d-flex flex-row">
+            <form class="form-inline" action="/sqlNameList">
+                <div class="form-group">
+                    <label for="dbId" class="mr-2">DB ID</label>
+                    <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
+                        <option value="1">TMALL</option>
+                        <option value="4">DPDB</option>
+                        <option value="5">MPDB</option>
+                        <option value="6">CARTDB</option>
+                        <option value="8">PSKPAY</option>
+                        <option value="9">PSKPAYPG</option>
+                        <option value="13">PRMTDB</option>
+                        <option value="0" selected="selected">ALL</option>
+                    </select>
 
-                            </ul>
-                        </span>
-                    </div>
+                    <label for="sqlName" class="mr-2">Sql 명</label>
+                    <input type="text" id="sqlName" name="sqlName" class="form-control mr-sm-2" style="width: 200px;"value="" minlength="6" placeholder="sqlName..(Like)">
+                    <!--
+                                    <label for="logicalAreaCd1" class="mr-2" style="width: 90px;">logicalAreaCd1</label>
+                                    <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..(equal)">
+                                    <label for="logicalAreaCd2" class="mr-2" style="width: 90px;">logicalAreaCd2</label>
+                                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)">
+                    -->
+
+                    <button class="btn btn-outline-info ml-2 " type="submit"> 검색 </button>
                 </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="card mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(255, 159, 64, 0.2)">
-                        <i class="fas fa-chart-bar"></i> Simple KPI
-                    </div>
-                    <div class="card-body">
-                    <span width="50%">
-                        <h5>KPI Today (실행횟수 %)</h5>
-                        <table class="table">
-
-                            <thead class="thead-light table-thead-wrap-size">
-                                <tr>
-                                    <th>최종수집일자</th>
-                                    <th>MainDB</th>
-                                    <th>DPDB</th>
-                                    <th>MPDB</th>
-                                    <th>CartDB</th>
-                                    <th>PrmtDB</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td >20200102</td>
-                                <td >39.12</td>
-                                <td >3.45</td>
-                                <td >53.18</td>
-                                <td >3.38</td>
-                                <td >0.87</td>
-                                </tr>
-                            </tbody>
-                            </table>
-                    </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="min-height: 25%; margin: 1px">
-            <div class="col-lg-12">
-                <div class="card mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(75, 92, 242, 0.25)">
-                        <i class="fas fa-chart-bar"></i> 데이터 수집 현황.
-                    </div>
-                    <!--<div class="card-body">-->
-                        <table class="table table-bordered ">
-                            <caption>Date at collection data</caption>
-                            <thead class="thead-light">
-                            <tr>
-                                <th>DB_ID </th>
-                                <th>DB_NM </th>
-                                <th>DB_SQL_FULLTEXT </th>
-                                <th>DB_SQLAREA </th>
-                                <th>DB_OBJECTS </th>
-                                <th>DB_SYNC_TABLES </th>
-                                <th>DB_SQLNAME_DTL_INFO </th>
-                                <th>DB_SQLNAME_DTL_LIST </th>
-                                <th>DB_SQLNAME_DTL_MAPP </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>TMALL</td>
-                            <td>20200102</td>
-                            <td>20200102</td>
-                            <td>20191230</td>
-                            <td>20191230</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>BIDB</td>
-                            <td>20200102</td>
-                            <td>20200102</td>
-                            <td>20191230</td>
-                            <td>20191230</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                            <tr class="table-info">
-                                <th scope="row">12</th>
-                                <td>PMETA</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>20200102</td>
-                                <td>20200102</td>
-                                <td>20200102</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    <!--</div>-->
-                </div>
-            </div>
+            </form>
         </div>
 
+
+        <div class="card-body">
+            <table class="table table-bordered table-sm" id="dataTable" >
+                <colgroup>
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="sqltext-wrap" style="max-width:600px">
+                    <col>
+                    <col class="col60px">
+                    <col class="col60px">
+                    <col class="col60px">
+                </colgroup>
+
+                <thead class="thead-light table-thead-wrap-size">
+                <tr>
+                    <th>Sql명 번호</th>
+                    <th>DB Id</th>
+                    <th class="sqltext-wrap" style="max-width:600px">Sql Name</th>
+                    <th>대표 Sql ID</th>
+                    <th>사용자명</th>
+                    <th>모듈명</th>
+                    <th>최근실행일시</th>
+                </tr>
+                </thead>
+
+                <tbody class="table-tbody-wrap-size">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer small text-muted">[content/sqlNameDetail.html] Updated at null</div>
 
 
         <div class="card-footer small text-muted">
@@ -344,6 +278,18 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
+<script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            pageLength: 50,
+            paging: true,
+            searching: false,
+            scrollX:true
+        });
+    });
+</script>
+
 
 <!-- db Show script -->
 <script type="text/javascript" src="js/dbshow.js"></script>
@@ -351,3 +297,4 @@
 </body>
 
 </html>
+

@@ -11,24 +11,16 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header">
-        <form class="" action="/logicalAreaSqlNameList">
-            <div class="form-group">
-                <div class="form-inline">
-<!--
-                    <label for="dbId" class="mb-2 mr-sm-2 d-block" style="width: 50px;">DB ID</label>
-                    <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 200px;">
-                        <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
-                        </option>
-                    </select>
--->
-                    <label for="logicalAreaCd1" class="mb-2 mr-sm-2 d-block" style="width: 90px;">논리영역</label>
-                    <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..(equal)">
-                    <label for="logicalAreaCd2" class="mb-2 mr-sm-2 d-block" style="width: 90px;">Sub 논리영역</label>
-                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control orderItem mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)">
+    <div class="card-header d-flex flex-row">
+        <form class="form-inline" action="/logicalAreaSqlNameList">
+            <div class="d-flex flex-row">
 
-                    <button class="btn btn-outline-info mb-2 mr-sm-2 " type="submit"> 검색 </button>
-                </div>
+                <label for="logicalAreaCd1" class="mr-2">논리영역</label>
+                <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" placeholder="logicalAreaCd1..(equal)">
+                <label for="logicalAreaCd2" class="mr-2">Sub 논리영역</label>
+                <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)">
+
+                <button class="btn btn-outline-info ml-2 " type="submit"> 검색 </button>
             </div>
         </form>
     </div>
