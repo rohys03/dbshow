@@ -144,7 +144,7 @@ public class SqlController {
     }
 
     @RequestMapping(value = {"sqlNameList"})
-    public String sqlName(
+    public String sqlNameList(
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
             Model model) throws IOException, URISyntaxException {

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>Table 상세 정보</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <div class="card-header d-flex flex-row">
+        <form class="form-inline" action="/tableDetail">
+            <div class="d-flex flex-row">
+                <label for="dbId" class="mr-2">DB ID</label>
+                <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
+                    <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                    </option>
+                </select>
+
+                <label for="tableName" class="mr-2">Table 명</label>
+                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="6" placeholder="Table Name..(equal)">
+
+                <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="card-body">
+
+        <table class="table-bordered table" id="tableInfo">
+            <tbody>
+            <tr class="text-white bg-info">
+                <th>DB_ID</th>
+                <th>OWNER</th>
+                <th>OBJECT_NAME</th>
+                <th>STATUS</th>
+                <th>TEMPORARY</th>
+                <th></th>
+                <th>동일 테이블명 목록(All DB)</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>TMALL</td>
+                <td>MT_CUPN</td>
+                <td>VALID</td>
+                <td>N</td>
+                <td></td>
+                <td rowspan="3">
+                    <div style="overflow-y:auto; max-height: 120px">
+                        <div>TMALL.MT_CUPN@MAINDB</div>
+                        <div>TMALL.MT_CUPN@BIDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div>TMALL.MT_CUPN@PRMTDB</div>
+                    </div>
+
+                </td>
+            </tr>
+
+            <tr class="text-white bg-info">
+                <th>논리영역</th>
+                <th>논리영역(Sub)</th>
+                <th>물리영역</th>
+                <th>테이블 Comment</th>
+                <th>생성일시</th>
+                <th>표준화대상여부</th>
+
+            </tr>
+            <tr>
+                <td>MT_PD</td>
+                <td>MT_CUPN_01</td>
+                <td>PD</td>
+                <td></td>
+                <td>2017/08/31 17:39:10</td>
+                <td>Y</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-sm" id="sqlNameGrid" >
+            <colgroup>
+                <!--<col class="col60px">-->
+                <col class="col60px">
+                <col class="col60px">
+                <col class="sqltext-wrap" style="max-width:600px">  <!-- SqlName -->
+                <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+
+                <col class="col60px">
+
+                <col class="col60px">
+
+                <col class="col60px">
+
+                <col class="col60px">
+
+            </colgroup>
+            <thead class="thead-light table-thead-wrap-size">
+            <tr>
+                <!--<th>Data 수집시간</th>-->
+                <th>DB ID</th>
+                <th>Sql명 번호</th>
+                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                <th>대표 Sql ID</th>
+                <th>사용자명</th>
+                <th>모듈명</th>
+                <th>최근행일시</th>
+
+                <th>총 수행횟수</th>
+
+                <th>총 Read Buffer</th>
+
+                <th>총 Cpu Time</th>
+
+                <th>총 응답시간</th>
+
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:if="${not #lists.isEmpty(sqlNameListVO)}" th:each="sqlVo : ${sqlNameListVO}">
+                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                <td th:text="${sqlVo.dbId}" ></td>
+                <td th:text="${sqlVo.sqlNameNo}" ></td>
+                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                <td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+                <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                <td th:text="${sqlVo.repSqlId}"></td>
+                <td th:text="${sqlVo.parsingSchemaName}"></td>
+                <td th:text="${sqlVo.module}"></td>
+                <td th:text="${sqlVo.LastActiveTime}"></td>
+
+                <td th:text="${sqlVo.currTotalExec}"></td>
+
+                <td th:text="${sqlVo.currTotalBget}"></td>
+
+                <td th:text="${sqlVo.currTotalCpu}"></td>
+
+                <td th:text="${sqlVo.currTotalElap}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+</th:block>
+
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#sqlNameGrid').dataTable({
+                pageLength: 25,
+                paging: true,
+                searching: false,
+                lengthChange: false,
+                order:[0, 'desc']
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>
+
