@@ -91,7 +91,7 @@ public class TopSqlController {
             @RequestParam(value = "orderString", required = false, defaultValue = "EXEC_DIFF") final String orderString,
             @RequestParam(value = "ascending", required = false, defaultValue = "DESC") final String ascending,
             Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "topSqlDayList";
+        final String apiMethod = "topSqlDayListByAwr";
 
         HashMap<String, String> inParam = new HashMap<>();
 

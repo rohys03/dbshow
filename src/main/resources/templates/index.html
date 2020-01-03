@@ -61,13 +61,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:if="${not #lists.isEmpty(kpiStats)}" th:each="statVo : ${kpiStats}">
-                                <td th:text="${statVo.clctDy}" ></td>
-                                <td th:text="${statVo.db1ExecutionRt}" ></td>
-                                <td th:text="${statVo.db2ExecutionRt}" ></td>
-                                <td th:text="${statVo.db3ExecutionRt}" ></td>
-                                <td th:text="${statVo.db4ExecutionRt}" ></td>
-                                <td th:text="${statVo.db5ExecutionRt}" ></td>
+                                <tr th:if="${not #lists.isEmpty(kpiStats)}" th:each="kpiStatVo : ${kpiStats}">
+                                <td th:text="${kpiStatVo.clctDy}" ></td>
+                                <td th:text="${kpiStatVo.db1ExecutionRt}" ></td>
+                                <td th:text="${kpiStatVo.db2ExecutionRt}" ></td>
+                                <td th:text="${kpiStatVo.db3ExecutionRt}" ></td>
+                                <td th:text="${kpiStatVo.db4ExecutionRt}" ></td>
+                                <td th:text="${kpiStatVo.db5ExecutionRt}" ></td>
                                 </tr>
                             </tbody>
                             </table>
@@ -77,70 +77,47 @@
         </div>
     </div>
 
-<!--
     <div class="row" style="min-height: 25%; margin: 1px">
         <div class="col-lg-12">
             <div class="card mb-3" style="min-height:300px">
                 <div class="card-header" style="background: rgba(75, 92, 242, 0.25)">
                     <i class="fas fa-chart-bar"></i> 데이터 수집 현황.
                 </div>
-                &lt;!&ndash;<div class="card-body">&ndash;&gt;
+                <!--<div class="card-body">-->
                 <table class="table table-bordered ">
                     <caption>Date at collection data</caption>
                     <thead class="thead-light">
                     <tr>
                         <th>DB_ID </th>
                         <th>DB_NM </th>
-                        <th>DB_SQL_FULLTEXT </th>
-                        <th>DB_SQLAREA </th>
-                        <th>DB_OBJECTS </th>
-                        <th>DB_SYNC_TABLES </th>
-                        <th>DB_SQLNAME_DTL_INFO </th>
-                        <th>DB_SQLNAME_DTL_LIST </th>
-                        <th>DB_SQLNAME_DTL_MAPP </th>
+                        <th>DA_SQL_FULLTEXT </th>
+                        <th>DA_SQLAREA </th>
+                        <th>DA_OBJECTS </th>
+                        <th>DA_SYNC_TABLES </th>
+                        <th>DA_SQLNAME_DTL_INFO </th>
+                        <th>DA_SQLNAME_LIST </th>
+                        <th>DA_SQLNAME_MAPP </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>TMALL</td>
-                        <td>20200102</td>
-                        <td>20200102</td>
-                        <td>20191230</td>
-                        <td>20191230</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr th:if="${not #lists.isEmpty(daStatMngAll)}" th:each="daStatMngAllVo : ${daStatMngAll}">
+                        <td th:text="${daStatMngAllVo.dbId}" ></td>
+                        <td th:text="${daStatMngAllVo.dbNm}" ></td>
+                        <td th:text="${daStatMngAllVo.daSqlFullText}" ></td>
+                        <td th:text="${daStatMngAllVo.daSqlarea}" ></td>
+                        <td th:text="${daStatMngAllVo.daObjects}" ></td>
+                        <td th:text="${daStatMngAllVo.daSyncTables}" ></td>
+                        <td th:text="${daStatMngAllVo.daSqlnameDtlInfo}" ></td>
+                        <td th:text="${daStatMngAllVo.daSqlnameList}" ></td>
+                        <td th:text="${daStatMngAllVo.daSqlnameMapp}" ></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>BIDB</td>
-                        <td>20200102</td>
-                        <td>20200102</td>
-                        <td>20191230</td>
-                        <td>20191230</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="table-info">
-                        <th scope="row">12</th>
-                        <td>PMETA</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>20200102</td>
-                        <td>20200102</td>
-                        <td>20200102</td>
-                    </tr>
+
                     </tbody>
                 </table>
-                &lt;!&ndash;</div>&ndash;&gt;
+                <!--</div>-->
             </div>
         </div>
     </div>
--->
 
     <div class="row" style="min-height: 25%; margin: 1px">
         <div class="col-lg-12">

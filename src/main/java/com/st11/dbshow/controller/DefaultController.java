@@ -2,8 +2,10 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.repository.DaStatMngAllVO;
 import com.st11.dbshow.repository.DbKpiStatVO;
 import com.st11.dbshow.service.ApiService;
+import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,17 +33,26 @@ public class DefaultController {
     @RequestMapping(value = {"", "/", "/index"})
     public String index(HttpServletRequest request, Model model) throws URISyntaxException, IOException{
 
-        final String apiMethod = "dbKpiStatDaily";
-
         HashMap<String, String> inParam = new HashMap<>();
+
         inParam.put("cnt","1");
 
-        Collection<DbKpiStatVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DbKpiStatVO>>() {
+        Collection<DbKpiStatVO> kpiStatCollection = null;
+        kpiStatCollection = apiService.getApiModels("dbKpiStatDaily", new TypeReference<Collection<DbKpiStatVO>>() {
                 }
                 , inParam);
-        System.out.println("modelCollection: " + modelCollection.toString());
-        model.addAttribute("kpiStats", modelCollection);
+        
+//        System.out.println("kpiStatCollection: " + kpiStatCollection.toString());
+
+        Collection<DaStatMngAllVO> daStatMngAllCollection = null;
+        daStatMngAllCollection = apiService.getApiModels("dbshow/getDaStatMngAll", new TypeReference<Collection<DaStatMngAllVO>>() {
+                }
+                );
+//        System.out.println("dbshow/daStatMngCollection: " + daStatMngAllCollection.toString());
+
+
+        model.addAttribute("kpiStats", kpiStatCollection);
+        model.addAttribute("daStatMngAll", daStatMngAllCollection);
 
         model.addAttribute("serverTime", getCurrentTime());
 
