@@ -22,7 +22,7 @@
                 <button class="btn btn-outline-info ml-2 " type="submit"> 검색 </button>
             </div>
         </form>
-        <div class="text-muted align-self-center"> OGG 동기화 현황 최종 수집 일자: 2019-04-08 16:21:45 </div>
+        <div class="text-muted align-self-center" th:text="'OGG 동기화 현황 최종 수집 일자: ' + ${#strings.defaultString(#dates.format(daStatMngModel.updateDt, 'yyyy-MM-dd HH:mm:ss'),'No Result ')}"> Updated </div>
     </div>
 
     <div class="card-body">
