@@ -172,16 +172,25 @@
 
 
 
+
         <div class="card-header d-flex flex-row">
             <form class="form-inline" action="/tableDetail">
                 <div class="d-flex flex-row">
                     <label for="dbId" class="mr-2">DB ID</label>
                     <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
-
+                        <option value="1" selected="selected">TMALL</option>
+                        <option value="4">DPDB</option>
+                        <option value="5">MPDB</option>
+                        <option value="6">CARTDB</option>
+                        <option value="8">PSKPAY</option>
+                        <option value="9">PSKPAYPG</option>
+                        <option value="13">PRMTDB</option>
                     </select>
 
+                    <label for="owner" class="mr-2">Table Owner</label>
+                    <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" value="TMALL" minlength="2" placeholder="owner..(equal)">
                     <label for="tableName" class="mr-2">Table 명</label>
-                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="" minlength="6" placeholder="Table Name..(equal)">
+                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="MT_CUPN" minlength="2" placeholder="Table Name..(equal)">
 
                     <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
                 </div>
@@ -191,9 +200,10 @@
 
         <div class="card-body">
 
-            <table class="table-bordered table">
+            <table class="table-bordered table" id="tableInfo">
                 <tbody>
                 <tr class="text-white bg-info">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
                     <th>DB_ID</th>
                     <th>OWNER</th>
                     <th>OBJECT_NAME</th>
@@ -208,26 +218,29 @@
                     <td>MT_CUPN</td>
                     <td>VALID</td>
                     <td>N</td>
-                    <td>2017/08/31 17:39:10</td>
+                    <td>2019-12-04</td>
                     <td rowspan="3">
-                        <div style="overflow-y:auto; max-height: 120px">
-                            <div>TMALL.MT_CUPN@MAINDB</div>
-                            <div>TMALL.MT_CUPN@BIDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
-                            <div>TMALL.MT_CUPN@PRMTDB</div>
+                        <div style="overflow-y:auto; max-height: 120px;">
+                            <table class="table-borderless table-sm">
+
+                                <tr><td>PUBLIC.MT_CUPN@MAINDB (Synonym)</td></tr>
+                                <tr><td>TMALL.MT_CUPN@MAINDB</td></tr>
+                                <tr><td>TMALL.MT_CUPN@BIDB</td></tr>
+                                <tr><td>DEV_READ.MT_CUPN@PRMTDB (Synonym)</td></tr>
+                                <tr><td>PUBLIC.MT_CUPN@PRMTDB (Synonym)</td></tr>
+                                <tr><td>MPUSER.MT_CUPN@PRMTDB (Synonym)</td></tr>
+                                <tr><td>TMALL.MT_CUPN@PRMTDB (Synonym)</td></tr>
+                                <tr><td>TMALL.MT_CUPN@PRMTDB</td></tr>
+                                <tr><td>MPUSER.MT_CUPN@PRMTDB</td></tr>
+                            </table>
+
                         </div>
 
                     </td>
                 </tr>
 
                 <tr class="text-white bg-info">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
                     <th>논리영역</th>
                     <th>논리영역(Sub)</th>
                     <th>물리영역</th>
@@ -239,123 +252,59 @@
                 <tr>
                     <td>MT_PD</td>
                     <td>MT_CUPN_01</td>
-                    <td>PD</td>
+                    <td></td>
                     <td></td>
                     <td>Y</td>
-                    <td>12,387 </td>
+                    <td>test</td>
                 </tr>
                 </tbody>
             </table>
 
             <table class="table table-bordered table-sm" id="sqlNameGrid" >
                 <colgroup>
+                    <!--<col class="col60px">-->
                     <col class="col60px">
                     <col class="col60px">
-                    <col class="sqltext-wrap" style="max-width:600px">
-                    <col>
+                    <col class="sqltext-wrap" style="max-width:600px">  <!-- SqlName -->
                     <col class="col60px">
                     <col class="col60px">
                     <col class="col60px">
-                </colgroup>
+                    <col class="col60px">
 
+                    <col class="col60px">
+
+                    <col class="col60px">
+
+                    <col class="col60px">
+
+                    <col class="col60px">
+
+                </colgroup>
                 <thead class="thead-light table-thead-wrap-size">
                 <tr>
+                    <!--<th>Data 수집시간</th>-->
+                    <th>DB ID</th>
                     <th>Sql명 번호</th>
-                    <th>DB Id</th>
-                    <th class="sqltext-wrap" style="max-width:600px">Sql Name</th>
+                    <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
                     <th>대표 Sql ID</th>
                     <th>사용자명</th>
                     <th>모듈명</th>
-                    <th>최근실행일시</th>
+                    <th>최근행일시</th>
+
+                    <th>총 수행횟수</th>
+
+                    <th>총 Read Buffer</th>
+
+                    <th>총 Cpu Time</th>
+
+                    <th>총 응답시간</th>
+
                 </tr>
                 </thead>
 
                 <tbody class="table-tbody-wrap-size">
-                <tr>
 
-                    <td >172463</td>
-                    <td >1</td>
-
-
-                    <td >
-                        <a href="sqlNameDetail?clctDy=2019-12-19&amp;dbId=1&amp;sqlNameNo=172463">/* imdtDscMainMapper.xml - getImdtDscCheckParamInfo */</a></td>
-
-                    <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
-
-                    <td>0wrtfs1harpwq</td>
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2020-01-03</td>
-
-                </tr>
-                <tr>
-
-                    <td >172464</td>
-                    <td >1</td>
-
-
-                    <td >
-                        <a href="sqlNameDetail?clctDy=2019-12-19&amp;dbId=1&amp;sqlNameNo=172464">/* imdtDscMainMapper.xml - isEffectiveProductItem */</a></td>
-
-                    <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
-
-                    <td>dzgvnm3hx3qwj</td>
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2020-01-03</td>
-
-                </tr>
-                <tr>
-
-                    <td >174512</td>
-                    <td >1</td>
-
-
-                    <td >
-                        <a href="sqlNameDetail?clctDy=2019-12-19&amp;dbId=1&amp;sqlNameNo=174512">/* imdtDscMainMapper.xml getValidPcsDscList */</a></td>
-
-                    <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
-
-                    <td>0f0q0ggh3stnk</td>
-                    <td>SKPAPI</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-10-23</td>
-
-                </tr>
-                <tr>
-
-                    <td >172465</td>
-                    <td >1</td>
-
-
-                    <td >
-                        <a href="sqlNameDetail?clctDy=2019-12-19&amp;dbId=1&amp;sqlNameNo=172465">/* imdtDscMainMapper.xml getValidPscDscList */</a></td>
-
-                    <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
-
-                    <td>467gxpt92fjcq</td>
-                    <td>SKPAPI</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-09-09</td>
-
-                </tr>
-                <tr>
-
-                    <td >174730</td>
-                    <td >1</td>
-
-
-                    <td >
-                        <a href="sqlNameDetail?clctDy=2019-12-19&amp;dbId=1&amp;sqlNameNo=174730">/* imdtDscMainMapper.xml isEffectivePlanning */</a></td>
-
-                    <!--<td><a th:text="${sqlNameListVO.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlNameListVO.dbId}, sqlNameNo=${sqlNameListVO.sqlNameNo})}"/></td>-->
-
-                    <td>8q7cakgpc4341</td>
-                    <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2020-01-03</td>
-
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -364,7 +313,7 @@
 
         <div class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li>
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : MT_CUPN</li>
             </ul>
         </div>
     </section>

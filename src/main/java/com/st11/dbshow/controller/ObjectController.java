@@ -2,11 +2,9 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.st11.dbshow.repository.DaStatMngVO;
-import com.st11.dbshow.repository.DaSyncTableVO;
-import com.st11.dbshow.repository.DaTableVO;
-import com.st11.dbshow.repository.RefObjectVO;
+import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
+import com.st11.dbshow.service.DbShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +25,9 @@ public class ObjectController {
 
     @Autowired
     private ApiService apiService;
+
+    @Autowired
+    private DbShowService dbShowService;
 
     @RequestMapping(value = "daTables", method = RequestMethod.GET)
     public String daTables (
@@ -116,20 +117,37 @@ public class ObjectController {
 
     @RequestMapping(value = {"tableDetail"})
     public String sqlNameDetail(
-            @RequestParam(value = "clctDy", required = false) final String clctDy,
+//            @RequestParam(value = "clctDy", required = false) final String clctDy,
             @RequestParam(value = "dbId", required = false) final String dbId,
+            @RequestParam(value = "owner", required = false) final String owner,
+            @RequestParam(value = "tableName", required = false) final String tableName,
             Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "sqlNameStatsHist";
-        final String apiMethod2 = "sqlNameMappSummary";
+        final String apiMethod = "jpa/daObject";
+        final String apiMethod2 = "daTables";
         final String apiMethod3 = "jpa/daSqlFullText";
+
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(clctDy)) {
-            inParam.put("clctDy", clctDy.replace("-",""));
-        } else return "content/tableDetail";
+        Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
+        model.addAttribute("dbList", daDbVOList);
 
+
+        if (!isNullOrEmpty(tableName)) inParam.put("objectName", tableName.toUpperCase());
+        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
         if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
+        if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
+        inParam.put("objectType", "TABLE");
+
+        DaObjectVO daObjectVO = apiService.getApiModel(apiMethod, DaObjectVO.class, inParam);
+
+        Collection<DaTableVO> daTableCollection = null;
+        daTableCollection = apiService.getApiModels(apiMethod2, new TypeReference<Collection<DaTableVO>>() {}, inParam);
+
+        model.addAttribute("daObjectVO", daObjectVO);
+        model.addAttribute("daTableVO", daTableCollection.toArray()[0]);
+
+        System.out.println("[MODEL] : " + model.toString());
 
         /*
         Collection<SqlNameVO> modelCollection = null;

@@ -15,7 +15,7 @@
         <form class="form-inline " action="/daSyncData">
             <div class="d-flex flex-row">
                 <label for="tableName" class="mr-2">Table 명 </label>
-                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}"  minlength="6" placeholder="Table Name..(equal)">
+                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}"  minlength="2" placeholder="Table Name..(equal)">
                 <label for="hostName" class="mr-2">DB 명 </label>
                 <input type="text" id="hostName" name="hostName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.hostName}" placeholder="HostName (like)">
 

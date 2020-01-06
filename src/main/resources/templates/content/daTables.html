@@ -17,11 +17,11 @@
             <div class="d-flex flex-row">
 
                 <label for="tableName" class="mr-2">Table 명</label>
-                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="6" placeholder="Table Name..(equal)">
+                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="2" placeholder="Table Name..(equal)">
                 <label for="logicalAreaCd1" class="mr-2">분류영역1(Main)</label>
-                <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" minlength="6" placeholder="logicalAreaCd1..(equal)">
+                <input type="text" id="logicalAreaCd1" name="logicalAreaCd1" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd1}" minlength="2" placeholder="logicalAreaCd1..(equal)">
                 <label for="logicalAreaCd2" class="mr-2">분류영역2(Sub)</label>
-                <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="6" placeholder="logicalAreaCd2..(equal)">
+                <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="2" placeholder="logicalAreaCd2..(equal)">
 
                 <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
             </div>

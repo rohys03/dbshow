@@ -7,6 +7,7 @@ import java.sql.Date;
 @Data
 public class DaTableVO {
     private String dbName;
+    private String dbId;
     private String tableOwner;
     private String tableName;
     private String logicalAreaCd1;
