@@ -132,6 +132,8 @@ public class ObjectController {
         Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
         model.addAttribute("dbList", daDbVOList);
 
+        if (!isNullOrEmpty(owner)) return "content/tableDetail";
+        if (!isNullOrEmpty(tableName)) return "content/tableDetail";
 
         if (!isNullOrEmpty(tableName)) inParam.put("objectName", tableName.toUpperCase());
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());

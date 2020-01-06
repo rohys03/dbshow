@@ -68,6 +68,15 @@
                     </div>
                 </td>
             </tr>
+            <tr th:unless="${daObjectVO != null}">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
 
             <tr class="text-white bg-info">
                 <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
@@ -77,7 +86,6 @@
                 <th>테이블 Comment</th>
                 <th>표준화대상여부</th>
                 <th>DML 발생 빈도(min)</th>
-
             </tr>
             <tr th:if = "${daTableVO != null}">
                 <td th:text="${daTableVO.logicalAreaCd1}">test</td>
@@ -86,6 +94,14 @@
                 <td th:text="${daTableVO.tableComments}">test</td>
                 <td th:text="${daTableVO.standardObjectYn}">test</td>
                 <td>test</td>
+            </tr>
+            <tr th:unless="${daObjectVO != null}">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             </tbody>
         </table>

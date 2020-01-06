@@ -190,7 +190,7 @@
                     <label for="owner" class="mr-2">Table Owner</label>
                     <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" value="TMALL" minlength="2" placeholder="owner..(equal)">
                     <label for="tableName" class="mr-2">Table 명</label>
-                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="MT_CUPN" minlength="2" placeholder="Table Name..(equal)">
+                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="" minlength="2" placeholder="Table Name..(equal)">
 
                     <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
                 </div>
@@ -212,32 +212,7 @@
                     <th>생성일시</th>
                     <th>동일 테이블명 목록(All DB)</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>TMALL</td>
-                    <td>MT_CUPN</td>
-                    <td>VALID</td>
-                    <td>N</td>
-                    <td>2019-12-04</td>
-                    <td rowspan="3">
-                        <div style="overflow-y:auto; max-height: 120px;">
-                            <table class="table-borderless table-sm">
 
-                                <tr><td>PUBLIC.MT_CUPN@MAINDB (Synonym)</td></tr>
-                                <tr><td>TMALL.MT_CUPN@MAINDB</td></tr>
-                                <tr><td>TMALL.MT_CUPN@BIDB</td></tr>
-                                <tr><td>DEV_READ.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                                <tr><td>PUBLIC.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                                <tr><td>MPUSER.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                                <tr><td>TMALL.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                                <tr><td>TMALL.MT_CUPN@PRMTDB</td></tr>
-                                <tr><td>MPUSER.MT_CUPN@PRMTDB</td></tr>
-                            </table>
-
-                        </div>
-
-                    </td>
-                </tr>
 
                 <tr class="text-white bg-info">
                     <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
@@ -248,15 +223,9 @@
                     <th>표준화대상여부</th>
                     <th>DML 발생 빈도(min)</th>
 
+
                 </tr>
-                <tr>
-                    <td>MT_PD</td>
-                    <td>MT_CUPN_01</td>
-                    <td></td>
-                    <td></td>
-                    <td>Y</td>
-                    <td>test</td>
-                </tr>
+
                 </tbody>
             </table>
 
@@ -313,7 +282,7 @@
 
         <div class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : MT_CUPN</li>
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : </li>
             </ul>
         </div>
     </section>
