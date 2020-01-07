@@ -36,7 +36,7 @@ public class SqlDistributionController {
 
     @RequestMapping(value = "logicalArea", method = RequestMethod.GET)
     public String logicalArea (
-            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws URISyntaxException, IOException {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
@@ -46,7 +46,7 @@ public class SqlDistributionController {
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
 

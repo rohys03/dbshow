@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class DbShowServiceImpl implements  DbShowService {
@@ -22,6 +23,7 @@ public class DbShowServiceImpl implements  DbShowService {
         String apiMethod = "jpa/daDbList";
         inParam.put("dbshowUseYn", dbshowUseYn);
 
+//        System.out.println("[DbShowServiceImpl.inParam]: " + inParam.toString());
         Collection<DaDbVO> modelCollection = null;
 
         if (!inParam.isEmpty()) {
@@ -30,6 +32,8 @@ public class DbShowServiceImpl implements  DbShowService {
                     , inParam);
         }
 
+//        System.out.println("[DbShowServiceImpl.MODEL]: " + modelCollection.toString());
         return modelCollection;
     }
+
 }

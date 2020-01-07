@@ -55,27 +55,18 @@
                 <td rowspan="3">
                     <div style="overflow-y:auto; max-height: 120px;">
                         <table class="table-borderless table-sm">
-                            <tr><td>PUBLIC.MT_CUPN@MAINDB (Synonym)</td></tr>
-                            <tr><td>TMALL.MT_CUPN@MAINDB</td></tr>
-                            <tr><td>TMALL.MT_CUPN@BIDB</td></tr>
-                            <tr><td>DEV_READ.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                            <tr><td>PUBLIC.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                            <tr><td>MPUSER.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                            <tr><td>TMALL.MT_CUPN@PRMTDB (Synonym)</td></tr>
-                            <tr><td>TMALL.MT_CUPN@PRMTDB</td></tr>
-                            <tr><td>MPUSER.MT_CUPN@PRMTDB</td></tr>
+                            <tr th:if="${not #lists.isEmpty(daObjectList)}" th:each="data : ${daObjectList}">
+                                <td th:text="${data}" ></td>
+                            </tr>
+                            <tr th:unless="${not #lists.isEmpty(daObjectList)}">
+                                <td>No data</td>
+                            </tr>
                         </table>
                     </div>
                 </td>
             </tr>
             <tr th:unless="${daObjectVO != null}">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="100%"></td>
             </tr>
 
             <tr class="text-white bg-info">
@@ -88,20 +79,15 @@
                 <th>DML 발생 빈도(min)</th>
             </tr>
             <tr th:if = "${daTableVO != null}">
-                <td th:text="${daTableVO.logicalAreaCd1}">test</td>
+                <td th:text="${daTableVO.logicalAreaCd}">test</td>
                 <td th:text="${daTableVO.logicalAreaCd2}">test</td>
-                <td th:text="${daTableVO.physicalAreaCd1}">test</td>
+                <td th:text="${daTableVO.physicalAreaCd}">test</td>
                 <td th:text="${daTableVO.tableComments}">test</td>
                 <td th:text="${daTableVO.standardObjectYn}">test</td>
                 <td>test</td>
             </tr>
-            <tr th:unless="${daObjectVO != null}">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:unless="${daTableVO != null}">
+                <td colspan="100%"></td>
             </tr>
             </tbody>
         </table>
@@ -171,6 +157,9 @@
 
                 <td th:text="${sqlVo.currTotalElap}"></td>
 
+            </tr>
+            <tr th:unless="${not #lists.isEmpty(sqlNameListVO)}">
+                <td colspan="100%"></td>
             </tr>
             </tbody>
         </table>

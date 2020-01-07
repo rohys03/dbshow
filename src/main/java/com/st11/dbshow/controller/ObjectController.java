@@ -2,6 +2,7 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.common.DbShow;
 import com.st11.dbshow.repository.*;
 import com.st11.dbshow.service.ApiService;
 import com.st11.dbshow.service.DbShowService;
@@ -29,24 +30,24 @@ public class ObjectController {
     @Autowired
     private DbShowService dbShowService;
 
-    @RequestMapping(value = "daTables", method = RequestMethod.GET)
-    public String daTables (
+    @RequestMapping(value = "daTableList", method = RequestMethod.GET)
+    public String daTableList (
             @RequestParam(value = "dbName", required = false) String dbName,
             @RequestParam(value = "tableName", required = false) String tableName,
-            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws URISyntaxException, IOException {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
         model.addAttribute("serverTime", getCurrentTime());
 
 
-        final String apiMethod = "daTables";
+        final String apiMethod = "daTableList";
 
         HashMap<String, String> inParam = new HashMap<>();
 
         if (!isNullOrEmpty(dbName)) inParam.put("dbName", dbName.toUpperCase());
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
         Collection<DaTableVO> modelCollection = null;
@@ -54,7 +55,7 @@ public class ObjectController {
                 }
                 , inParam);
         model.addAttribute("model", modelCollection);
-        return "content/daTables";
+        return "content/daTableList";
     }
 
     @RequestMapping(value = "referencedObject")
@@ -123,69 +124,56 @@ public class ObjectController {
             @RequestParam(value = "tableName", required = false) final String tableName,
             Model model) throws IOException, URISyntaxException {
         final String apiMethod = "jpa/daObject";
-        final String apiMethod2 = "daTables";
-        final String apiMethod3 = "jpa/daSqlFullText";
-
+        final String apiMethod2 = "jpa/daTable";
+        final String apiMethod3 = "jpa/daObjectList";
 
         HashMap<String, String> inParam = new HashMap<>();
 
         Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
         model.addAttribute("dbList", daDbVOList);
 
-        if (!isNullOrEmpty(owner)) return "content/tableDetail";
-        if (!isNullOrEmpty(tableName)) return "content/tableDetail";
+        if (isNullOrEmpty(owner)) return "content/tableDetail";
+        if (isNullOrEmpty(tableName)) return "content/tableDetail";
 
         if (!isNullOrEmpty(tableName)) inParam.put("objectName", tableName.toUpperCase());
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
         if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
         if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
+
         inParam.put("objectType", "TABLE");
 
+//        System.out.println("[inParam] : " + inParam.toString());
+
         DaObjectVO daObjectVO = apiService.getApiModel(apiMethod, DaObjectVO.class, inParam);
+        DaTableVO daTableVO = apiService.getApiModel(apiMethod2, DaTableVO.class, inParam);
 
-        Collection<DaTableVO> daTableCollection = null;
-        daTableCollection = apiService.getApiModels(apiMethod2, new TypeReference<Collection<DaTableVO>>() {}, inParam);
+        DbShow dbShow = new DbShow(daDbVOList);
+        Map<Integer, String> dbMap = dbShow.getDbList();
 
-        model.addAttribute("daObjectVO", daObjectVO);
-        model.addAttribute("daTableVO", daTableCollection.toArray()[0]);
-
-        System.out.println("[MODEL] : " + model.toString());
-
-        /*
-        Collection<SqlNameVO> modelCollection = null;
-
-        if (inParam.containsKey("sqlName") || inParam.containsKey("sqlNameNo")) {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+        Collection<DaObjectVO> daObjectVOList = null;
+        if (!inParam.isEmpty()) {
+            daObjectVOList = apiService.getApiModels(apiMethod3, new TypeReference<Collection<DaObjectVO>>() {
                     }
                     , inParam);
         }
-        model.addAttribute("histModel", modelCollection);
 
-        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
+        model.addAttribute("daObjectVO", daObjectVO);
+        model.addAttribute("daTableVO", daTableVO);
 
-        try {
-            inParam.clear();
-            if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
-            if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
-            if (!isNullOrEmpty(sqlNameNo)) inParam.put("sqlNameNo", sqlNameNo.toUpperCase());
-            System.out.println("inParam" + inParam.toString());
-            SqlNameMappVO sqlNameMappVO = apiService.getApiModel(apiMethod2, SqlNameMappVO.class, inParam);
+        ArrayList<String> daObjectList = new ArrayList<>();
 
-            model.addAttribute("summaryModel", sqlNameMappVO);
+//        PUBLIC.MT_CUPN@MAINDB (Synonym)
 
-            inParam.clear();
-            if (!isNullOrEmpty(dbId)) inParam.put("dbId", dbId.toUpperCase());
-            inParam.put("sqlId", sqlNameMappVO.getRepSqlId());
-
-            DaSqlFullTextVO daSqlFullTextVO = apiService.getApiModel(apiMethod3, DaSqlFullTextVO.class, inParam);
-            String sqlFullText = (daSqlFullTextVO.getSqlFullText().isEmpty()) ? sqlNameMappVO.getSqlText() : daSqlFullTextVO.getSqlFullText();
-            model.addAttribute("sqlFullText", sqlFullText);
-
-            System.out.println("[sqlFullText]" + sqlFullText);
-        } catch (NullPointerException e) {
-            logger.info("[sqlNameMappVO] NullPointerException" + inParam.toString());
+        for (DaObjectVO vo : daObjectVOList) {
+            String text = vo.getOwner() + "." + vo.getObjectName() + "@" + dbMap.get(Integer.parseInt(vo.getDbId())) + " (" + vo.getObjectType() + ")" ;
+//            System.out.println("[TEXT: " + text);
+            daObjectList.add(text);
         }
-*/
+
+        model.addAttribute("daObjectList", daObjectList);
+
+        System.out.println("[model" + model.toString());
+
         return "content/tableDetail";
     }
 

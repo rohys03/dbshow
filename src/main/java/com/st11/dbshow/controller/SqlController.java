@@ -180,7 +180,7 @@ public class SqlController {
     public String logicalAreaSqlNameList(
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
-            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws IOException, URISyntaxException {
         final String apiMethod = "sqlNameList";
@@ -189,7 +189,7 @@ public class SqlController {
 
         System.out.println("DBID: " + dbId);
         if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName);
-        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
         if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
 
@@ -216,7 +216,7 @@ public class SqlController {
     @RequestMapping(value = {"daTopSql"})
     public String daTopSql(
             @RequestParam(value = "clctDy", required = false) final String clctDy,
-            @RequestParam(value = "logicalAreaCd1", required = false) final String logicalAreaCd1,
+            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
             Model model) throws IOException, URISyntaxException {
         final String apiMethod = "dbshow/getLastDaStatMng2";
@@ -228,7 +228,7 @@ public class SqlController {
         inParam.put("dbName", "PMETA");
         inParam.put("statName", "DA_SQLNAME_MAPP");
 //        if (!isNullOrEmpty(clctDy)) inParam.put("clctDy", clctDy.toUpperCase());
-//        if (!isNullOrEmpty(logicalAreaCd1)) inParam.put("logicalAreaCd1", logicalAreaCd1.toUpperCase());
+//        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
 //        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
         String modelCollection = null;

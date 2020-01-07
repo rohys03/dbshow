@@ -37,7 +37,7 @@
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>sourceDB</th>
-                <th>TableOwner</th>
+                <th>owner</th>
                 <th>TableName</th>
                 <th>TartgetDB(HostName : IP)</th>
                 <th>UpdateDt</th>
@@ -47,7 +47,7 @@
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${model}">
                 <td th:text="${objectVo.sourceDb}" ></td>
-                <td th:text="${objectVo.tableOwner}"></td>
+                <td th:text="${objectVo.owner}"></td>
                 <td th:text="${objectVo.tableName}"></td>
                 <td th:text="${objectVo.hostname} + ' (' + ${objectVo.targetDb} + ')'"></td>
                 <td th:text="${#dates.format(objectVo.updateDt, 'yyyy-MM-dd HH:mm:ss')}"></td>

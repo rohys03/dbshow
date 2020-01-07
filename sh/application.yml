@@ -38,7 +38,7 @@ dbshowapi:
     sqlDetail: sqlDetail/{dbName}/{searchType}/{searchString}
     refObject: referencedObject/{dbName}/{objectType}/{owner}/{objectName}
     daSyncData: daSyncData/{tableName}
-    daTables: datables?tableName=&logicalAreaCd1=&logicalAreaCd2=
+    daTables: datables?tableName=&logicalAreaCd=&logicalAreaCd2=
     logicalArea: logicalArea?logicAreaCd=
 
 ---

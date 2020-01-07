@@ -1,11 +1,12 @@
 package com.st11.dbshow.common;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.st11.dbshow.repository.DaDbVO;
-import com.st11.dbshow.repository.SqlAreaVO;
 import com.st11.dbshow.service.ApiService;
+import com.st11.dbshow.service.DbShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -14,6 +15,23 @@ import java.text.DateFormat;
 import java.util.*;
 
 public class DbShow {
+
+    private TreeMap dbList = new TreeMap<>();
+    @Autowired
+    DbShowService dbShowService;
+
+    public DbShow(Collection<DaDbVO> dbList) {
+
+//        System.out.println("[setDbList.dbList]" + dbList.toString());
+        for (DaDbVO dbVO : dbList ) {
+            this.dbList.put(dbVO.getDbId(),dbVO.getDbNm());
+        }
+    }
+
+    public Map<Integer, String> getDbList() {
+        return this.dbList;
+    }
+
 
     public static String getCurrentTime() {
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
