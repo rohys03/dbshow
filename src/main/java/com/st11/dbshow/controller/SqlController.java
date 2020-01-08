@@ -66,6 +66,32 @@ public class SqlController {
         return "content/sqlApplication";
     }
 
+
+    @RequestMapping(value = {"sqlList"})
+    public String sqlList(
+            @RequestParam(value = "owner", required = false) final String owner,
+            @RequestParam(value = "tableName", required = false) final String tableName,
+            Model model) throws IOException, URISyntaxException {
+        final String apiMethod = "sqlNameList";
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
+        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
+
+        Collection<SqlNameListVO> modelCollection = null;
+
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
+                    }
+                    , inParam);
+        }
+
+        model.addAttribute("defaultDate", LocalDateTime.now());
+        model.addAttribute("sqlNameListVO", modelCollection);
+        return "content/sqlList";
+    }
+
     @RequestMapping(value = {"sqlDetail"})
     public String sqlDetail(
             @RequestParam(value = "dbName", required = false) String dbName,

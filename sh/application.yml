@@ -36,7 +36,6 @@ dbshowapi:
   url:
     sqlApplication: sqlApplicationList/{dbName}/{commandType}/{owner}/{tableName}
     sqlDetail: sqlDetail/{dbName}/{searchType}/{searchString}
-    refObject: referencedObject/{dbName}/{objectType}/{owner}/{objectName}
     daSyncData: daSyncData/{tableName}
     daTables: datables?tableName=&logicalAreaCd=&logicalAreaCd2=
     logicalArea: logicalArea?logicAreaCd=

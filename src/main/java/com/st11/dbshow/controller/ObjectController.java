@@ -40,7 +40,6 @@ public class ObjectController {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
         model.addAttribute("serverTime", getCurrentTime());
 
-
         final String apiMethod = "daTableList";
 
         HashMap<String, String> inParam = new HashMap<>();
@@ -51,35 +50,15 @@ public class ObjectController {
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
 
         Collection<DaTableVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {
-                }
-                , inParam);
+        if (!inParam.isEmpty()) {
+            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTableVO>>() {
+                    }
+                    , inParam);
+        }
         model.addAttribute("model", modelCollection);
 
 //        System.out.println("MODEL]: " + model.toString());
         return "content/daTableList";
-    }
-
-    @RequestMapping(value = "referencedObject")
-    public String referencedObject(
-            @RequestParam(value = "dbName", required = false) String dbName,
-            @RequestParam(value = "objectType", required = false) String objectType,
-            @RequestParam(value = "owner", required = false) String owner,
-            @RequestParam(value = "objectName", required = false) String objectName,
-            HttpServletRequest request, Model model) throws IOException{
-        final String apiMethod = "referencedObject";
-
-        model.addAttribute("serverTime", getCurrentTime());
-
-        if (!isNullOrEmpty(dbName) && !isNullOrEmpty(objectType) && !isNullOrEmpty(owner) && !isNullOrEmpty(objectName)) {
-            Collection<RefObjectVO> modelCollection = null;
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<RefObjectVO>>() {
-                    }
-                    , dbName.toUpperCase(), objectType.toUpperCase(), owner.toUpperCase(), objectName.toUpperCase());
-            model.addAttribute("model", modelCollection);
-        }
-
-        return "content/referencedObject";
     }
 
     @RequestMapping(value = "daSyncData", method = RequestMethod.GET)

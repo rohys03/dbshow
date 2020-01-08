@@ -76,8 +76,8 @@
 
             <tbody class="table-tbody-wrap-size">
             <tr th:each="sqlVo : ${model}">
-                <td th:text="${sqlVo.instId}" ></td>
-                <td><a th:text="${sqlVo.sqlId}" href="#layer2" class="dim-btn-layer" /></td>
+                <td th:text="${sqlVo.instId}"></td>
+                <td th:text="${sqlVo.sqlId}"></td>
                 <!--<td th:text="${sqlVo.planHashValue}"></td>-->
                 <td th:text="${sqlVo.parsingSchemaName}"></td>
                 <td th:text="${sqlVo.module}"></td>

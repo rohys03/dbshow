@@ -30,8 +30,8 @@
     <div class="card-body">
         <table class="table table-bordered table-sm table-wrap" id="dataTable" >
             <colgroup>
-                <col style="width:160px">
-                <col style="width:160px">
+                <col style="width:140px">
+                <col style="width:140px">
                 <col style="width:140px">
                 <col style="width:140px">
                 <col>
@@ -42,10 +42,10 @@
             </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
-                <th>분류영역1(Main)</th>
-                <th>분류영역2(Sub)</th>
-                <th>Table 목록</th>
-                <th>SQL 목록</th>
+                <th>분류영역1 (Main)</th>
+                <th>분류영역2 (Sub)</th>
+                <th>Table목록 (Link)</th>
+                <th>SQL목록 (Link)</th>
                 <th>총 Table 개수</th>
                 <th>Tmall Table 개수</th>
                 <th>DPDB Table 개수</th>
@@ -72,12 +72,18 @@
                     </div>
                 </td>
 
-                <td>
-                    <div style="text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><i class="fas fa-table fa-2x"></i></a></div>
+                <td style="height:1.5rem;">
+                    <a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}">
+                        <!--<i class="fas fa-table fa-2x"></i>-->
+                        <img align="center" src="img/dat1.png" class="d-inline-block" alt="" height="100%" >
+                        </a>
                 </td>
 
-                <td>
-                    <div style="text-align: center"><a href="logicalArea.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><i class="fas fa-question-circle fa-2x"></i></a></div>
+                <td style="height:1.5rem;">
+                    <a href="logicalArea.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}">
+                        <!--<i class="fas fa-question-circle fa-2x"></i>-->
+                        <img align="center" src="img/sql1.png" class="d-inline-block" alt="" height="100%" >
+                    </a>
                 </td>
 
                 <td style="text-align: right;" th:text="${objectVo.allInstanceCnt}"></td>
@@ -89,7 +95,7 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlApplication.html] Updated at ' + ${serverTime}">Updated </div>
+    <div class="card-footer small text-muted" th:text="'[content/logicalArea.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">
