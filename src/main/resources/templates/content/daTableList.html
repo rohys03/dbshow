@@ -29,22 +29,13 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-            </colgroup>
+        <table class="table table-bordered table-wrap" id="dataTable" >
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>DB Name</th>
-                <th>owner</th>
-                <th>TableName</th>
+                <th>소유자</th>
+                <th>Table명</th>
+                <!--<th>Table명</th>-->
                 <th>LogicalArea(: Sub)</th>
                 <th>PhysicalArea</th>
                 <th>Comments</th>
@@ -57,7 +48,18 @@
             <tr th:each="objectVo : ${model}">
                 <td th:text="${objectVo.dbName}"></td>
                 <td th:text="${objectVo.owner}"></td>
-                <td th:text="${objectVo.tableName}"></td>
+                <td style="height:1.5rem; text-align: left">
+                    <span th:text="${objectVo.tableName}"> </span>
+                    <a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >
+                        <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                    </a>
+                </td>
+
+                <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                        <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                <!--</td>-->
                 <td th:text="${objectVo.logicalAreaCd} + ' : ' + ${objectVo.logicalAreaCd2}"></td>
                 <td th:text="${objectVo.physicalAreaCd}"></td>
                 <td th:text="${objectVo.tableComments}"></td>

@@ -27,13 +27,6 @@ public class SqlDistributionController {
     @Autowired
     private ApiService apiService;
 
-    @RequestMapping(value = "sqlDistributionKpi")
-    public String index(HttpServletRequest request, Model model) {
-        model.addAttribute("serverTime", getCurrentTime());
-
-        return "content/dashboard";
-    }
-
     @RequestMapping(value = "logicalArea", method = RequestMethod.GET)
     public String logicalArea (
             @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,

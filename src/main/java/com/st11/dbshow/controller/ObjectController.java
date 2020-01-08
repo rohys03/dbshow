@@ -55,6 +55,8 @@ public class ObjectController {
                 }
                 , inParam);
         model.addAttribute("model", modelCollection);
+
+//        System.out.println("MODEL]: " + model.toString());
         return "content/daTableList";
     }
 
@@ -163,6 +165,8 @@ public class ObjectController {
         ArrayList<String> daObjectList = new ArrayList<>();
 
 //        PUBLIC.MT_CUPN@MAINDB (Synonym)
+
+        daDbVOList = dbShowService.getDaDbList("Y");
 
         for (DaObjectVO vo : daObjectVOList) {
             String text = vo.getOwner() + "." + vo.getObjectName() + "@" + dbMap.get(Integer.parseInt(vo.getDbId())) + " (" + vo.getObjectType() + ")" ;

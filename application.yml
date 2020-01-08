@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: stage
 
   thymeleaf:
     cache: false
