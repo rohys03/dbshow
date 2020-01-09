@@ -19,41 +19,26 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" class="dbshow-white">
 
-    <header class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <header>
 
-        <nav class="navbar-light">
-            <a class="navbar-brand mr-1" href="/index" style="color:rgb(255, 102, 102); font-size: 1.5rem;">
-                <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
-                DB Show
-            </a>
+        <nav class="navbar d-inline-flex" style="width: 100%">
+            <div class="navbar-brand mr-1">
+                <a href="/index" style="color:indianred; font-size: 1.5rem;">
+                    <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
+                    DB Show
+                </a>
+                <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                    <i class="fas fa-bars" style="color:rgb(255, 102, 102);"></i>
+                </button>
+            </div>
+            <div class="width-nav-path d-inline-flex justify-content-between">
+                <span class="navbar-text">Index >></span>
+                <span class="navbar-text">노영삼 님 안녕하세요.</span>
+            </div>
         </nav>
 
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i>
-        </button>
-
-
-        <!-- Navbar Search -->
-        <!--
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        -->
-
-        <ul class="navbar-nav ml-auto">
-            <li>
-                <span class="mr-2 d-none d-lg-inline text-white-50">노영삼 님 안녕하세요.</span>
-            </li>
-        </ul>
     </header>
 
     <section id="wrapper">

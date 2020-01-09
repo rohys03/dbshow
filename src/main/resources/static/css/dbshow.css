@@ -127,15 +127,30 @@ a.dim-btn-layerClose:hover {
     color: #fff;
 }
 
-body#page-top.dbshow-purple header {
-    background-color: #dd99ff !important;
+/*
+    DBSHOW THEME.WHITE
+*/
+body#page-top.dbshow-white header {
+    background-color: white;
 }
 
-body#page-top.dbshow-purple header > a{
-    color: #ff1a1a !important;
+body#page-top.dbshow-white header button > i {
+    color: indianred;
 }
 
-body#page-top.dbshow-purple > section#wrapper > ol{
-    background-color: #440066 !important;
+body#page-top.dbshow-white section#wrapper ol#sidebar {
+    background-color: white;
 }
 
+body#page-top.dbshow-white section#wrapper ol#sidebar span, i, a::after{
+    color: dimgrey;
+}
+
+body#page-top.dbshow-white section#content-wrapper {
+    background-color: whitesmoke;
+}
+
+.width-nav-path {
+    /*noinspection CssInvalidPropertyValue*/
+    width: calc(100% - 217px);
+}
