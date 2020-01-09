@@ -27,33 +27,35 @@
 
     <div class="card-body">
         <table class="table table-bordered table-sm" id="dataTable" >
+            <!--
             <colgroup>
-                <!--<col class="col60px">-->
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
                 <col class="col60px">
                 <col class="col60px">
-                <col class="sqltext-wrap" style="max-width:600px">  <!-- SqlName -->
+                <col class="sqltext-wrap" style="max-width:600px">  &lt;!&ndash; SqlName &ndash;&gt;
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
 
                 <col class="col60px">
-                <!--<col class="col60px">-->
-                <!--<col class="col60px">-->
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
 
                 <col class="col60px">
-                <!--<col class="col60px">-->
-                <!--<col class="col60px">-->
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
 
                 <col class="col60px">
-                <!--<col class="col60px">-->
-                <!--<col class="col60px">-->
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
 
                 <col class="col60px">
-                <!--<col class="col60px">-->
-                <!--<col class="col60px">-->
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
+                &lt;!&ndash;<col class="col60px">&ndash;&gt;
 
             </colgroup>
+            -->
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <!--<th>Data 수집시간</th>-->
@@ -127,9 +129,8 @@
         // Call the dataTables jQuery plugin
         $(document).ready(function() {
             $('#dataTable').dataTable({
-                // pageLength: 25,
-                paging: false,
-                searching: true,
+                pageLength: 25,
+                paging: true,
                 scrollX:true
             });
         });
