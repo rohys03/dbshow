@@ -12,7 +12,7 @@
 <th:block layout:fragment="content">
 
     <div class="card-header d-flex flex-row">
-        <form class="form-inline" action="/sqlList">
+        <form class="form-inline" action="/sqlNameListByTableName">
             <div class="d-flex flex-row">
 
                 <label for="owner" class="mr-2">소유자명</label>
@@ -27,35 +27,6 @@
 
     <div class="card-body">
         <table class="table table-bordered table-sm" id="dataTable" >
-            <!--
-            <colgroup>
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-                <col class="col60px">
-                <col class="col60px">
-                <col class="sqltext-wrap" style="max-width:600px">  &lt;!&ndash; SqlName &ndash;&gt;
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-
-                <col class="col60px">
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-
-                <col class="col60px">
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-
-                <col class="col60px">
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-
-                <col class="col60px">
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-                &lt;!&ndash;<col class="col60px">&ndash;&gt;
-
-            </colgroup>
-            -->
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <!--<th>Data 수집시간</th>-->
@@ -121,7 +92,7 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlList.html] Updated at ' + ${serverTime}">Updated </div>
+    <div class="card-footer small text-muted" th:text="'[content/sqlNameListByTableName.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">
@@ -129,6 +100,7 @@
         // Call the dataTables jQuery plugin
         $(document).ready(function() {
             $('#dataTable').dataTable({
+                searching: false,
                 pageLength: 25,
                 paging: true,
                 scrollX:true

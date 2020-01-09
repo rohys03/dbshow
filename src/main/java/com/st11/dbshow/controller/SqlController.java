@@ -41,56 +41,6 @@ public class SqlController {
         return "content/dashboard";
     }
 
-    @RequestMapping(value = {"sqlListByObject"})
-    public String sqlListByObject(
-            @RequestParam(value = "dbName", required = false) String dbName,
-            @RequestParam(value = "commandType", required = false) String commandType,
-            @RequestParam(value = "owner", required = false) String owner,
-            @RequestParam(value = "name", required = false) String name,
-            HttpServletRequest request, Model model) throws IOException{
-        final String apiMethod = "sqlApplicationList";
-
-        model.addAttribute("serverTime", getCurrentTime());
-
-        String[] listItems = {"ALL", "SELECT", "DML", "OTHERS"};
-
-        model.addAttribute("listItems", listItems);
-
-        if (!isNullOrEmpty(commandType) && !isNullOrEmpty(owner) && !isNullOrEmpty(name)) {
-            Collection<SqlAreaVO> modelCollection = null;
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlAreaVO>>() {
-            }, dbName, commandType, owner, name);
-            model.addAttribute("model", modelCollection);
-        }
-
-        return "content/sqlApplication";
-    }
-
-
-    @RequestMapping(value = {"sqlList"})
-    public String sqlList(
-            @RequestParam(value = "owner", required = false) final String owner,
-            @RequestParam(value = "tableName", required = false) final String tableName,
-            Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "sqlNameList";
-
-        HashMap<String, String> inParam = new HashMap<>();
-
-        if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
-        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
-
-        Collection<SqlNameListVO> modelCollection = null;
-
-        if (!inParam.isEmpty()) {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameVO>>() {
-                    }
-                    , inParam);
-        }
-
-        model.addAttribute("defaultDate", LocalDateTime.now());
-        model.addAttribute("sqlNameListVO", modelCollection);
-        return "content/sqlList";
-    }
 
     @RequestMapping(value = {"sqlDetail"})
     public String sqlDetail(
@@ -169,55 +119,29 @@ public class SqlController {
         return "content/sqlNameDetail";
     }
 
-    @RequestMapping(value = {"sqlNameList"})
+    @RequestMapping(value = {"sqlNameList", "sqlNameListByTableName", "sqlNameListByAreaCd"})
     public String sqlNameList(
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "sqlName", required = false) final String sqlName,
-            Model model) throws IOException, URISyntaxException {
-        final String apiMethod = "jpa/daSqlNameList";
-
-        HashMap<String, String> inParam = new HashMap<>();
-
-        System.out.println("DBID: " + dbId);
-        if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName);
-        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
-
-        Collection<SqlNameListVO> modelCollection = null;
-
-        if (!inParam.isEmpty()) {
-            modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<SqlNameListVO>>() {
-                    }
-                    , inParam);
-        }
-
-        Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
-        DaDbVO allDb = new DaDbVO();
-        allDb.setDbId(0);
-        allDb.setDbNm("ALL");
-        daDbVOList.add(allDb);
-
-        model.addAttribute("dbList", daDbVOList);
-        model.addAttribute("defaultDate", LocalDateTime.now());
-        model.addAttribute("sqlNameListVO", modelCollection);
-        return "content/sqlNameList";
-    }
-
-    @RequestMapping(value = {"logicalAreaSqlNameList"})
-    public String logicalAreaSqlNameList(
-            @RequestParam(value = "dbId", required = false) final String dbId,
-            @RequestParam(value = "sqlName", required = false) final String sqlName,
+            @RequestParam(value = "owner", required = false) final String owner,
+            @RequestParam(value = "tableName", required = false) final String tableName,
             @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
             @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
-            Model model) throws IOException, URISyntaxException {
+            HttpServletRequest request, Model model) throws IOException, URISyntaxException {
         final String apiMethod = "sqlNameList";
+
+        String returnPath = "content" + request.getServletPath();
+//        System.out.println("[returnPath]: " + returnPath);
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        System.out.println("DBID: " + dbId);
+//        System.out.println("DBID: " + dbId);
         if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName);
+        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
+        if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
+        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
         if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
-        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
 
         Collection<SqlNameVO> modelCollection = null;
 
@@ -236,7 +160,7 @@ public class SqlController {
         model.addAttribute("dbList", daDbVOList);
         model.addAttribute("defaultDate", LocalDateTime.now());
         model.addAttribute("sqlNameListVO", modelCollection);
-        return "content/logicalAreaSqlNameList";
+        return returnPath;
     }
 
     @RequestMapping(value = {"daTopSql"})

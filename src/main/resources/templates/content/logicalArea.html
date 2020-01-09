@@ -60,7 +60,7 @@
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
                 </td>
 
@@ -68,19 +68,19 @@
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalAreaSqlNameList.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
                 </td>
 
-                <td style="height:1.5rem;">
+                <td style="height:1.5rem; text-align: center;">
                     <a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}">
                         <!--<i class="fas fa-table fa-2x"></i>-->
                         <img align="center" src="img/dat1.png" class="d-inline-block" alt="" height="100%" >
                         </a>
                 </td>
 
-                <td style="height:1.5rem;">
-                    <a href="logicalArea.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}">
+                <td style="height:1.5rem; text-align: center;">
+                    <a href="logicalArea.html" th:href="@{sqlNameListByAreaCd(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}">
                         <!--<i class="fas fa-question-circle fa-2x"></i>-->
                         <img align="center" src="img/sql1.png" class="d-inline-block" alt="" height="100%" >
                     </a>

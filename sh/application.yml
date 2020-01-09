@@ -34,7 +34,6 @@ layout:
 
 dbshowapi:
   url:
-    sqlApplication: sqlApplicationList/{dbName}/{commandType}/{owner}/{tableName}
     sqlDetail: sqlDetail/{dbName}/{searchType}/{searchString}
     daSyncData: daSyncData/{tableName}
     daTables: datables?tableName=&logicalAreaCd=&logicalAreaCd2=

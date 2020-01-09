@@ -8,7 +8,7 @@
         <!--<li class="breadcrumb-item">-->
             <!--<a href="#">Dashboard</a>-->
         <!--</li>-->
-        <!--<li class="breadcrumb-item active">Overview</li>-->
+        <!--<li class="breadcrumb-item">Overview</li>-->
     <!--</ol>-->
     <!--<ul class="breadcrumb">-->
         <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
@@ -52,8 +52,8 @@
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by SqlName)</a>
                 -->
-                <a class="dropdown-item" href="/sqlList">SqlName 검색(by Table)</a>
-                <a class="dropdown-item" href="/sqlNameList">SQLName 검색(by SqlName)</a>
+                <a class="dropdown-item" href="/sqlNameListByTableName">SqlName 검색(by Table)</a>
+                <a class="dropdown-item" href="/sqlNameList">SqlName 검색(by SqlName)</a>
                 <!--<a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>-->
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
                 <div class="dropdown-divider"></div>
@@ -78,26 +78,25 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>기타 운영</span>
+                <span>메타 데이터 조회</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="opDropdown">
-                <h6 class="dropdown-header">운영 업무.</h6>
-                <a class="dropdown-item active" href=#>#DB Jobs.</a>
-                <a class="dropdown-item" href=#>#Object별 권한.</a>
-                <a class="dropdown-item" href=#>#Plan Management.</a>
+                <h6 class="dropdown-header">Meta#</h6>
+                <a class="dropdown-item" href="http://dqm.11stcorp.com">11ST DQM</a>
+                <a class="dropdown-item" href="/daStdWordDic">행정표준단어(참고용)</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="testMenuDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Test</span>
+            <a class="nav-link dropdown-toggle" href="#" id="opDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>기타 운영</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="testMenuDropDown" >
-                <h6 class="dropdown-header">Other Pages:</h6>
-                <a class="dropdown-item" href="/daStdWordDic">행정표준단어(참고용)</a>
-                <a class="dropdown-item" href="404.html">#404 Page</a>
-                <a class="dropdown-item" href="blank.html">#Blank Page</a>
+            <div class="dropdown-menu" aria-labelledby="opDropdown">
+                <h6 class="dropdown-header">운영 업무.</h6>
+                <a class="dropdown-item" href=#>#DB Jobs.</a>
+                <a class="dropdown-item" href=#>#Object별 권한.</a>
+                <a class="dropdown-item" href=#>#Plan Management.</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
