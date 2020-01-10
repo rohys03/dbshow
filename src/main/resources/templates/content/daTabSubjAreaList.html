@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>DA Data Sync Info</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+
+    <div id="search-form" class="card-header d-flex flex-row">
+        <form class="form-inline" action="/daTabSubjAreaList">
+            <div class="d-flex flex-row">
+                <label for="subjAreaCd" class="mr-2">주제영역</label>
+                <input type="text" id="subjAreaCd" name="subjAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.subjAreaCd}" minlength="2" placeholder="subjAreaCd..(equal)">
+
+                <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
+            </div>
+        </form>
+    </div>
+
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-sm" id="dataTable" >
+            <thead class=" table-thead-wrap-size">
+            <tr>
+                <th>주제영역 코드</th>
+                <th>상위 주제영역 코드</th>
+                <th>주제영역명</th>
+                <th>주제영역 영문명</th>
+                <th>Table목록 (Link)</th>
+                <th>SQL목록 (Link)</th>
+                <th>물리영역 코드</th>
+                <th>영역 Depth.</th>
+                <th>설명</th>
+                <th>테이블 개수</th>
+                <th>SQL 개수</th>
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:each="objectVo : ${daTabSubjAreaList}">
+                <td>
+                    <div th:if="${not #strings.isEmpty(objectVo.subjAreaCd)}">
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.subjAreaCd}">주제영역</span></div>
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
+                    </div>
+                </td>
+
+                <td>
+                    <div th:if="${not #strings.isEmpty(objectVo.hgrnkSubjAreaCd)}">
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.hgrnkSubjAreaCd}">상위주제영역</span></div>
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
+                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
+                    </div>
+                </td>
+                <td style="text-align: right;" th:text="${objectVo.subjAreaName}"></td>
+                <td style="text-align: right;" th:text="${objectVo.subjAreaEngName}"></td>
+
+                <td style="height:1.5rem; text-align: center;">
+                    <a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.logicalAreaCd}, logicalAreaCd2=${objectVo.logicalAreaCd2})}">
+                        <!--<i class="fas fa-table fa-2x"></i>-->
+                        <img align="center" src="img/dat1.png" class="d-inline-block" alt="" height="100%" >
+                        </a>
+                </td>
+
+                <td style="height:1.5rem; text-align: center;">
+                    <a href="logicalArea.html" th:href="@{sqlNameListByAreaCd(logicalAreaCd=${objectVo.logicalAreaCd}, logicalAreaCd2=${objectVo.logicalAreaCd2})}">
+                        <!--<i class="fas fa-question-circle fa-2x"></i>-->
+                        <img align="center" src="img/sql1.png" class="d-inline-block" alt="" height="100%" >
+                    </a>
+                </td>
+
+                <td style="text-align: right;" th:text="${objectVo.phsclSubjAreaCd}"></td>
+                <td style="text-align: right;" th:text="${objectVo.areaDepth}"></td>
+                <td style="text-align: right;" th:text="${objectVo.subjAreaDesc}"></td>
+                <td style="text-align: right;" th:text="${objectVo.tableCount}"></td>
+                <td style="text-align: right;" th:text="${objectVo.sqlCount}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                pageLength: 200,
+                paging: false,
+                searching: false
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>
+

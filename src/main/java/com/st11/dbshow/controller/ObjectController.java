@@ -171,5 +171,27 @@ public class ObjectController {
     }
 
 
+    @RequestMapping(value = "daTabSubjAreaList")
+    public String daTabSubjAreaList (
+            @RequestParam(value = "subjAreaCd", required = false) final String subjAreaCd,
+            HttpServletRequest request, Model model) throws URISyntaxException, IOException {
+//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+        model.addAttribute("serverTime", getCurrentTime());
+
+        final String apiMethod = "daTabSubjAreaList";
+        String returnPath = "content" + request.getServletPath();
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        if (!isNullOrEmpty(subjAreaCd)) inParam.put("subjAreaCd", subjAreaCd.toUpperCase());
+
+        Collection<DaTabSubjAreaVO> daTabSubjAreaList = null;
+        daTabSubjAreaList = apiService.getApiModels(apiMethod, new TypeReference<Collection<DaTabSubjAreaVO>>() {}
+                , inParam);
+        model.addAttribute("daTabSubjAreaList", daTabSubjAreaList);
+
+        System.out.println("[daTabSubjAreaList]: "+ model);
+        return returnPath;
+    }
 
 }

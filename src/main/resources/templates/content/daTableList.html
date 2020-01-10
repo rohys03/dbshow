@@ -38,7 +38,7 @@
                 <!--<th>Table명</th>-->
                 <th>LogicalArea(: Sub)</th>
                 <th>PhysicalArea</th>
-                <th>Comments</th>
+                <th class="col200px">Comments</th>
                 <th>Table Created Dt</th>
                 <th>표준대상여부</th>
             </tr>
@@ -62,7 +62,7 @@
                 <!--</td>-->
                 <td th:text="${objectVo.logicalAreaCd} + ' : ' + ${objectVo.logicalAreaCd2}"></td>
                 <td th:text="${objectVo.physicalAreaCd}"></td>
-                <td th:text="${objectVo.tableComments}"></td>
+                <td class="col200px" th:text="${objectVo.tableComments}"></td>
                 <td th:text="${objectVo.tableCreateDt}"></td>
                 <td th:text="${objectVo.standardObjectYn}"></td>
             </tr>
