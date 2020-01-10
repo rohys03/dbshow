@@ -23,7 +23,7 @@
 
     <header>
 
-        <nav class="navbar d-inline-flex" style="width: 100%">
+        <nav id="navbar" class="navbar d-inline-flex" style="width: 100%">
             <div class="navbar-brand mr-1">
                 <a href="/index" style="color:indianred; font-size: 1.5rem;">
                     <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
@@ -48,7 +48,6 @@
 
         <section id="content-wrapper">
             <!-- Breadcrumbs-->
-            <th:block th:include="decorator/dbshowNavigator :: navigator"></th:block>
 
             <div id="includedContent" layout:fragment="content">
             </div>

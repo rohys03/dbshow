@@ -130,8 +130,9 @@ a.dim-btn-layerClose:hover {
 /*
     DBSHOW THEME.WHITE
 */
-body#page-top.dbshow-white header {
+body#page-top.dbshow-white header #navbar  {
     background-color: white;
+    box-shadow: rgba(220,220,220, 0.9) inset -2px -2px 3px;
 }
 
 body#page-top.dbshow-white header button > i {
@@ -140,6 +141,7 @@ body#page-top.dbshow-white header button > i {
 
 body#page-top.dbshow-white section#wrapper ol#sidebar {
     background-color: white;
+    box-shadow: rgba(220,220,220, 0.9) inset -2px -2px 3px;
 }
 
 body#page-top.dbshow-white section#wrapper ol#sidebar span, i, a::after{
@@ -148,6 +150,32 @@ body#page-top.dbshow-white section#wrapper ol#sidebar span, i, a::after{
 
 body#page-top.dbshow-white section#content-wrapper {
     background-color: whitesmoke;
+}
+
+
+/*
+    DBSHOW THEME.purple
+*/
+body#page-top.dbshow-purple header #navbar {
+    background-color: rgba(255,240,245, 0.9);
+    box-shadow: rgba(221,160,221, 0.9) inset -2px -2px 3px;
+}
+
+body#page-top.dbshow-purple header button > i {
+    color: indianred;
+}
+
+body#page-top.dbshow-purple section#wrapper ol#sidebar {
+    background-color: white;
+    box-shadow: rgba(221,160,221, 0.9) inset -2px -2px 3px;
+}
+
+body#page-top.dbshow-purple section#wrapper ol#sidebar span, i, a::after{
+    color: dimgrey;
+}
+
+body#page-top.dbshow-purple section#content-wrapper {
+    background-color: rgba(245,245,245, 0.8);
 }
 
 .width-nav-path {
