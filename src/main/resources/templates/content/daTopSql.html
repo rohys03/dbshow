@@ -11,24 +11,22 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex">
-        <div class="p-1">
-            <form class="d-none d-md-inline-block form-inline form-row" action="/daTopsql">
-                <div class="input-group col-auto">
-                    <div>
-                        <input type="text" name="logicalAreaCd" class="form-control" th:value="${param.logicalAreaCd}" placeholder="logicalAreaCd..">
-                    </div>
-                    <div>
-                        <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="Sub (LogicalAreaCd2)..">
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+    <div id="search-form" class="card-header d-flex">
+        <form class="d-none d-md-inline-block form-inline form-row" action="/daTopsql">
+            <div class="input-group col-auto">
+                <div>
+                    <input type="text" name="logicalAreaCd" class="form-control" th:value="${param.logicalAreaCd}" placeholder="주제영역(equal)">
                 </div>
-            </form>
-        </div>
+                <div>
+                    <input type="text" name="logicalAreaCd2" class="form-control" th:value="${param.logicalAreaCd2}" placeholder="상위 주제영역(equal)..">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
         <!--<div class="text-muted" style="align-self:center" th:text="'OGG 동기화 현황 최종 수집 일자: ' + ${#strings.defaultString(#dates.format(daStatMngModel.updateDt, 'yyyy-MM-dd HH:mm:ss'),'No Result ')}"> Updated </div>-->
     </div>
 

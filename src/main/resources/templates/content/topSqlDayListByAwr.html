@@ -15,7 +15,7 @@
         <div class="row"><div class="col-2" th:text="${res.key + ' : '}"></div><div class="col-6" th:text="${res.value[0]}"></div></div>
     </div>
 -->
-    <div class="card-header">
+    <div id="search-form" class="card-header">
         <form class="" action="/topSqlDayListByAwr">
             <div class="form-group">
                 <div class="form-inline">
@@ -128,7 +128,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlTopList.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_aside">

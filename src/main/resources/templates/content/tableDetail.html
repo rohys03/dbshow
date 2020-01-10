@@ -11,7 +11,7 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/tableDetail">
             <div class="d-flex flex-row">
                 <label for="dbId" class="mr-2">DB ID</label>
@@ -32,10 +32,10 @@
 
 
     <div class="card-body">
-
+        <caption align="left"><h6>Data 정보</h6></caption>
         <table class="table-bordered table" id="tableInfo">
             <tbody>
-            <tr class="text-white bg-info">
+            <tr class="text-white">
                 <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
                 <th>DB_ID</th>
                 <th>OWNER</th>
@@ -69,7 +69,7 @@
                 <td colspan="100%"></td>
             </tr>
 
-            <tr class="text-white bg-info">
+            <tr class="text-white">
                 <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
                 <th>논리영역</th>
                 <th>논리영역(Sub)</th>
@@ -96,26 +96,8 @@
             <canvas id="tableSizeChart" height="50px" style="border:1px transparent;"></canvas>
         </div>
 
+        <caption align="left"><h6>Sql Name 목록</h6></caption>
         <table class="table table-bordered table-sm" id="sqlNameGrid" >
-            <colgroup>
-                <!--<col class="col60px">-->
-                <col class="col60px">
-                <col class="col60px">
-                <col class="sqltext-wrap" style="max-width:600px">  <!-- SqlName -->
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-                <col class="col60px">
-
-                <col class="col60px">
-
-                <col class="col60px">
-
-                <col class="col60px">
-
-                <col class="col60px">
-
-            </colgroup>
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <!--<th>Data 수집시간</th>-->
@@ -129,12 +111,20 @@
                 <th>최근행일시</th>
 
                 <th>총 수행횟수</th>
+                <!--<th>prevTotalExec</th>-->
+                <!--<th>execDiff</th>-->
 
                 <th>총 Read Buffer</th>
+                <!--<th>prevTotalBget</th>-->
+                <!--<th>bgetDiff</th>-->
 
                 <th>총 Cpu Time</th>
+                <!--<th>prevTotalCpu</th>-->
+                <!--<th>cpuDiff</th>-->
 
                 <th>총 응답시간</th>
+                <!--<th>prevTotalElap</th>-->
+                <!--<th>elapDiff</th>-->
 
             </tr>
             </thead>
@@ -154,21 +144,25 @@
                 <td th:text="${sqlVo.LastActiveTime}"></td>
 
                 <td th:text="${sqlVo.currTotalExec}"></td>
+                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                <!--<td th:text="${sqlVo.execDiff}"></td>-->
 
                 <td th:text="${sqlVo.currTotalBget}"></td>
+                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
 
                 <td th:text="${sqlVo.currTotalCpu}"></td>
+                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
 
                 <td th:text="${sqlVo.currTotalElap}"></td>
+                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
 
-            </tr>
-            <tr th:unless="${not #lists.isEmpty(sqlNameListVO)}">
-                <td colspan="100%"></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/tableDetail.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 
@@ -180,8 +174,7 @@
                 pageLength: 25,
                 paging: true,
                 searching: false,
-                lengthChange: false,
-                order:[0, 'desc']
+                lengthChange: false
             });
         });
     </script>

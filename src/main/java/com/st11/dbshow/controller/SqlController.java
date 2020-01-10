@@ -131,7 +131,6 @@ public class SqlController {
         final String apiMethod = "sqlNameList";
 
         String returnPath = "content" + request.getServletPath();
-//        System.out.println("[returnPath]: " + returnPath);
 
         HashMap<String, String> inParam = new HashMap<>();
 

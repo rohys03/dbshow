@@ -12,15 +12,15 @@
 <th:block layout:fragment="content">
 
 
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/daTableList">
             <div class="d-flex flex-row">
 
                 <label for="tableName" class="mr-2">Table 명</label>
                 <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="2" placeholder="Table Name..(equal)">
-                <label for="logicalAreaCd" class="mr-2">분류영역1(Main)</label>
+                <label for="logicalAreaCd" class="mr-2">주제영역</label>
                 <input type="text" id="logicalAreaCd" name="logicalAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd}" minlength="2" placeholder="logicalAreaCd..(equal)">
-                <label for="logicalAreaCd2" class="mr-2">분류영역2(Sub)</label>
+                <label for="logicalAreaCd2" class="mr-2">상위 주제영역</label>
                 <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="2" placeholder="logicalAreaCd2..(equal)">
 
                 <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
@@ -29,8 +29,8 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-wrap" id="dataTable" >
-            <thead class="thead-light table-thead-wrap-size">
+        <table class="table table-bordered" id="dataTable" >
+            <thead class="table-thead-wrap-size">
             <tr>
                 <th>DB Name</th>
                 <th>소유자</th>
@@ -69,7 +69,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/daTableList.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">

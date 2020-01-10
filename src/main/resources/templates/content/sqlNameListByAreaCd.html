@@ -11,13 +11,13 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/sqlNameListByAreaCd">
             <div class="d-flex flex-row">
 
-                <label for="logicalAreaCd" class="mr-2">논리영역</label>
+                <label for="logicalAreaCd" class="mr-2">주제영역</label>
                 <input type="text" id="logicalAreaCd" name="logicalAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd}" placeholder="logicalAreaCd..(equal)">
-                <label for="logicalAreaCd2" class="mr-2">Sub 논리영역</label>
+                <label for="logicalAreaCd2" class="mr-2">상위 주제영역</label>
                 <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" placeholder="logicalAreaCd2..(equal)">
 
                 <button class="btn btn-outline-info ml-2 " type="submit"> 검색 </button>
@@ -119,7 +119,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlNameListByAreaCd.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">

@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Index</title>
+    <title>11st DB Show - Table 상세 정보</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +33,7 @@
 
 <header>
 
-    <nav id="navbar" class="navbar d-inline-flex" style="width: 100%; " >
+    <nav id="navbar" class="navbar d-inline-flex" style="width: 100%">
         <div class="navbar-brand mr-1">
             <a href="/index" style="color:indianred; font-size: 1.5rem;">
                 <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
@@ -55,21 +55,21 @@
 
     <!-- Sidebar -->
 
-    <ol id="sidebar" class="sidebar navbar-nav" >
+    <ol id="sidebar" class="sidebar navbar-nav">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="objectDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>TABLE 정보</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="objectDropDown" >
+                <h6 class="dropdown-header">Data 영역</h6>
+                <a class="dropdown-item" href="/logicalArea"/>논리 Data 영역</a>
+                <div class="dropdown-divider"></div>
+
                 <h6 class="dropdown-header">물리 Table </h6>
                 <a class="dropdown-item" href=/daTableList>Table 목록</a>
                 <a class="dropdown-item" href=/tableDetail>Table 상세 정보</a>
                 <a class="dropdown-item" href=/daSyncData>Data Sync(Ogg &)</a>
-                <div class="dropdown-divider"></div>
-
-                <h6 class="dropdown-header">Data 영역</h6>
-                <a class="dropdown-item" href="/logicalArea"/>논리 Data 영역</a>
                 <div class="dropdown-divider"></div>
 
             </div>
@@ -90,8 +90,8 @@
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by Table)</a>
                 <a class="dropdown-item" href="/sqlListByObject">SQL 검색.(by SqlName)</a>
                 -->
-                <a class="dropdown-item" href="/sqlNameListByTableName">SqlName 검색(by Table)</a>
-                <a class="dropdown-item" href="/sqlNameList">SqlName 검색(by SqlName)</a>
+                <a class="dropdown-item" href="/sqlNameListByTableName">SqlName 검색(Table)</a>
+                <a class="dropdown-item" href="/sqlNameList">SqlName 검색(SqlName)</a>
                 <!--<a class="dropdown-item" href="/sqlDetail">SQL Detail.</a>-->
                 <a class="dropdown-item" href="/">#SQL 수행빈도.</a>
                 <div class="dropdown-divider"></div>
@@ -140,300 +140,396 @@
     <section id="content-wrapper">
         <!-- Breadcrumbs-->
 
-        <!--<ol class="breadcrumb" >-->
-        <!--<li class="breadcrumb-item">-->
-        <!--<a href="#">Dashboard</a>-->
-        <!--</li>-->
-        <!--<li class="breadcrumb-item">Overview</li>-->
-        <!--</ol>-->
-        <!--<ul class="breadcrumb">-->
-        <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
-        <!--</ul>-->
 
 
+        <div id="search-form" class="card-header d-flex flex-row">
+            <form class="form-inline" action="/tableDetail">
+                <div class="d-flex flex-row">
+                    <label for="dbId" class="mr-2">DB ID</label>
+                    <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
+                        <option value="1" selected="selected">TMALL</option>
+                        <option value="4">DPDB</option>
+                        <option value="5">MPDB</option>
+                        <option value="6">CARTDB</option>
+                        <option value="8">PSKPAY</option>
+                        <option value="9">PSKPAYPG</option>
+                        <option value="13">PRMTDB</option>
+                    </select>
 
-        <!-- Icon Cards-->
-        <div class="row" style="min-height: 300px; margin: 1px">
+                    <label for="owner" class="mr-2">Table Owner</label>
+                    <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" value="TMALL" minlength="2" placeholder="owner..(equal)">
+                    <label for="tableName" class="mr-2">Table 명</label>
+                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="PD_PRD" minlength="2" placeholder="Table Name..(equal)">
 
-            <div class="col-lg-6">
-                <div class="card  o-hidden mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(255, 99, 132, 0.2)">공지사항
-                        <a class="text-black-50 float-right" href="#">
-                            Go 공지사항
-                            <span class="float-right">
-                                <i class="fas float-right fa-angle-double-right"></i></span>
-                        </a>
-                    </div>
-                    <div class="card-body" >
-
-                        <div class="card-body-icon float-right">
-                            <i class="fas fa-fw  fa-comments"></i>
-                        </div>
-                        <span width="50%">
-                            <h5> 공지사항 </h5>
-                            <ul>
-                                <li> 11st DB Show 탄생. (Beta ver..)</li>
-                                <li> 2019.10.23 Sql FullText 를 볼 수 있습니다. sql application에 함수명을 알 수 있습니다. </li>
-                                <li> 2019.10.30 TopSql에 SKpay Data가 추가됩니다. (PSKPAYDB, PSKPAYPGDB) </li>
-                                <li> 2020.01.03 Table 정보가 추가되었습니다. 메뉴 정리로 순서가 변경됩니다. </li>
-                            </ul>
-                        </span>
-                    </div>
+                    <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <div class="col-lg-6">
-                <div class="card mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(255, 159, 64, 0.2)">
-                        <i class="fas fa-chart-bar"></i> Simple KPI
-                    </div>
-                    <div class="card-body">
-                    <span width="50%">
-                        <h5>KPI Today (실행횟수 %)</h5>
-                        <table class="table">
 
-                            <thead class="thead-light table-thead-wrap-size">
+        <div class="card-body">
+            <caption align="left"><h6>Data 정보</h6></caption>
+            <table class="table-bordered table" id="tableInfo">
+                <tbody>
+                <tr class="text-white">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
+                    <th>DB_ID</th>
+                    <th>OWNER</th>
+                    <th>OBJECT_NAME</th>
+                    <th>STATUS</th>
+                    <th>TEMPORARY</th>
+                    <th>생성일시</th>
+                    <th>동일 테이블명 목록(All DB)</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>TMALL</td>
+                    <td>PD_PRD</td>
+                    <td>VALID</td>
+                    <td>N</td>
+                    <td>2017-08-31</td>
+                    <td rowspan="3">
+                        <div style="overflow-y:auto; max-height: 120px;">
+                            <table class="table-borderless table-sm">
                                 <tr>
-                                    <th>최종수집일자</th>
-                                    <th>MainDB</th>
-                                    <th>DPDB</th>
-                                    <th>MPDB</th>
-                                    <th>CartDB</th>
-                                    <th>PrmtDB</th>
+                                    <td >TMALL.PD_PRD@null (TABLE)</td>
                                 </tr>
-                            </thead>
-                            <tbody>
                                 <tr>
-                                <td >20191002</td>
-                                <td >71.87</td>
-                                <td >0.69</td>
-                                <td >24.75</td>
-                                <td >1.29</td>
-                                <td >1.39</td>
+                                    <td >DEV_PUB.PD_PRD@MPDB (SYNONYM)</td>
                                 </tr>
-                            </tbody>
+                                <tr>
+                                    <td >TMALL.PD_PRD@null (TABLE)</td>
+                                </tr>
+                                <tr>
+                                    <td >CART.PD_PRD@MPDB (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >TMALL.PD_PRD@TMALL (TABLE)</td>
+                                </tr>
+                                <tr>
+                                    <td >DWVIUSER.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >FORTMALL.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >WEBUSER.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >DWCHN.PD_PRD@null (TABLE)</td>
+                                </tr>
+                                <tr>
+                                    <td >DEV_NOMASK.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >DEV_EP.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >AMAIL6.PD_PRD@null (SYNONYM)</td>
+                                </tr>
+
                             </table>
-                    </span>
-                    </div>
-                </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr class="text-white">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
+                    <th>논리영역</th>
+                    <th>논리영역(Sub)</th>
+                    <th>물리영역</th>
+                    <th>테이블 Comment</th>
+                    <th>표준화대상여부</th>
+                    <th>DML 발생 빈도(min)</th>
+                </tr>
+                <tr>
+                    <td>PD</td>
+                    <td></td>
+                    <td>PD</td>
+                    <td></td>
+                    <td>Y</td>
+                    <td>test</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="chart-content">
+                <canvas id="tableSizeChart" height="50px" style="border:1px transparent;"></canvas>
             </div>
+
+            <caption align="left"><h6>Sql Name 목록</h6></caption>
+            <table class="table table-bordered table-sm" id="sqlNameGrid" >
+                <thead class="thead-light table-thead-wrap-size">
+                <tr>
+                    <!--<th>Data 수집시간</th>-->
+                    <th>DB ID</th>
+                    <th>Sql명 번호</th>
+                    <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                    <th>대표 Sql ID</th>
+                    <th>사용자명</th>
+                    <th>모듈명</th>
+                    <th>최근행일시</th>
+
+                    <th>총 수행횟수</th>
+                    <!--<th>prevTotalExec</th>-->
+                    <!--<th>execDiff</th>-->
+
+                    <th>총 Read Buffer</th>
+                    <!--<th>prevTotalBget</th>-->
+                    <!--<th>bgetDiff</th>-->
+
+                    <th>총 Cpu Time</th>
+                    <!--<th>prevTotalCpu</th>-->
+                    <!--<th>cpuDiff</th>-->
+
+                    <th>총 응답시간</th>
+                    <!--<th>prevTotalElap</th>-->
+                    <!--<th>elapDiff</th>-->
+
+                </tr>
+                </thead>
+
+                <tbody class="table-tbody-wrap-size">
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >9329</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=9329">/*productImgDAOMap.xml id=product.getRntlInfo */</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>6scycwfkav71q</td>
+                    <td>SKPAPI</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>7061971379</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>5581233299</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>91489570000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>988477152923</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >6216</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6216">/* productDAOMap.xml 류현수 2007.08.30 51 */</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>92wy2a4mtxvzd</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>8503115098</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>7935556798</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>1602707500000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>9989860894701</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >6020</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6020">/* product.getShockingDealPrd 최영백 2013.12.22 */</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>aswrg55k81448</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>3572978607</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>11755029689</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>31703490000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>617943558308</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >6047</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6047">/* product.product.getProductPromotionBanner(productSearchDAO.xml) */</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>4g8uzvvyahv9u</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>7195938629</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>8448821638</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>342747840000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>2202609103942</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >9208</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=9208">/*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>fptrcsq1tusv5</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>5279257601</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>14707825617</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>2343237180000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>12070127577564</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >5</td>
+                    <td >22787</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=5&amp;sqlNameNo=22787">SELECT /*+ LEADING(T2 A@MAP B@MAP) USE_NL(A@MAP B@MAP) INDEX(B@MAP IX1_PD_EVENT_GROUP_MAP) INDEX(A@M</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>1j3xfn2nhax16</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-10</td>
+
+                    <td>5530566737</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>12244879703</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>6594001322149</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>11722923457551</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                <tr>
+                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                    <td >1</td>
+                    <td >16557</td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=16557">select pdprd0_.prd_no as col_0_0_, pdprd0_.prd_nm as col_1_0_, pdprd0_.sel_stat_cd as col_2_0_, pdpr</a></td>
+                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+
+                    <td>g4cdsw214s53g</td>
+                    <td>TMALL</td>
+                    <td>JDBC Thin Client</td>
+                    <td>2019-03-08</td>
+
+                    <td>10</td>
+                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                    <td>50</td>
+                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                    <td>10000</td>
+                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                    <td>16792</td>
+                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="row" style="min-height: 25%; margin: 1px">
-            <div class="col-lg-12">
-                <div class="card mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(75, 92, 242, 0.25)">
-                        <i class="fas fa-chart-bar"></i> 데이터 수집 현황.
-                    </div>
-                    <!--<div class="card-body">-->
-                    <table class="table table-bordered ">
-                        <caption>Date at collection data</caption>
-                        <thead class="thead-light">
-                        <tr>
-                            <th>DB_ID </th>
-                            <th>DB_NM </th>
-                            <th>DA_SQL_FULLTEXT </th>
-                            <th>DA_SQLAREA </th>
-                            <th>DA_OBJECTS </th>
-                            <th>DA_SYNC_TABLES </th>
-                            <th>DA_SQLNAME_DTL_INFO </th>
-                            <th>DA_SQLNAME_LIST </th>
-                            <th>DA_SQLNAME_MAPP </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td >1</td>
-                            <td >TMALL</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td >20190406</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >2</td>
-                            <td >BIDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td >20190405</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >3</td>
-                            <td >AD_PLATFORM</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >4</td>
-                            <td >DPDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >5</td>
-                            <td >MPDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >6</td>
-                            <td >CARTDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >7</td>
-                            <td >SOLDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >8</td>
-                            <td >PSKPAY</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >9</td>
-                            <td >PSKPAYPG</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >10</td>
-                            <td >FDSDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >11</td>
-                            <td >CBDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
-                        <tr>
-                            <td >12</td>
-                            <td >PMETA</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td >20190409</td>
-                        </tr>
-                        <tr>
-                            <td >13</td>
-                            <td >PRMTDB</td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                            <td ></td>
-                        </tr>
 
-                        </tbody>
-                    </table>
-                    <!--</div>-->
-                </div>
-            </div>
-        </div>
-
-        <div class="row" style="min-height: 25%; margin: 1px">
-            <div class="col-lg-12">
-                <div class="card mb-3" style="min-height:300px">
-                    <div class="card-header" style="background: rgba(75, 192, 192, 0.2)">
-                        <i class="fas fa-chart-bar"></i> Api Service Help
-                    </div>
-                    <div class="card-body">
-                        <span id="apiService" >
-                            <h6>Api Service List</h6>
-                            <ol>
-                                <li>Sql 상세 : sqlDetail/{dbName}/{searchType}/{searchString}</li>
-                                <li>참조 Object : referencedObject/{dbName}/{objectType}/{owner}/{objectName}</li>
-                                <li>Table Sync(OGG &amp; Db Link) : daSyncData/{tableName}</li>
-                                <li>daTableList : null</li>
-                                <li>logicalArea: logicalArea?logicAreaCd=</li>
-                                <li>Sql List</li>
-                                <li>메뉴명을 입력 (application.yml)</li>
-                            </ol>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="card-footer small text-muted">
+        <footer class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li>
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : PD_PRD</li>
             </ul>
-        </div>
+
+            <div class="copyright text-center">
+                <div>Copyright © 11st DBshow 2019
+                </div>
+                <div class="small text-muted">[content/***.html] Updated at null</div>
+            </div>
+        </footer>
     </section>
 
-    <!-- Sticky Footer -->
-    <footer class="sticky-footer">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright © 11st DBshow 2019</span>
+    <!-- Sticky Footer
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © 11st DBshow 2019</span>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+        -->
 </section>
 
 <!-- Scroll to Top Button-->
@@ -462,6 +558,18 @@
 <script type="text/javascript" src="js/sb-admin.min.js"></script>
 
 
+<script type="text/javascript" >
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#sqlNameGrid').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: false,
+            lengthChange: false
+        });
+    });
+</script>
+
 
 <!-- db Show script -->
 <script type="text/javascript" src="js/dbshow.js"></script>
@@ -469,3 +577,4 @@
 </body>
 
 </html>
+

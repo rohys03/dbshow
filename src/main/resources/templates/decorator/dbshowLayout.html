@@ -52,14 +52,20 @@
             <div id="includedContent" layout:fragment="content">
             </div>
 
-            <div class="card-footer small text-muted">
+            <footer class="card-footer small text-muted">
                 <ul class="row" style="list-style: none;">
                     <li>Parameter:: </li> <li th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>
                 </ul>
-            </div>
+
+                <div class="copyright text-center">
+                    <div>Copyright © 11st DBshow 2019
+                    </div>
+                    <div class="small text-muted" th:text="'[content/***.html] Updated at ' + ${serverTime}">Updated </div>
+                </div>
+        </footer>
         </section>
 
-        <!-- Sticky Footer -->
+        <!-- Sticky Footer
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -67,6 +73,7 @@
                 </div>
             </div>
         </footer>
+        -->
     </section>
 
 <!-- Scroll to Top Button-->

@@ -13,10 +13,10 @@ table.dataTable.compact tbody td {
 }
 
 table .table-thead-wrap-size {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 table .table-tbody-wrap-size {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 div .table-wrap {
@@ -150,6 +150,7 @@ body#page-top.dbshow-white section#wrapper ol#sidebar span, i, a::after{
 
 body#page-top.dbshow-white section#content-wrapper {
     background-color: whitesmoke;
+    padding: 0px;
 }
 
 
@@ -178,7 +179,20 @@ body#page-top.dbshow-purple section#content-wrapper {
     background-color: rgba(245,245,245, 0.8);
 }
 
+
+
 .width-nav-path {
     /*noinspection CssInvalidPropertyValue*/
     width: calc(100% - 220px);
+}
+
+section#content-wrapper #search-form {
+    background-color: rgba(245,245,245, 1);
+    border-bottom: black 1px;
+    border-bottom-style: inset;
+}
+
+table th{
+    background-color: rgba(169, 221, 243, 1);
+    color : rgba(47,79,79,1);
 }

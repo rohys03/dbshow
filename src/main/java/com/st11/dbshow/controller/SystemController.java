@@ -10,16 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import static com.st11.dbshow.common.DbShow.getCurrentTime;
+import static com.st11.dbshow.common.DbShow.getParameterMap;
 import static com.st11.dbshow.common.DbShow.isNullOrEmpty;
 
 @Controller
 public class SystemController {
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private ApiService apiService;
@@ -43,5 +48,19 @@ public class SystemController {
                 , inParam);
         model.addAttribute("model", modelCollection);
         return "content/daStdWordDic";
+    }
+
+    @RequestMapping(value = "error", method = RequestMethod.GET)
+    public String errorPage (HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler, Model model) throws Exception {
+
+        logger.info("[error] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
+
+        HashMap<String, String> inParam = new HashMap<>();
+
+        model.addAttribute("serverTime", getCurrentTime());
+
+        return "content/errorPage";
     }
 }

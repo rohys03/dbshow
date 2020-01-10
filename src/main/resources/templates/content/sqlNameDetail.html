@@ -11,8 +11,7 @@
 <body>
 <th:block layout:fragment="content">
 
-
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/sqlNameDetail">
             <div class="form-group">
                 <label for="dbId" class="mr-2">DB ID</label>
@@ -156,7 +155,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlNameDetail.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 

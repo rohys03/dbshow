@@ -11,7 +11,7 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/sqlNameListByTableName">
             <div class="d-flex flex-row">
 
@@ -92,7 +92,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/sqlNameListByTableName.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">

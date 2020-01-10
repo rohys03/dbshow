@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.st11.dbshow.common.DbShow.*;
@@ -103,10 +104,12 @@ public class ObjectController {
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "owner", required = false) final String owner,
             @RequestParam(value = "tableName", required = false) final String tableName,
-            Model model) throws IOException, URISyntaxException {
+            HttpServletRequest request, Model model) throws IOException, URISyntaxException {
         final String apiMethod = "jpa/daObject";
         final String apiMethod2 = "jpa/daTable";
         final String apiMethod3 = "jpa/daObjectList";
+
+        String returnPath = "content" + request.getServletPath();
 
         HashMap<String, String> inParam = new HashMap<>();
 
@@ -143,21 +146,28 @@ public class ObjectController {
 
         ArrayList<String> daObjectList = new ArrayList<>();
 
-//        PUBLIC.MT_CUPN@MAINDB (Synonym)
-
-        daDbVOList = dbShowService.getDaDbList("Y");
-
         for (DaObjectVO vo : daObjectVOList) {
             String text = vo.getOwner() + "." + vo.getObjectName() + "@" + dbMap.get(Integer.parseInt(vo.getDbId())) + " (" + vo.getObjectType() + ")" ;
 //            System.out.println("[TEXT: " + text);
             daObjectList.add(text);
         }
 
+        Collection<SqlNameVO> sqlNameListVOList = null;
+
+        if (!inParam.isEmpty()) {
+            sqlNameListVOList = apiService.getApiModels("sqlNameList", new TypeReference<Collection<SqlNameVO>>() {
+                    }
+                    , inParam);
+        }
+
+        model.addAttribute("defaultDate", LocalDateTime.now());
+        model.addAttribute("sqlNameListVO", sqlNameListVOList);
+
         model.addAttribute("daObjectList", daObjectList);
 
         System.out.println("[model" + model.toString());
 
-        return "content/tableDetail";
+        return returnPath;
     }
 
 

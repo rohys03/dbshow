@@ -11,7 +11,7 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="card-header d-flex flex-row justify-content-between">
+    <div id="search-form" class="card-header d-flex flex-row justify-content-between">
         <form class="form-inline " action="/daSyncData">
             <div class="d-flex flex-row">
                 <label for="tableName" class="mr-2">Table 명 </label>
@@ -26,14 +26,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-            </colgroup>
+        <table class="table table-bordered " id="dataTable" >
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <th>sourceDB</th>
@@ -55,7 +48,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/daSyncData.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">

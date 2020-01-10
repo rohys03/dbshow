@@ -12,7 +12,7 @@
 <th:block layout:fragment="content">
 
 
-    <div class="card-header d-flex flex-row">
+    <div id="search-form" class="card-header d-flex flex-row">
         <form class="form-inline" action="/logicalArea">
             <div class="d-flex flex-row">
                 <label for="logicalAreaCd" class="mr-2">분류영역1(Main)</label>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-sm table-wrap" id="dataTable" >
+        <table class="table table-bordered table-sm" id="dataTable" >
             <colgroup>
                 <col style="width:140px">
                 <col style="width:140px">
@@ -40,10 +40,10 @@
                 <col>
                 <col>
             </colgroup>
-            <thead class="thead-light table-thead-wrap-size">
+            <thead class=" table-thead-wrap-size">
             <tr>
-                <th>분류영역1 (Main)</th>
-                <th>분류영역2 (Sub)</th>
+                <th>주제영역</th>
+                <th>상위 주제영역</th>
                 <th>Table목록 (Link)</th>
                 <th>SQL목록 (Link)</th>
                 <th>총 Table 개수</th>
@@ -58,7 +58,7 @@
             <tr th:each="objectVo : ${model}">
                 <td>
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd1)}">
-                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">AreaCD1</span></div>
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd1}">주제영역</span></div>
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
@@ -66,7 +66,7 @@
 
                 <td>
                     <div th:if="${not #strings.isEmpty(objectVo.areaCd2)}">
-                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">AreaCD1</span></div>
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.areaCd2}">상위주제영역</span></div>
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
                         <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
                     </div>
@@ -95,7 +95,6 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer small text-muted" th:text="'[content/logicalArea.html] Updated at ' + ${serverTime}">Updated </div>
 </th:block>
 
 <th:block layout:fragment="content_script">
