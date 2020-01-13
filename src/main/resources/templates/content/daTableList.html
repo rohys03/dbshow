@@ -16,12 +16,22 @@
         <form class="form-inline" action="/daTableList">
             <div class="d-flex flex-row">
 
+                <label for="dbId" class="mr-2">DB ID</label>
+                <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
+                    <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                    </option>
+                </select>
+
                 <label for="tableName" class="mr-2">Table 명</label>
                 <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="2" placeholder="Table Name..(equal)">
+                <label for="subjAreaCd" class="mr-2">주제영역</label>
+                <input type="text" id="subjAreaCd" name="subjAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.subjAreaCd}" minlength="2" placeholder="subjAreaCd..(equal)">
+<!--
                 <label for="logicalAreaCd" class="mr-2">주제영역</label>
                 <input type="text" id="logicalAreaCd" name="logicalAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd}" minlength="2" placeholder="logicalAreaCd..(equal)">
                 <label for="logicalAreaCd2" class="mr-2">상위 주제영역</label>
                 <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="2" placeholder="logicalAreaCd2..(equal)">
+-->
 
                 <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
             </div>
@@ -36,9 +46,9 @@
                 <th>소유자</th>
                 <th>Table명</th>
                 <!--<th>Table명</th>-->
-                <th>LogicalArea(: Sub)</th>
+                <th>주제영역</th>
                 <th>PhysicalArea</th>
-                <th class="col200px">Comments</th>
+                <th style="max-width:200px;">Comments</th>
                 <th>Table Created Dt</th>
                 <th>표준대상여부</th>
             </tr>
@@ -60,9 +70,9 @@
                         <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
                     <!--</a>-->
                 <!--</td>-->
-                <td th:text="${objectVo.logicalAreaCd} + ' : ' + ${objectVo.logicalAreaCd2}"></td>
+                <td th:text="${objectVo.hgrnkSubjAreaCd} + ' : ' + ${objectVo.subjAreaCd}"></td>
                 <td th:text="${objectVo.physicalAreaCd}"></td>
-                <td class="col200px" th:text="${objectVo.tableComments}"></td>
+                <td style="max-width:200px;" th:text="${objectVo.tableComments}"></td>
                 <td th:text="${objectVo.tableCreateDt}"></td>
                 <td th:text="${objectVo.standardObjectYn}"></td>
             </tr>
@@ -78,7 +88,8 @@
             $('#dataTable').dataTable({
                 pageLength: 25,
                 paging: true,
-                searching: false
+                searching: false,
+                order: false
             });
         });
     </script>

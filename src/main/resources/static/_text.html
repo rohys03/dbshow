@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - Table 상세 정보</title>
+    <title>11st DB Show - DA Data Sync Info</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -63,7 +63,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="objectDropDown" >
                 <h6 class="dropdown-header">Data 영역</h6>
-                <a class="dropdown-item" href="/logicalArea"/>논리 Data 영역</a>
+                <a class="dropdown-item" href="/daTabSubjAreaList"/>주제영역별 Data</a>
                 <div class="dropdown-divider"></div>
 
                 <h6 class="dropdown-header">물리 Table </h6>
@@ -142,366 +142,351 @@
 
 
 
+
         <div id="search-form" class="card-header d-flex flex-row">
-            <form class="form-inline" action="/tableDetail">
+            <form class="form-inline" action="/daTableList">
                 <div class="d-flex flex-row">
+
                     <label for="dbId" class="mr-2">DB ID</label>
                     <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
-                        <option value="1" selected="selected">TMALL</option>
+                        <option value="1">TMALL</option>
+                        <option value="2">BIDB</option>
                         <option value="4">DPDB</option>
                         <option value="5">MPDB</option>
                         <option value="6">CARTDB</option>
                         <option value="8">PSKPAY</option>
                         <option value="9">PSKPAYPG</option>
                         <option value="13">PRMTDB</option>
+                        <option value="0" selected="selected">ALL</option>
                     </select>
 
-                    <label for="owner" class="mr-2">Table Owner</label>
-                    <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" value="TMALL" minlength="2" placeholder="owner..(equal)">
                     <label for="tableName" class="mr-2">Table 명</label>
-                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="PD_PRD" minlength="2" placeholder="Table Name..(equal)">
+                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="" minlength="2" placeholder="Table Name..(equal)">
+                    <label for="subjAreaCd" class="mr-2">주제영역</label>
+                    <input type="text" id="subjAreaCd" name="subjAreaCd" class="form-control mr-sm-2" style="width: 200px;" value="MT_CUPN_02" minlength="2" placeholder="subjAreaCd..(equal)">
+                    <!--
+                                    <label for="logicalAreaCd" class="mr-2">주제영역</label>
+                                    <input type="text" id="logicalAreaCd" name="logicalAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd}" minlength="2" placeholder="logicalAreaCd..(equal)">
+                                    <label for="logicalAreaCd2" class="mr-2">상위 주제영역</label>
+                                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="2" placeholder="logicalAreaCd2..(equal)">
+                    -->
 
                     <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
                 </div>
             </form>
         </div>
 
-
         <div class="card-body">
-            <caption align="left"><h6>Data 정보</h6></caption>
-            <table class="table-bordered table" id="tableInfo">
-                <tbody>
-                <tr class="text-white">
-                    <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
-                    <th>DB_ID</th>
-                    <th>OWNER</th>
-                    <th>OBJECT_NAME</th>
-                    <th>STATUS</th>
-                    <th>TEMPORARY</th>
-                    <th>생성일시</th>
-                    <th>동일 테이블명 목록(All DB)</th>
-                </tr>
+            <table class="table table-bordered" id="dataTable" >
+                <thead class="table-thead-wrap-size">
                 <tr>
-                    <td>1</td>
-                    <td>TMALL</td>
-                    <td>PD_PRD</td>
-                    <td>VALID</td>
-                    <td>N</td>
-                    <td>2017-08-31</td>
-                    <td rowspan="3">
-                        <div style="overflow-y:auto; max-height: 120px;">
-                            <table class="table-borderless table-sm">
-                                <tr>
-                                    <td >TMALL.PD_PRD@null (TABLE)</td>
-                                </tr>
-                                <tr>
-                                    <td >DEV_PUB.PD_PRD@MPDB (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >TMALL.PD_PRD@null (TABLE)</td>
-                                </tr>
-                                <tr>
-                                    <td >CART.PD_PRD@MPDB (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >TMALL.PD_PRD@TMALL (TABLE)</td>
-                                </tr>
-                                <tr>
-                                    <td >DWVIUSER.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >FORTMALL.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >WEBUSER.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >DWCHN.PD_PRD@null (TABLE)</td>
-                                </tr>
-                                <tr>
-                                    <td >DEV_NOMASK.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >DEV_EP.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-                                <tr>
-                                    <td >AMAIL6.PD_PRD@null (SYNONYM)</td>
-                                </tr>
-
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-
-
-                <tr class="text-white">
-                    <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
-                    <th>논리영역</th>
-                    <th>논리영역(Sub)</th>
-                    <th>물리영역</th>
-                    <th>테이블 Comment</th>
-                    <th>표준화대상여부</th>
-                    <th>DML 발생 빈도(min)</th>
-                </tr>
-                <tr>
-                    <td>PD</td>
-                    <td></td>
-                    <td>PD</td>
-                    <td></td>
-                    <td>Y</td>
-                    <td>test</td>
-                </tr>
-
-                </tbody>
-            </table>
-
-            <div class="chart-content">
-                <canvas id="tableSizeChart" height="50px" style="border:1px transparent;"></canvas>
-            </div>
-
-            <caption align="left"><h6>Sql Name 목록</h6></caption>
-            <table class="table table-bordered table-sm" id="sqlNameGrid" >
-                <thead class="thead-light table-thead-wrap-size">
-                <tr>
-                    <!--<th>Data 수집시간</th>-->
-                    <th>DB ID</th>
-                    <th>Sql명 번호</th>
-                    <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
-
-                    <th>대표 Sql ID</th>
-                    <th>사용자명</th>
-                    <th>모듈명</th>
-                    <th>최근행일시</th>
-
-                    <th>총 수행횟수</th>
-                    <!--<th>prevTotalExec</th>-->
-                    <!--<th>execDiff</th>-->
-
-                    <th>총 Read Buffer</th>
-                    <!--<th>prevTotalBget</th>-->
-                    <!--<th>bgetDiff</th>-->
-
-                    <th>총 Cpu Time</th>
-                    <!--<th>prevTotalCpu</th>-->
-                    <!--<th>cpuDiff</th>-->
-
-                    <th>총 응답시간</th>
-                    <!--<th>prevTotalElap</th>-->
-                    <!--<th>elapDiff</th>-->
-
+                    <th>DB Name</th>
+                    <th>소유자</th>
+                    <th>Table명</th>
+                    <!--<th>Table명</th>-->
+                    <th>주제영역</th>
+                    <th>PhysicalArea</th>
+                    <th style="max-width:200px;">Comments</th>
+                    <th>Table Created Dt</th>
+                    <th>표준대상여부</th>
                 </tr>
                 </thead>
 
                 <tbody class="table-tbody-wrap-size">
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >9329</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=9329">/*productImgDAOMap.xml id=product.getRntlInfo */</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>DP_MYPRICE_CUPN</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=DP_MYPRICE_CUPN" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>6scycwfkav71q</td>
-                    <td>SKPAPI</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
-
-                    <td>7061971379</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>5581233299</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>91489570000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>988477152923</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">고객맞춤가 제공을 위한 사용가능한 보너스,장바구니쿠폰 내역</td>
+                    <td>2015-03-05 19:44:39.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >6216</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6216">/* productDAOMap.xml 류현수 2007.08.30 51 */</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>92wy2a4mtxvzd</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_BULK_ISS_CUPN</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_BULK_ISS_CUPN" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>8503115098</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>7935556798</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>1602707500000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>9989860894701</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">쿠폰 수동 대량 발급용</td>
+                    <td>2014-05-19 18:38:59.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >6020</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6020">/* product.getShockingDealPrd 최영백 2013.12.22 */</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>aswrg55k81448</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_BIG_SELLER</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_CUPN_BIG_SELLER" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>3572978607</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>11755029689</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>31703490000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>617943558308</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">빅셀러 등록 (쇼킹딜 MO 쿠폰 비적용 제외 대상)</td>
+                    <td>2016-03-31 15:36:41.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >6047</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=6047">/* product.product.getProductPromotionBanner(productSearchDAO.xml) */</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>4g8uzvvyahv9u</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_ISS_STAT_HIST</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_CUPN_ISS_STAT_HIST" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>7195938629</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>8448821638</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>342747840000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>2202609103942</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">쿠폰발행의 진행상태 이력정보을 관리하는 엔터티임.
+                        쿠폰발급주체가 MO인 몰쿠폰인 경우에만 해당됨.</td>
+                    <td>2011-11-15 16:32:23.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >9208</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=9208">/*couponInterface.coupon.interface.getDirectCouponParams 2009.09.25 */</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>fptrcsq1tusv5</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_MD_MNGR</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_CUPN_MD_MNGR" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>5279257601</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>14707825617</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>2343237180000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>12070127577564</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td></td>
+                    <td style="max-width:200px;">쿠폰MD관리자</td>
+                    <td>2019-05-09 15:26:33.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >5</td>
-                    <td >22787</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=5&amp;sqlNameNo=22787">SELECT /*+ LEADING(T2 A@MAP B@MAP) USE_NL(A@MAP B@MAP) INDEX(B@MAP IX1_PD_EVENT_GROUP_MAP) INDEX(A@M</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>1j3xfn2nhax16</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-10</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_RNG_MAPP</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_CUPN_RNG_MAPP" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>5530566737</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                    <td>12244879703</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
-
-                    <td>6594001322149</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
-
-                    <td>11722923457551</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
-
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2018-11-01 17:39:02.0</td>
+                    <td>Y</td>
                 </tr>
                 <tr>
-                    <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                    <td >1</td>
-                    <td >16557</td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                    <td><a href="sqlNameDetail?clctDy=2020-01-10T16:18:58.163&amp;dbId=1&amp;sqlNameNo=16557">select pdprd0_.prd_no as col_0_0_, pdprd0_.prd_nm as col_1_0_, pdprd0_.sel_stat_cd as col_2_0_, pdpr</a></td>
-                    <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
-
-                    <td>g4cdsw214s53g</td>
                     <td>TMALL</td>
-                    <td>JDBC Thin Client</td>
-                    <td>2019-03-08</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_GNRL_DWLD_CUPN_ISSUE</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_GNRL_DWLD_CUPN_ISSUE" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>10</td>
-                    <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                    <!--<td th:text="${sqlVo.execDiff}"></td>-->
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">일반다운로드쿠폰발급</td>
+                    <td>2017-02-16 13:04:42.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_PRC_RVSN_CUPN_ISSUE</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_PRC_RVSN_CUPN_ISSUE" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>50</td>
-                    <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                    <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">가격보정쿠폰발급</td>
+                    <td>2017-08-31 14:01:54.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_ISS_CUPN_EXPIRE_GT</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_ISS_CUPN_EXPIRE_GT" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>10000</td>
-                    <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                    <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2014-01-28 15:53:36.0</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>TMALL</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_ISS_CUPN</span>
+                        <a href="tableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_ISS_CUPN" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
-                    <td>16792</td>
-                    <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                    <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;">회원에게 발급된 쿠폰정보를 관리하는 엔터티임.</td>
+                    <td>2009-03-28 05:52:04.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_RNG_MAPP</span>
+                        <a href="tableDetail?dbId=5&amp;owner=TMALL&amp;tableName=MT_CUPN_RNG_MAPP" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
 
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2018-11-01 17:41:29.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_CUPN_BIG_SELLER</span>
+                        <a href="tableDetail?dbId=5&amp;owner=TMALL&amp;tableName=MT_CUPN_BIG_SELLER" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
+
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2016-06-02 22:14:13.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>DP_MYPRICE_CUPN</span>
+                        <a href="tableDetail?dbId=5&amp;owner=TMALL&amp;tableName=DP_MYPRICE_CUPN" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
+
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2016-06-02 22:19:07.0</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>MPDB</td>
+                    <td>TMALL</td>
+                    <td style="height:1.5rem; text-align: left">
+                        <span>MT_ISS_CUPN</span>
+                        <a href="tableDetail?dbId=5&amp;owner=TMALL&amp;tableName=MT_ISS_CUPN" >
+                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
+                        </a>
+                    </td>
+
+                    <!--<td >-->
+                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
+                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
+                    <!--</a>-->
+                    <!--</td>-->
+                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>PD</td>
+                    <td style="max-width:200px;"></td>
+                    <td>2016-06-02 22:14:17.0</td>
+                    <td>Y</td>
                 </tr>
                 </tbody>
             </table>
@@ -510,26 +495,26 @@
 
         <footer class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : PD_PRD</li>
+                <li>Parameter:: </li> <li>subjAreaCd : MT_CUPN_02</li>
             </ul>
 
             <div class="copyright text-center">
                 <div>Copyright © 11st DBshow 2019
                 </div>
-                <div class="small text-muted">[content/***.html] Updated at null</div>
+                <div class="small text-muted">[content/***.html] Updated at 2020년 1월 13일 (월) 오후 2시 05분 05초</div>
             </div>
         </footer>
     </section>
 
     <!-- Sticky Footer
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © 11st DBshow 2019</span>
-                </div>
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © 11st DBshow 2019</span>
             </div>
-        </footer>
-        -->
+        </div>
+    </footer>
+    -->
 </section>
 
 <!-- Scroll to Top Button-->
@@ -561,11 +546,11 @@
 <script type="text/javascript" >
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
-        $('#sqlNameGrid').dataTable({
+        $('#dataTable').dataTable({
             pageLength: 25,
             paging: true,
             searching: false,
-            lengthChange: false
+            order: false
         });
     });
 </script>

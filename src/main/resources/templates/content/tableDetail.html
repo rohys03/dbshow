@@ -71,20 +71,20 @@
 
             <tr class="text-white">
                 <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
-                <th>논리영역</th>
-                <th>논리영역(Sub)</th>
+                <th>주제영역</th>
                 <th>물리영역</th>
                 <th>테이블 Comment</th>
                 <th>표준화대상여부</th>
                 <th>DML 발생 빈도(min)</th>
+                <th>-</th>
             </tr>
             <tr th:if = "${daTableVO != null}">
-                <td th:text="${daTableVO.logicalAreaCd}">test</td>
-                <td th:text="${daTableVO.logicalAreaCd2}">test</td>
+                <td th:text="${daTableVO.subjAreaCd}">test</td>
                 <td th:text="${daTableVO.physicalAreaCd}">test</td>
                 <td th:text="${daTableVO.tableComments}">test</td>
                 <td th:text="${daTableVO.standardObjectYn}">test</td>
-                <td>test</td>
+                <td>coming Soon..</td>
+                <td></td>
             </tr>
             <tr th:unless="${daTableVO != null}">
                 <td colspan="100%"></td>
@@ -174,7 +174,8 @@
                 pageLength: 25,
                 paging: true,
                 searching: false,
-                lengthChange: false
+                lengthChange: false,
+                order: false
             });
         });
     </script>

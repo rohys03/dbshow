@@ -17,4 +17,5 @@ public class DaTableVO {
     private String tableCreateDt;
     private String standardObjectYn;
     private String subjAreaCd;
+    private String hgrnkSubjAreaCd;
 }

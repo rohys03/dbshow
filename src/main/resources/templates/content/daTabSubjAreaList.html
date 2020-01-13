@@ -45,33 +45,29 @@
 
             <tbody class="table-tbody-wrap-size">
             <tr th:each="objectVo : ${daTabSubjAreaList}">
-                <td>
-                    <div th:if="${not #strings.isEmpty(objectVo.subjAreaCd)}">
-                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.subjAreaCd}">주제영역</span></div>
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
-                    </div>
-                </td>
 
                 <td>
                     <div th:if="${not #strings.isEmpty(objectVo.hgrnkSubjAreaCd)}">
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.hgrnkSubjAreaCd}">상위주제영역</span></div>
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>Table </span><i class="fas fa-table fa-2x"></i></u></a></div>-->
-                        <!--<div style="width:80px; flex: 0 0 80px; text-align: center"><a href="sqlNameListByAreaCd.html" th:href="@{logicalAreaSqlNameList(logicalAreaCd=${objectVo.areaCd1}, logicalAreaCd2=${objectVo.areaCd2})}"><u><span>SQL </span><i class="fas fa-question-circle fa-2x"></i></u></a></div>-->
+                    </div>
+                </td>
+                <td>
+                    <div th:if="${not #strings.isEmpty(objectVo.subjAreaCd)}">
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.subjAreaCd}">주제영역</span></div>
                     </div>
                 </td>
                 <td style="text-align: right;" th:text="${objectVo.subjAreaName}"></td>
                 <td style="text-align: right;" th:text="${objectVo.subjAreaEngName}"></td>
 
                 <td style="height:1.5rem; text-align: center;">
-                    <a href="logicalArea.html" th:href="@{daTableList(logicalAreaCd=${objectVo.logicalAreaCd}, logicalAreaCd2=${objectVo.logicalAreaCd2})}">
+                    <a href="daTableList.html" th:href="@{daTableList(subjAreaCd=${objectVo.subjAreaCd})}">
                         <!--<i class="fas fa-table fa-2x"></i>-->
                         <img align="center" src="img/dat1.png" class="d-inline-block" alt="" height="100%" >
                         </a>
                 </td>
 
                 <td style="height:1.5rem; text-align: center;">
-                    <a href="logicalArea.html" th:href="@{sqlNameListByAreaCd(logicalAreaCd=${objectVo.logicalAreaCd}, logicalAreaCd2=${objectVo.logicalAreaCd2})}">
+                    <a href="sqlNameListByAreaCd.html" th:href="@{sqlNameListByAreaCd(subjAreaCd=${objectVo.subjAreaCd})}">
                         <!--<i class="fas fa-question-circle fa-2x"></i>-->
                         <img align="center" src="img/sql1.png" class="d-inline-block" alt="" height="100%" >
                     </a>
@@ -96,7 +92,8 @@
             $('#dataTable').dataTable({
                 pageLength: 200,
                 paging: false,
-                searching: false
+                searching: false,
+                order: false
             });
         });
     </script>

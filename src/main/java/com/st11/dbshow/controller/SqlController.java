@@ -125,8 +125,9 @@ public class SqlController {
             @RequestParam(value = "sqlName", required = false) final String sqlName,
             @RequestParam(value = "owner", required = false) final String owner,
             @RequestParam(value = "tableName", required = false) final String tableName,
-            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
-            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+//            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
+//            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+            @RequestParam(value = "subjAreaCd", required = false) final String subjAreaCd,
             HttpServletRequest request, Model model) throws IOException, URISyntaxException {
         final String apiMethod = "sqlNameList";
 
@@ -139,8 +140,9 @@ public class SqlController {
         if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
         if (!isNullOrEmpty(owner)) inParam.put("owner", owner.toUpperCase());
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+//        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
+//        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+        if (!isNullOrEmpty(subjAreaCd)) inParam.put("subjAreaCd", subjAreaCd.toUpperCase());
 
         Collection<SqlNameVO> modelCollection = null;
 
@@ -162,6 +164,7 @@ public class SqlController {
         return returnPath;
     }
 
+/*
     @RequestMapping(value = {"daTopSql"})
     public String daTopSql(
             @RequestParam(value = "clctDy", required = false) final String clctDy,
@@ -193,5 +196,6 @@ public class SqlController {
         model.addAttribute("model", daStatMngVO);
         return "content/daTopSql";
     }
+*/
 
 }

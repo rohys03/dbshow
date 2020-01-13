@@ -33,10 +33,10 @@ public class ObjectController {
 
     @RequestMapping(value = "daTableList", method = RequestMethod.GET)
     public String daTableList (
+            @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "dbName", required = false) String dbName,
             @RequestParam(value = "tableName", required = false) String tableName,
-            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
-            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
+            @RequestParam(value = "subjAreaCd", required = false) final String subjAreaCd,
             Model model) throws URISyntaxException, IOException {
 //        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
         model.addAttribute("serverTime", getCurrentTime());
@@ -46,9 +46,9 @@ public class ObjectController {
         HashMap<String, String> inParam = new HashMap<>();
 
         if (!isNullOrEmpty(dbName)) inParam.put("dbName", dbName.toUpperCase());
+        if (!isNullOrEmpty(dbId) && !dbId.equals("0")) inParam.put("dbId", dbId);
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
+        if (!isNullOrEmpty(subjAreaCd)) inParam.put("subjAreaCd", subjAreaCd.toUpperCase());
 
         Collection<DaTableVO> modelCollection = null;
         if (!inParam.isEmpty()) {
@@ -56,6 +56,14 @@ public class ObjectController {
                     }
                     , inParam);
         }
+
+        Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
+        DaDbVO allDb = new DaDbVO();
+        allDb.setDbId(0);
+        allDb.setDbNm("ALL");
+        daDbVOList.add(allDb);
+
+        model.addAttribute("dbList", daDbVOList);
         model.addAttribute("model", modelCollection);
 
 //        System.out.println("MODEL]: " + model.toString());
@@ -190,7 +198,6 @@ public class ObjectController {
                 , inParam);
         model.addAttribute("daTabSubjAreaList", daTabSubjAreaList);
 
-        System.out.println("[daTabSubjAreaList]: "+ model);
         return returnPath;
     }
 

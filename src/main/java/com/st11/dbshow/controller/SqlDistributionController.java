@@ -28,6 +28,7 @@ public class SqlDistributionController {
     @Autowired
     private ApiService apiService;
 
+/*
     @RequestMapping(value = "logicalArea", method = RequestMethod.GET)
     public String logicalArea (
             @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
@@ -50,6 +51,7 @@ public class SqlDistributionController {
         model.addAttribute("model", modelCollection);
         return "content/logicalArea";
     }
+*/
 
     @RequestMapping(value = "dbDistributionStats", method = RequestMethod.GET)
     public String dbDistributionKpiWeekly (
