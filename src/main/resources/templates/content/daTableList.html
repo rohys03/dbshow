@@ -23,7 +23,7 @@
                 </select>
 
                 <label for="tableName" class="mr-2">Table 명</label>
-                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="2" placeholder="Table Name..(equal)">
+                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="4" placeholder="Table Name..(Like)">
                 <label for="subjAreaCd" class="mr-2">주제영역</label>
                 <input type="text" id="subjAreaCd" name="subjAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.subjAreaCd}" minlength="2" placeholder="subjAreaCd..(equal)">
 <!--
@@ -88,7 +88,8 @@
             $('#dataTable').dataTable({
                 pageLength: 25,
                 paging: true,
-                searching: false
+                searching: false,
+                order: []
             });
         });
     </script>

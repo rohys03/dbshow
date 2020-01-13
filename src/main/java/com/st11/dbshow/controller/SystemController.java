@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static com.st11.dbshow.common.DbShow.getCurrentTime;
@@ -51,16 +52,20 @@ public class SystemController {
     }
 
     @RequestMapping(value = "error", method = RequestMethod.GET)
-    public String errorPage (HttpServletRequest request,
+    public Map<String, Object> errorPage (HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler, Model model) throws Exception {
 
+        Map<String, Object> map = new HashMap<String, Object>();
         logger.info("[error] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
 
-        HashMap<String, String> inParam = new HashMap<>();
+        map.put("status", request.getAttribute("javax.servlet.error.status_code"));
+        map.put("reason", request.getAttribute("javax.servlet.error.message"));
 
         model.addAttribute("serverTime", getCurrentTime());
 
-        return "content/errorPage";
+        return map;
     }
+
+
 }

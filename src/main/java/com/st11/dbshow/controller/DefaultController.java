@@ -2,6 +2,8 @@ package com.st11.dbshow.controller;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.st11.dbshow.common.DbShow;
+import com.st11.dbshow.config.SideBarConfig;
 import com.st11.dbshow.repository.DaStatMngAllVO;
 import com.st11.dbshow.repository.DbKpiStatVO;
 import com.st11.dbshow.service.ApiService;
@@ -28,6 +30,9 @@ import static com.st11.dbshow.common.DbShow.isNullOrEmpty;
 public class DefaultController {
 
     @Autowired
+    SideBarConfig sideBarConfig;
+
+    @Autowired
     ApiService apiService;
 
     @RequestMapping(value = {"", "/", "/index"})
@@ -41,7 +46,7 @@ public class DefaultController {
         kpiStatCollection = apiService.getApiModels("dbKpiStatDaily", new TypeReference<Collection<DbKpiStatVO>>() {
                 }
                 , inParam);
-        
+
 //        System.out.println("kpiStatCollection: " + kpiStatCollection.toString());
 
         Collection<DaStatMngAllVO> daStatMngAllCollection = null;
@@ -55,6 +60,9 @@ public class DefaultController {
         model.addAttribute("daStatMngAll", daStatMngAllCollection);
 
         model.addAttribute("serverTime", getCurrentTime());
+
+        System.out.println(sideBarConfig.getMenuA_A().toString());
+//        System.out.println(sideBarConfig.getMenuA_B());
 
         return "index";
     }

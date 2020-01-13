@@ -38,14 +38,31 @@ server:
 ## Web Page Properties.
 layout:
   sidebar:
-    menuA_A: 메뉴명을 입력 (application.yml)
+    menuA_B: menu_BBBB
+    menuA_A:
+      - menuOrd: 1
+        menuName: 주제영역별 Data
+        url:
+      - menuOrd: 1.1
+        menuName: 주제영역별 Data
+        url: daTabSubjAreaList
+      - menuOrd: 1.3
+        menuName: Table 목록
+        url: daTableList
+      - menuOrd: 1.2
+        menuName: 'Data Sync'
+        url: daSyncData
+      - menuOrd: 1.4
+        menuName: Table 상세
+        url: tableDetail
+
 
 dbshowapi:
-  url:
-    sqlDetail: sqlDetail/{dbName}/{searchType}/{searchString}
-    daSyncData: daSyncData/{tableName}
-    daTables: datables?tableName=&logicalAreaCd=&logicalAreaCd2=
-    logicalArea: logicalArea?logicAreaCd=
+  list:
+    - url: sqlDetail/{dbName}/{searchType}/{searchString}
+    - url: daSyncData/{tableName}
+    - url: datables?tableName=&logicalAreaCd=&logicalAreaCd2=
+    - url: logicalArea?logicAreaCd=
 
 ---
 spring:

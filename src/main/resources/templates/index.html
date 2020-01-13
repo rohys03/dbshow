@@ -11,7 +11,7 @@
 <body>
 <th:block layout:fragment="content">
     <!-- Icon Cards-->
-    <div class="row" style="min-height: 300px; margin: 1px">
+    <div class="row" style="min-height: 300px; margin: 1px; padding-top: 10px">
 
         <div class="col-lg-6">
             <div class="card  o-hidden mb-3" style="min-height:300px">
@@ -125,12 +125,17 @@
                 <div class="card-header" style="background: rgba(75, 192, 192, 0.2)">
                     <i class="fas fa-chart-bar"></i> Api Service Help
                 </div>
+
                 <div class="card-body">
                         <span id="apiService" >
-                            <h6>Api Service List</h6>
-                            <ol>
-                                <li></li>
+<!--
+                            <ol th:if="${not #lists.isEmpty(sideBar)}" >
+                                <li th:each="sideBar : ${sideBar}" th:text="${sideBar.url}"></li>
                             </ol>
+                            <ol th:unless="${not #lists.isEmpty(sideBar)}">
+                                <li> Data 가 없습니다.</li>
+                            </ol>
+                            -->
                         </span>
                 </div>
             </div>

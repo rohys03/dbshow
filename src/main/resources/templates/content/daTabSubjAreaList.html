@@ -29,8 +29,8 @@
         <table class="table table-bordered table-sm" id="dataTable" >
             <thead class=" table-thead-wrap-size">
             <tr>
-                <th>주제영역 코드</th>
                 <th>상위 주제영역 코드</th>
+                <th>주제영역 코드</th>
                 <th>주제영역명</th>
                 <th>주제영역 영문명</th>
                 <th>Table목록 (Link)</th>
@@ -48,7 +48,7 @@
 
                 <td>
                     <div th:if="${not #strings.isEmpty(objectVo.hgrnkSubjAreaCd)}">
-                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.hgrnkSubjAreaCd}">상위주제영역</span></div>
+                        <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.hgrnkSubjAreaCd}">주제영역</span></div>
                     </div>
                 </td>
                 <td>
@@ -92,7 +92,8 @@
             $('#dataTable').dataTable({
                 pageLength: 200,
                 paging: false,
-                searching: false
+                searching: false,
+                order: []
             });
         });
     </script>

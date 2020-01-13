@@ -4,15 +4,23 @@
 
 <!-- Breadcrumbs-->
 <div th:fragment="navigator">
-    <!--<ol class="breadcrumb" >-->
-        <!--<li class="breadcrumb-item">-->
-            <!--<a href="#">Dashboard</a>-->
-        <!--</li>-->
-        <!--<li class="breadcrumb-item">Overview</li>-->
-    <!--</ol>-->
-    <!--<ul class="breadcrumb">-->
-        <!--<li>Parameter:: </li> <li class="breadcrumb-item" th:each = "res : ${param}"  th:text=" ${res.key + ' : ' + res.value[0]}"></li>-->
-    <!--</ul>-->
+
+    <nav id="navbar" class="navbar d-inline-flex" style="width: 100%">
+        <div class="navbar-brand mr-1">
+            <a href="/index" style="color:indianred; font-size: 1.5rem;">
+                <img src="img/11st-logo.png" class="d-inline-block align-top" alt="">
+                DB Show
+            </a>
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars" style="color:rgb(255, 102, 102);"></i>
+            </button>
+        </div>
+        <div class="width-nav-path d-inline-flex justify-content-between">
+            <span class="navbar-text">Index >></span>
+            <span class="navbar-text">노영삼 님 안녕하세요.</span>
+        </div>
+    </nav>
+
 </div>
  <!--<div class="col-2" th:text="${res.key + ' : '}"></div><div class="col-6" th:text="${res.value[0] + ' / '}"></div>-->
 
