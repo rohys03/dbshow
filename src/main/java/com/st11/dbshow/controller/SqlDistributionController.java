@@ -28,30 +28,6 @@ public class SqlDistributionController {
     @Autowired
     private ApiService apiService;
 
-/*
-    @RequestMapping(value = "logicalArea", method = RequestMethod.GET)
-    public String logicalArea (
-            @RequestParam(value = "logicalAreaCd", required = false) final String logicalAreaCd,
-            @RequestParam(value = "logicalAreaCd2", required = false) final String logicalAreaCd2,
-            Model model) throws URISyntaxException, IOException {
-//        System.out.println("[Request ApiService Param] : " + request.getRequestURL().toString() + "/" + getParameterMap(request).toString());
-        model.addAttribute("serverTime", getCurrentTime());
-
-        final String apiMethod = "logicalArea";
-
-        HashMap<String, String> inParam = new HashMap<>();
-
-        if (!isNullOrEmpty(logicalAreaCd)) inParam.put("logicalAreaCd", logicalAreaCd.toUpperCase());
-        if (!isNullOrEmpty(logicalAreaCd2)) inParam.put("logicalAreaCd2", logicalAreaCd2.toUpperCase());
-
-
-        Collection<AreaInfoVO> modelCollection = null;
-        modelCollection = apiService.getApiModels(apiMethod, new TypeReference<Collection<AreaInfoVO>>() {}
-                , inParam);
-        model.addAttribute("model", modelCollection);
-        return "content/logicalArea";
-    }
-*/
 
     @RequestMapping(value = "dbDistributionStats", method = RequestMethod.GET)
     public String dbDistributionKpiWeekly (

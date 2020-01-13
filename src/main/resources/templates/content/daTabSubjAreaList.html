@@ -56,8 +56,8 @@
                         <div style="width:200px; flex: 0 0 200px"><span th:text="${objectVo.subjAreaCd}">주제영역</span></div>
                     </div>
                 </td>
-                <td style="text-align: right;" th:text="${objectVo.subjAreaName}"></td>
-                <td style="text-align: right;" th:text="${objectVo.subjAreaEngName}"></td>
+                <td th:text="${objectVo.subjAreaName}"></td>
+                <td th:text="${objectVo.subjAreaEngName}"></td>
 
                 <td style="height:1.5rem; text-align: center;">
                     <a href="daTableList.html" th:href="@{daTableList(subjAreaCd=${objectVo.subjAreaCd})}">
@@ -73,9 +73,9 @@
                     </a>
                 </td>
 
-                <td style="text-align: right;" th:text="${objectVo.phsclSubjAreaCd}"></td>
-                <td style="text-align: right;" th:text="${objectVo.areaDepth}"></td>
-                <td style="text-align: right;" th:text="${objectVo.subjAreaDesc}"></td>
+                <td th:text="${objectVo.phsclSubjAreaCd}"></td>
+                <td style="text-align: center;" th:text="${objectVo.areaDepth}"></td>
+                <td th:text="${objectVo.subjAreaDesc}"></td>
                 <td style="text-align: right;" th:text="${objectVo.tableCount}"></td>
                 <td style="text-align: right;" th:text="${objectVo.sqlCount}"></td>
 
