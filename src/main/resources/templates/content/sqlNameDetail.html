@@ -71,8 +71,9 @@
                 <th scope="row">Sql Full Text</th>
                 <td class="text-nowrap" colspan="6" >
                     <div style="height: 300px; padding: 5px; overflow-y: auto;">
-                        <code style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;" th:text="${sqlFullText} ?: 'default value'"> Sql Statements.
-                        </code>
+                        <code style="white-space: pre-wrap; word-wrap: break-word; word-break: break-word;"
+                              th:if = "${sqlFullText != null}" th:text="${sqlFullText} ?: 'default value'"> Sql Statements.</code>
+                        <code th:unless = "${sqlFullText != null}"> </code>
                     </div>
                 </td>
             </tr>

@@ -67,8 +67,8 @@
                 <td th:text="${sqlVo.dbId}" ></td>
                 <td th:text="${sqlVo.sqlNameNo}" ></td>
                 <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                <td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${defaultDate}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#dates.format(#dates.createNow(), 'yyyyMMdd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>-->
+                <td>
+                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
 
                 <td th:text="${sqlVo.repSqlId}"></td>
                 <td th:text="${sqlVo.parsingSchemaName}"></td>
