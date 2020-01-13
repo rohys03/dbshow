@@ -173,7 +173,7 @@ public class ObjectController {
 
         model.addAttribute("daObjectList", daObjectList);
 
-        System.out.println("[model" + model.toString());
+//        System.out.println("[model" + model.toString());
 
         return returnPath;
     }

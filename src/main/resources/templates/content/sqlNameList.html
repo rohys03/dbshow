@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="dbId" class="mr-2">DB ID</label>
                 <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
-                    <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                    <option th:with="paramDbId= ${param.dbId == null} ? '0' : ${param.dbId}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
                     </option>
                 </select>
 
@@ -68,7 +68,7 @@
                 <td th:text="${sqlVo.sqlNameNo}" ></td>
                 <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
                 <td>
-                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
 
                 <td th:text="${sqlVo.repSqlId}"></td>
                 <td th:text="${sqlVo.parsingSchemaName}"></td>

@@ -79,6 +79,8 @@ public class SqlController {
         if (!isNullOrEmpty(sqlName)) inParam.put("sqlName", sqlName.toUpperCase());
         if (!isNullOrEmpty(sqlNameNo)) inParam.put("sqlNameNo", sqlNameNo.toUpperCase());
 
+        System.out.println(inParam);
+
         Collection<SqlNameVO> modelCollection = null;
 
         if (inParam.containsKey("sqlName") || inParam.containsKey("sqlNameNo")) {
