@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/dbshowLayout}">
+
+<head>
+    <title>Table 상세 정보</title>
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <div id="search-form" class="card-header d-flex flex-row">
+        <form class="form-inline" action="/daTableDetail">
+            <div class="d-flex flex-row">
+                <label for="dbId" class="mr-2">DB ID</label>
+                <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
+                    <option th:with="paramDbId= ${param.dbId == null} ? '1' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                    </option>
+                </select>
+
+                <label for="owner" class="mr-2">Table Owner</label>
+                <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.owner}" minlength="2" placeholder="owner..(equal)" required>
+                <label for="tableName" class="mr-2">Table 명</label>
+                <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.tableName}" minlength="2" placeholder="Table Name..(equal)" required>
+
+                <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="card-body">
+        <caption align="left"><h6>Data 정보</h6></caption>
+        <table class="table-bordered table" id="tableInfo">
+            <tbody>
+            <tr class="text-white">
+                <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
+                <th>DB_ID</th>
+                <th>OWNER</th>
+                <th>OBJECT_NAME</th>
+                <th>STATUS</th>
+                <th>TEMPORARY</th>
+                <th>생성일시</th>
+                <th>동일 테이블명 목록(All DB)</th>
+            </tr>
+            <tr th:if = "${daObjectVO != null}">
+                <td th:text="${daObjectVO.dbId}">1</td>
+                <td th:text="${daObjectVO.owner}">test</td>
+                <td th:text="${daObjectVO.objectName}">test</td>
+                <td th:text="${daObjectVO.status}">test</td>
+                <td th:text="${daObjectVO.temporary}">test</td>
+                <td th:text="${daObjectVO.created}">1900-01-01</td>
+                <td rowspan="3">
+                    <div style="overflow-y:auto; max-height: 120px;">
+                        <table class="table-borderless table-sm">
+                            <tr th:if="${not #lists.isEmpty(daObjectList)}" th:each="data : ${daObjectList}">
+                                <td th:text="${data}" ></td>
+                            </tr>
+                            <tr th:unless="${not #lists.isEmpty(daObjectList)}">
+                                <td>No data</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr th:unless="${daObjectVO != null}">
+                <td colspan="100%"></td>
+            </tr>
+
+            <tr class="text-white">
+                <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
+                <th>주제영역</th>
+                <th>물리영역</th>
+                <th>테이블 Comment</th>
+                <th>표준화대상여부</th>
+                <th>DML 발생 빈도(min)</th>
+                <th>-</th>
+            </tr>
+            <tr th:if = "${daTableVO != null}">
+                <td th:text="${daTableVO.subjAreaCd}">test</td>
+                <td th:text="${daTableVO.physicalAreaCd}">test</td>
+                <td th:text="${daTableVO.tableComments}">test</td>
+                <td th:text="${daTableVO.standardObjectYn}">test</td>
+                <td>coming Soon..</td>
+                <td></td>
+            </tr>
+            <tr th:unless="${daTableVO != null}">
+                <td colspan="100%"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+        <caption align="left"><h6>Data 변경 정보 (최근 1주일간의 평균 변경량.)</h6></caption>
+        <table class="table-bordered table" id="tabModificationInfo">
+            <tbody>
+            <tr class="text-white">
+                <th>Insert 발생량</th>
+                <th>Update 발생량</th>
+                <th>Delete 발생량</th>
+            </tr>
+            <tr th:if = "${tabModificationVO != null}">
+                <td th:text="${tabModificationVO[0].insertOccrCnt}">1</td>
+                <td th:text="${tabModificationVO[0].updateOccrCnt}">1</td>
+                <td th:text="${tabModificationVO[0].deleteOccrCnt}">1</td>
+            </tr>
+            <tr th:unless="${tabModificationVO != null}">
+                <td colspan="100%">Data를 찾지 못했습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+<!--
+        <div class="chart-content">
+            <canvas id="tableSizeChart" height="50px" style="border:1px transparent;"></canvas>
+        </div>
+-->
+
+        <caption align="left"><h6>Sql Name 목록</h6></caption>
+
+        <table class="table table-bordered table-sm" id="sqlNameListGrid" >
+            <thead class="thead-light table-thead-wrap-size">
+            <tr>
+                <!--<th>Data 수집시간</th>-->
+                <th>DB ID</th>
+                <th>Sql명 번호</th>
+                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                <th>대표 Sql ID</th>
+                <th>사용자명</th>
+                <th>모듈명</th>
+                <th>최근행일시</th>
+
+                <th>총 수행횟수</th>
+                <!--<th>prevTotalExec</th>-->
+                <!--<th>execDiff</th>-->
+
+                <th>총 Read Buffer</th>
+                <!--<th>prevTotalBget</th>-->
+                <!--<th>bgetDiff</th>-->
+
+                <th>총 Cpu Time</th>
+                <!--<th>prevTotalCpu</th>-->
+                <!--<th>cpuDiff</th>-->
+
+                <th>총 응답시간</th>
+                <!--<th>prevTotalElap</th>-->
+                <!--<th>elapDiff</th>-->
+
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:if="${not #lists.isEmpty(sqlNameListVO)}" th:each="sqlVo : ${sqlNameListVO}">
+                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+                <td th:text="${sqlVo.dbId}" ></td>
+                <td th:text="${sqlVo.sqlNameNo}" ></td>
+                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                <td>
+                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+
+                <td th:text="${sqlVo.repSqlId}"></td>
+                <td th:text="${sqlVo.parsingSchemaName}"></td>
+                <td th:text="${sqlVo.module}"></td>
+                <td th:text="${sqlVo.LastActiveTime}"></td>
+
+                <td th:text="${sqlVo.currTotalExec}"></td>
+                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                <td th:text="${sqlVo.currTotalBget}"></td>
+                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                <td th:text="${sqlVo.currTotalCpu}"></td>
+                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                <td th:text="${sqlVo.currTotalElap}"></td>
+                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+
+
+<th:block layout:fragment="content_script">
+    <script type="text/javascript" >
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#sqlNameListGrid').dataTable({
+                pageLength: 25,
+                paging: true,
+                searching: false,
+                order: [],
+                lengthChange: false
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>
+

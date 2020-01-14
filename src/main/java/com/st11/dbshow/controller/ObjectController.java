@@ -106,8 +106,8 @@ public class ObjectController {
     }
 
 
-    @RequestMapping(value = {"tableDetail"})
-    public String sqlNameDetail(
+    @RequestMapping(value = {"daTableDetail"})
+    public String daTableDetail(
 //            @RequestParam(value = "clctDy", required = false) final String clctDy,
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "owner", required = false) final String owner,
@@ -124,8 +124,8 @@ public class ObjectController {
         Collection<DaDbVO> daDbVOList = dbShowService.getDaDbList("Y");
         model.addAttribute("dbList", daDbVOList);
 
-        if (isNullOrEmpty(owner)) return "content/tableDetail";
-        if (isNullOrEmpty(tableName)) return "content/tableDetail";
+        if (isNullOrEmpty(owner)) return returnPath;
+        if (isNullOrEmpty(tableName)) return returnPath;
 
         if (!isNullOrEmpty(tableName)) inParam.put("objectName", tableName.toUpperCase());
         if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
@@ -160,6 +160,14 @@ public class ObjectController {
             daObjectList.add(text);
         }
 
+        Collection<DaTableVO> daTabModificationList = null;
+
+        if (!inParam.isEmpty()) {
+            daTabModificationList = apiService.getApiModels("daTabModification", new TypeReference<Collection<DaTableVO>>() {
+                    }
+                    , inParam);
+        }
+
         Collection<SqlNameVO> sqlNameListVOList = null;
 
         if (!inParam.isEmpty()) {
@@ -168,11 +176,13 @@ public class ObjectController {
                     , inParam);
         }
 
-        model.addAttribute("defaultDate", LocalDateTime.now());
-        model.addAttribute("sqlNameListVO", sqlNameListVOList);
 
         model.addAttribute("daObjectList", daObjectList);
+        model.addAttribute("sqlNameListVO", sqlNameListVOList);
+        model.addAttribute("tabModificationVO", daTabModificationList);
 
+
+        model.addAttribute("defaultDate", LocalDateTime.now());
 //        System.out.println("[model" + model.toString());
 
         return returnPath;

@@ -60,16 +60,11 @@
                 <td th:text="${objectVo.owner}"></td>
                 <td style="height:1.5rem; text-align: left">
                     <span th:text="${objectVo.tableName}"> </span>
-                    <a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >
+                    <a th:href="@{daTableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >
                         <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
                     </a>
                 </td>
 
-                <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                        <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                <!--</td>-->
                 <td th:text="${objectVo.hgrnkSubjAreaCd} + ' : ' + ${objectVo.subjAreaCd}"></td>
                 <td th:text="${objectVo.physicalAreaCd}"></td>
                 <td style="max-width:200px;" th:text="${objectVo.tableComments}"></td>

@@ -30,7 +30,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-bordered table-sm" id="dataTable" >
+        <table class="table table-bordered table-sm" id="sqlNameListGrid" >
             <colgroup>
                 <!--<col class="col60px">-->
                 <col class="col60px">
@@ -130,7 +130,7 @@
     <script type="text/javascript" >
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
-        $('#dataTable').dataTable({
+        $('#sqlNameListGrid').dataTable({
             searching: false,
             pageLength: 25,
             paging: true,
