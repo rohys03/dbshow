@@ -118,7 +118,7 @@ public class SqlController {
         return "content/sqlNameDetail";
     }
 
-    @RequestMapping(value = {"sqlNameList", "sqlNameListByTableName", "sqlNameListByAreaCd"})
+    @RequestMapping(value = {"sqlNameList", "sqlNameListBySqlName", "sqlNameListByTableName", "sqlNameListByAreaCd"})
     public String sqlNameList(
             @RequestParam(value = "dbId", required = false) final String dbId,
             @RequestParam(value = "sqlName", required = false) final String sqlName,

@@ -32,12 +32,13 @@
 
 
     <div class="card-body">
-        <caption align="left"><h6>Data 정보</h6></caption>
+        <caption align="left"><h5>Table 정보</h5></caption>
+
         <table class="table-bordered table" id="tableInfo">
             <tbody>
             <tr class="text-white">
                 <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
-                <th>DB_ID</th>
+                <th>DB 명</th>
                 <th>OWNER</th>
                 <th>OBJECT_NAME</th>
                 <th>STATUS</th>
@@ -46,7 +47,8 @@
                 <th>동일 테이블명 목록(All DB)</th>
             </tr>
             <tr th:if = "${daObjectVO != null}">
-                <td th:text="${daObjectVO.dbId}">1</td>
+                <td th:text="${GdaDbList.get(T(Integer).parseInt(daObjectVO.dbId))}">1</td>
+                <!--<td th:text="${daObjectVO.dbId}">1</td>-->
                 <td th:text="${daObjectVO.owner}">test</td>
                 <td th:text="${daObjectVO.objectName}">test</td>
                 <td th:text="${daObjectVO.status}">test</td>
@@ -75,7 +77,7 @@
                 <th>물리영역</th>
                 <th>테이블 Comment</th>
                 <th>표준화대상여부</th>
-                <th>DML 발생 빈도(min)</th>
+                <th>-</th>
                 <th>-</th>
             </tr>
             <tr th:if = "${daTableVO != null}">
@@ -83,7 +85,7 @@
                 <td th:text="${daTableVO.physicalAreaCd}">test</td>
                 <td th:text="${daTableVO.tableComments}">test</td>
                 <td th:text="${daTableVO.standardObjectYn}">test</td>
-                <td>coming Soon..</td>
+                <td></td>
                 <td></td>
             </tr>
             <tr th:unless="${daTableVO != null}">
@@ -93,15 +95,21 @@
         </table>
 
         <div>
-        <caption align="left"><h6>Data 변경 정보 (최근 1주일간의 평균 변경량.)</h6></caption>
+        <caption align="left">
+            <h5>Data 변경 정보</h5>
+            <h6 class="small">** Data 변경 정보는 통계 수치를 기반으로 하며, 실제와 상이할 수 있습니다. </h6>
+            <h6 class="small">** 최근 1주일간의 일 평균 변경량이며, 현재 TMALL 데이터만 제공되고 있습니다. (2020.01.15) </h6>
+        </caption>
         <table class="table-bordered table" id="tabModificationInfo">
             <tbody>
             <tr class="text-white">
+                <th>조회 발생량</th>
                 <th>Insert 발생량</th>
                 <th>Update 발생량</th>
                 <th>Delete 발생량</th>
             </tr>
             <tr th:if = "${tabModificationVO != null}">
+                <td>집계 예정</td>
                 <td th:text="${tabModificationVO[0].insertOccrCnt}">1</td>
                 <td th:text="${tabModificationVO[0].updateOccrCnt}">1</td>
                 <td th:text="${tabModificationVO[0].deleteOccrCnt}">1</td>
@@ -119,13 +127,13 @@
         </div>
 -->
 
-        <caption align="left"><h6>Sql Name 목록</h6></caption>
+        <caption align="left"><h5>Sql Name 목록</h5></caption>
 
         <table class="table table-bordered table-sm" id="sqlNameListGrid" >
             <thead class="thead-light table-thead-wrap-size">
             <tr>
                 <!--<th>Data 수집시간</th>-->
-                <th>DB ID</th>
+                <th>DB 명</th>
                 <th>Sql명 번호</th>
                 <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
 
@@ -156,7 +164,8 @@
             <tbody class="table-tbody-wrap-size">
             <tr th:if="${not #lists.isEmpty(sqlNameListVO)}" th:each="sqlVo : ${sqlNameListVO}">
                 <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-                <td th:text="${sqlVo.dbId}" ></td>
+
+                <td th:text="${GdaDbList.get(T(Integer).parseInt(sqlVo.dbId))}">1</td>
                 <td th:text="${sqlVo.sqlNameNo}" ></td>
                 <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
                 <td>

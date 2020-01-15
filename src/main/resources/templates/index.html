@@ -129,13 +129,19 @@
                 <div class="card-body">
                         <span id="apiService" >
 <!--
-                            <ol th:if="${not #lists.isEmpty(sideBar)}" >
-                                <li th:each="sideBar : ${sideBar}" th:text="${sideBar.url}"></li>
+                            <ol th:if="${not #lists.isEmpty(g-sideBar)}" >
+                                <li th:each="sideBar : ${g-sideBar}" th:text="${sideBar.url}"></li>
                             </ol>
                             <ol th:unless="${not #lists.isEmpty(sideBar)}">
                                 <li> Data 가 없습니다.</li>
                             </ol>
                             -->
+                            <!--<ol th:if="${not #lists.isEmpty(GdaDbList)}">
+                                <li th:each="daDb : ${GdaDbList}" th:text="${daDb.value}"></li>
+                            </ol>-->
+                            <ol>
+                                <li th:text="${GdaDbList.get(1)}"></li>
+                            </ol>
                         </span>
                 </div>
             </div>
