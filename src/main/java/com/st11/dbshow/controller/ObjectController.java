@@ -116,6 +116,7 @@ public class ObjectController {
         final String apiMethod = "jpa/daObject";
         final String apiMethod2 = "jpa/daTable";
         final String apiMethod3 = "jpa/daObjectList";
+        final String apiMethod4 = "dam/entityList";
 
         String returnPath = "content" + request.getServletPath();
 
@@ -168,6 +169,14 @@ public class ObjectController {
                     , inParam);
         }
 
+        Collection<DamEntityVO> damEntityVOCollectionList = null;
+
+        if (!inParam.isEmpty()) {
+            damEntityVOCollectionList = apiService.getApiModels(apiMethod4, new TypeReference<Collection<DamEntityVO>>() {
+                    }
+                    , inParam);
+        }
+
         Collection<SqlNameVO> sqlNameListVOList = null;
 
         if (!inParam.isEmpty()) {
@@ -178,8 +187,9 @@ public class ObjectController {
 
 
         model.addAttribute("daObjectList", daObjectList);
-        model.addAttribute("sqlNameListVO", sqlNameListVOList);
         model.addAttribute("tabModificationVO", daTabModificationList);
+        model.addAttribute("damEntityVO", damEntityVOCollectionList);
+        model.addAttribute("sqlNameListVO", sqlNameListVOList);
 
 
         model.addAttribute("defaultDate", LocalDateTime.now());

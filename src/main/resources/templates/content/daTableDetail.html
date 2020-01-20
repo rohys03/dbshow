@@ -127,10 +127,45 @@
         </div>
 -->
 
+
+        <caption align="left"><h5>ERD 정보</h5></caption>
+
+        <table class="table table-bordered table-sm" id="entityListGrid" >
+            <thead class="table-thead-wrap-size">
+            <tr>
+
+                <th class="sqltext-wrap" style="min-width:600px">주제영역 경로</th>
+                <th>Entity 명</th>
+                <th>주제영역 수정일시</th>
+                <th>Entity 유형</th>
+                <th>표준화</th>
+                <th>ERD Link</th>
+
+            </tr>
+            </thead>
+
+            <tbody class="table-tbody-wrap-size">
+            <tr th:if="${not #lists.isEmpty(damEntityVO)}" th:each="damEntityVO : ${damEntityVO}">
+
+                <td th:text="${damEntityVO.subjAreaNamePath}" style="min-width:600px">주제영역 경로</td>
+                <td th:text="${damEntityVO.entityName}" >Entity 명</td>
+                <td th:text="${damEntityVO.modifyDt}" >주제영역 수정일시</td>
+                <td th:text="${damEntityVO.entityType}" >Entity 유형</td>
+                <td th:text="${damEntityVO.entityStandardType}" >표준화</td>
+
+                <td style="height:1.5rem;" th:with="paramsData=${'modelTreeBy=ModelHistory,struId=' + damEntityVO.subjFieldId}">
+                    <a th:href="@{https://dqm.11stcorp.com/popup.action(menu='Meta.model.modelviewer.ModelViewerGo', paramsData=${paramsData})}" target="_blank">
+                        <img align="center" src="img/Table1.png" class="d-inline-block align-top" alt="ERD Link" height="100%" ></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
         <caption align="left"><h5>Sql Name 목록</h5></caption>
 
         <table class="table table-bordered table-sm" id="sqlNameListGrid" >
-            <thead class="thead-light table-thead-wrap-size">
+            <thead class="table-thead-wrap-size">
             <tr>
                 <!--<th>Data 수집시간</th>-->
                 <th>DB 명</th>
@@ -204,6 +239,18 @@
         // Call the dataTables jQuery plugin
         $(document).ready(function() {
             $('#sqlNameListGrid').dataTable({
+                pageLength: 25,
+                paging: true,
+                searching: false,
+                order: [],
+                lengthChange: false
+            });
+        });
+
+
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#entityListGrid').dataTable({
                 pageLength: 25,
                 paging: true,
                 searching: false,
