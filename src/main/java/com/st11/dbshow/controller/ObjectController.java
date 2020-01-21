@@ -139,6 +139,7 @@ public class ObjectController {
 
         DaObjectVO daObjectVO = apiService.getApiModel(apiMethod, DaObjectVO.class, inParam);
         DaTableVO daTableVO = apiService.getApiModel(apiMethod2, DaTableVO.class, inParam);
+        DaTableVO daTabModificationVO = apiService.getApiModel("daTabModification", DaTableVO.class, inParam);
 
         DbShow dbShow = new DbShow(daDbVOList);
         Map<Integer, String> dbMap = dbShow.getDbList();
@@ -152,6 +153,7 @@ public class ObjectController {
 
         model.addAttribute("daObjectVO", daObjectVO);
         model.addAttribute("daTableVO", daTableVO);
+        model.addAttribute("tabModificationVO", daTabModificationVO);
 
         ArrayList<String> daObjectList = new ArrayList<>();
 
@@ -161,13 +163,6 @@ public class ObjectController {
             daObjectList.add(text);
         }
 
-        Collection<DaTableVO> daTabModificationList = null;
-
-        if (!inParam.isEmpty()) {
-            daTabModificationList = apiService.getApiModels("daTabModification", new TypeReference<Collection<DaTableVO>>() {
-                    }
-                    , inParam);
-        }
 
         Collection<DamEntityVO> damEntityVOCollectionList = null;
 
@@ -187,7 +182,6 @@ public class ObjectController {
 
 
         model.addAttribute("daObjectList", daObjectList);
-        model.addAttribute("tabModificationVO", daTabModificationList);
         model.addAttribute("damEntityVO", damEntityVOCollectionList);
         model.addAttribute("sqlNameListVO", sqlNameListVOList);
 

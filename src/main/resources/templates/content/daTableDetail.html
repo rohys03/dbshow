@@ -110,9 +110,9 @@
             </tr>
             <tr th:if = "${tabModificationVO != null}">
                 <td>집계 예정</td>
-                <td th:text="${tabModificationVO[0].insertOccrCnt}">1</td>
-                <td th:text="${tabModificationVO[0].updateOccrCnt}">1</td>
-                <td th:text="${tabModificationVO[0].deleteOccrCnt}">1</td>
+                <td th:text="${tabModificationVO.insertOccrCnt}">1</td>
+                <td th:text="${tabModificationVO.updateOccrCnt}">1</td>
+                <td th:text="${tabModificationVO.deleteOccrCnt}">1</td>
             </tr>
             <tr th:unless="${tabModificationVO != null}">
                 <td colspan="100%">Data를 찾지 못했습니다.</td>
@@ -122,12 +122,6 @@
         </div>
 
 <!--
-        <div class="chart-content">
-            <canvas id="tableSizeChart" height="50px" style="border:1px transparent;"></canvas>
-        </div>
--->
-
-
         <caption align="left"><h5>ERD 정보</h5></caption>
 
         <table class="table table-bordered table-sm" id="entityListGrid" >
@@ -161,6 +155,7 @@
             </tr>
             </tbody>
         </table>
+-->
 
         <caption align="left"><h5>Sql Name 목록</h5></caption>
 
