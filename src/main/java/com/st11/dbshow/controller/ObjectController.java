@@ -163,14 +163,14 @@ public class ObjectController {
             daObjectList.add(text);
         }
 
-
+/*
         Collection<DamEntityVO> damEntityVOCollectionList = null;
 
         if (!inParam.isEmpty()) {
             damEntityVOCollectionList = apiService.getApiModels(apiMethod4, new TypeReference<Collection<DamEntityVO>>() {
                     }
                     , inParam);
-        }
+        }*/
 
         Collection<SqlNameVO> sqlNameListVOList = null;
 
@@ -182,7 +182,7 @@ public class ObjectController {
 
 
         model.addAttribute("daObjectList", daObjectList);
-        model.addAttribute("damEntityVO", damEntityVOCollectionList);
+//        model.addAttribute("damEntityVO", damEntityVOCollectionList);
         model.addAttribute("sqlNameListVO", sqlNameListVOList);
 
 
