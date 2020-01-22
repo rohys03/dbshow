@@ -77,6 +77,7 @@ public class DbShow {
         else if (rankDiff < -10 && rankDiff >= -50) rankColor = "#F1948A";
         else if (rankDiff < -50) rankColor = "#EC7063";
 
+//        System.out.println("[getRankColor]: " + rank1 +", " + rank2 + ", " + rankColor);
         return rankColor;
 
     }
