@@ -10,12 +10,12 @@ public class SqlAreaVO {
     private String parsingSchemaName;
     private String module;
     private String programId;
-    private String executions;
-    private String bufferGets;
-    private String rowsProcessed;
-    private String cpuTime;
-    private String elapsedTime;
-    private String blockPerExec;
+    private long executions;
+    private long bufferGets;
+    private long rowsProcessed;
+    private long cpuTime;
+    private long elapsedTime;
+    private long blockPerExec;
     private String lastActiveTime;
     private String firstLoadTime;
     private String commandType;

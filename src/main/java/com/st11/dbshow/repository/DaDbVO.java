@@ -14,9 +14,5 @@ public class DaDbVO {
     private String dqmDbId;
     private String dqmDbNm;
     private String dbshowUseYn;
-//
-//    public DaDbVO(int dbId, String dbNm) {
-//        this.dbId = new Integer(dbId);
-//        this.dbNm = dbNm;
-//    }
+
 }

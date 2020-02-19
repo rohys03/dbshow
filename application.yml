@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: stage
 
   thymeleaf:
     cache: false
@@ -76,14 +76,14 @@ spring:
   profiles: dev
 
   api:
-    baseUrl: http://172.28.114.66:8082/api
+    baseUrl: http://172.28.114.66:8082/api  #11DevDBb-da-dev01
 
 ---
 spring:
   profiles: stage
 
   api:
-    baseUrl: http://172.28.113.125:8082/api
+    baseUrl: http://172.28.115.66:8082/api   #11DevDBb-da-dev02
 
 ---
 spring:

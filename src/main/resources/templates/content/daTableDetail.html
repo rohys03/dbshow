@@ -176,6 +176,10 @@
                 <!--<th>prevTotalExec</th>-->
                 <!--<th>execDiff</th>-->
 
+                <th>평균 Buffer</th>
+                <th>평균 Cpu </th>
+                <th>평균 응답시간 </th>
+
                 <th>총 Read Buffer</th>
                 <!--<th>prevTotalBget</th>-->
                 <!--<th>bgetDiff</th>-->
@@ -206,19 +210,29 @@
                 <td th:text="${sqlVo.module}"></td>
                 <td th:text="${sqlVo.LastActiveTime}"></td>
 
-                <td th:text="${sqlVo.currTotalExec}"></td>
+                <td th:text="${sqlVo.currTotalExec}" style="text-align: right"></td>
                 <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
                 <!--<td th:text="${sqlVo.execDiff}"></td>-->
 
-                <td th:text="${sqlVo.currTotalBget}"></td>
+                <td th:with="tValue= ${sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+<!--
+                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalElap / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+-->
+
+
+                <td th:text="${sqlVo.currTotalBget}" style="text-align: right"></td>
                 <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
                 <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
 
-                <td th:text="${sqlVo.currTotalCpu}"></td>
+                <td th:text="${sqlVo.currTotalCpu}" style="text-align: right"></td>
                 <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
                 <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
 
-                <td th:text="${sqlVo.currTotalElap}"></td>
+                <td th:text="${sqlVo.currTotalElap}" style="text-align: right"></td>
                 <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
                 <!--<td th:text="${sqlVo.elapDiff}"></td>-->
 

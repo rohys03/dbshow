@@ -59,6 +59,21 @@ public class DbShow {
     }
 
 
+    public static String divDataChar(long numerator, long denominator) {
+        String data = "";
+
+        if (denominator > 0) {
+            try {
+                data = String.format("%.2f", (numerator / denominator) );
+                System.out.println("Data] ] : " + data);
+            } catch (ArithmeticException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+        return data;
+    }
+
     public static String getRankColor(int rank2, int rank1) {
 
         String rankColor = "WHITE";

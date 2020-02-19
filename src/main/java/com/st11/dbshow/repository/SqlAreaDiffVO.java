@@ -6,12 +6,12 @@ public class SqlAreaDiffVO extends SqlAreaVO {
 
     private int rank;
     private int rank2;
-    private String executions2;
-    private String bufferGets2;
-    private String rowsProcessed2;
-    private String cpuTime2;
-    private String elapsedTime2;
-    private String statRatio;
+    private long executions2;
+    private long bufferGets2;
+    private long rowsProcessed2;
+    private long cpuTime2;
+    private long elapsedTime2;
+    private float statRatio;
     private String objectNm;
 
 }

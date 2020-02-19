@@ -19,9 +19,10 @@
         <form class="" action="/topSqlDayList">
             <div class="form-group">
                 <div class="form-inline">
+
                     <label for="dbId" class="mr-2" style="width: 80px;">DB ID</label>
                     <select id="dbId" name="dbId" class="form-control mb-2 mr-sm-2" style="width: 200px;">
-                        <option th:with="paramDbId= ${param.dbId == null} ? 'NONE' : ${param.dbId.toString()}" th:each="dbItem : ${dbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
+                        <option th:with="paramDbId= ${param.dbId == null} ? 'NONE' : ${param.dbId.toString()}" th:each="dbItem : ${daDbList}" th:value="${dbItem.getDbId()}" th:text="${dbItem.getDbNm()}" th:selected="${dbItem.getDbId()} == ${paramDbId}">
                         </option>
                     </select>
 
@@ -57,7 +58,12 @@
                 <col class="col60px">
                 <col class="sqltext-wrap" style="max-width:600px">  <!-- SQL NAME -->
                 <col class="col60px">
+
                 <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
@@ -66,6 +72,10 @@
 
                 <col class="col60px">
                 <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+                <col class="col60px">
+
                 <col class="col60px">
                 <col class="col60px">
                 <col class="col60px">
@@ -80,16 +90,25 @@
                 <th>Object 명</th>
 
                 <th>실행횟수</th>
+                <th>평균 Buffer</th>
+                <th>평균 Cpu</th>
+                <th>평균 응답시간</th>
+
                 <th>Read Block</th>
                 <th>Cpu</th>
-                <th>수행시간</th>
+                <th>응답시간</th>
 
                 <th>변동</th>
+
                 <th>비교 Rank</th>
                 <th>실행횟수</th>
+                <th>평균 Buffer</th>
+                <th>평균 Cpu</th>
+                <th>평균 응답시간</th>
+
                 <th>Read Block</th>
                 <th>Cpu</th>
-                <th>수행시간</th>
+                <th>응답시간</th>
 
             </tr>
             </thead>
@@ -102,9 +121,13 @@
                 <td th:if="${#strings.isEmpty(sqlVo.sqlNameNo)}" th:text="${sqlVo.sqlName}"></td>
                 <td th:unless="${#strings.isEmpty(sqlVo.sqlNameNo)}" >
                     <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
-
                 <td th:text="${sqlVo.objectNm}"></td>
+
                 <td th:text="${sqlVo.executions}"></td>
+                <td th:with="tValue= ${sqlVo.bufferGets / sqlVo.executions}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.cpuTime / sqlVo.executions}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.elapsedTime / sqlVo.executions}" th:text="${tValue}" style="text-align: right"></td>
+
                 <td th:text="${sqlVo.bufferGets}"></td>
                 <td th:text="${sqlVo.cpuTime}"></td>
                 <td th:text="${sqlVo.elapsedTime}"></td>
@@ -119,7 +142,12 @@
                 </td>
 
                 <td th:text="${sqlVo.rank2}"></td>
+
                 <td th:text="${sqlVo.executions2}"></td>
+                <td th:with="tValue= ${sqlVo.bufferGets2 / sqlVo.executions2}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.cpuTime2 / sqlVo.executions2}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.elapsedTime2 / sqlVo.executions2}" th:text="${tValue}" style="text-align: right"></td>
+
                 <td th:text="${sqlVo.bufferGets2}"></td>
                 <td th:text="${sqlVo.cpuTime2}"></td>
                 <td th:text="${sqlVo.elapsedTime2}"></td>

@@ -69,7 +69,7 @@ public class TopSqlController {
                     , inParam);
         }
 
-        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
+//        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
 
         String[] orderStringList = {"EXEC_DIFF", "BGET_DIFF", "CPU_DIFF", "ELAP_DIFF"};
         model.addAttribute("orderStringList", orderStringList);
@@ -126,7 +126,7 @@ public class TopSqlController {
                     , inParam);
         }
 
-        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
+//        model.addAttribute("dbList", dbShowService.getDaDbList("Y"));
 
         String[] orderStringList = {"EXEC_DIFF", "BGET_DIFF", "CPU_DIFF", "ELAP_DIFF"};
         model.addAttribute("orderStringList", orderStringList);

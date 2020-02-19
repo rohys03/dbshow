@@ -25,12 +25,13 @@ public class ControllerInjector {
 
     private HashMap<Integer, String> daDbList = new HashMap<>();
 
-    @Autowired
-    SideBarConfig sideBarConfig;
+//    @Autowired
+//    SideBarConfig sideBarConfig;
 
     @Autowired
     DbShowService dbShowService;
 
+/*
     @ModelAttribute
     public void injectMenu(Model model) {
         String map = "AAAA";
@@ -40,7 +41,7 @@ public class ControllerInjector {
         List<Map> sideBar = sideBarConfig.getMenuA_A();
         model.addAttribute("g-sideBar", sideBar);
     }
-
+*/
 
     @ModelAttribute
     public void setDaDbList(Model model) throws IOException, URISyntaxException {
@@ -51,6 +52,8 @@ public class ControllerInjector {
             this.daDbList.put(dbVO.getDbId(), dbVO.getDbNm());
         }
         model.addAttribute("GdaDbList", daDbList);
+        model.addAttribute("daDbList", daDbVOList);
+//        System.out.println("[dadbList]" + model.toString());
     }
 
 }
