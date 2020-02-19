@@ -214,9 +214,9 @@
                 <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
                 <!--<td th:text="${sqlVo.execDiff}"></td>-->
 
-                <td th:with="tValue= ${sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
 <!--
                 <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
                 <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
