@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: stage
+    active: local
 
   thymeleaf:
     cache: false
@@ -71,12 +71,26 @@ spring:
   api:
     baseUrl: http://localhost:8082/api
 
+  data:
+    mongodb:
+      uri: mongodb://172.28.114.66:27017,172.28.115.66:27017
+      database: dbshow
+      username: dbshow
+      password: dbshow
+
 ---
 spring:
   profiles: dev
 
   api:
     baseUrl: http://172.28.114.66:8082/api  #11DevDBb-da-dev01
+
+  data:
+    mongodb:
+      uri: mongodb://172.28.114.66:27017,172.28.115.66:27017
+      database: dbshow
+      username: dbshow
+      password: dbshow
 
 ---
 spring:
@@ -85,10 +99,26 @@ spring:
   api:
     baseUrl: http://172.28.115.66:8082/api   #11DevDBb-da-dev02
 
+  data:
+    mongodb:
+#      host: 172.28.114.66
+#      port: 27017
+      uri: mongodb://172.28.114.66:27017,172.28.115.66:27017
+      database: dbshow
+      username: dbshow
+      password: dbshow
+
 ---
 spring:
   profiles: product
 
   api:
     baseUrl: http://172.28.37.197:8082/api
+
+  data:
+    mongodb:
+      uri: mongodb://172.28.114.66:27017,172.28.115.66:27017
+      database: dbshow
+      username: dbshow
+      password: dbshow
 
