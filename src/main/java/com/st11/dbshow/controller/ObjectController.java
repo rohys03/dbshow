@@ -74,17 +74,22 @@ public class ObjectController {
     public String daSyncData(
             @RequestParam(value = "tableName", required = false) String tableName,
             @RequestParam(value = "hostName", required = false) String hostName,
-            Model model) throws URISyntaxException, IOException {
+            HttpServletRequest request, Model model) throws URISyntaxException, IOException {
 
         Collection<DaStatMngVO> daStatMngModels = apiService.getLastDaStatMng("TMALL", "DA_SYNC_TABLES");
         model.addAttribute("daStatMngModel", daStatMngModels.toArray()[0]);
 //        System.out.println("[daStatMngModel]" + model.toString());
 
         final String apiMethod = "daSyncData";
+        String returnPath = "content" + request.getServletPath();
 
         HashMap<String, String> inParam = new HashMap<>();
 
-        if (!isNullOrEmpty(tableName)) inParam.put("tableName", tableName.toUpperCase());
+        if (!isNullOrEmpty(tableName)) {
+            inParam.put("tableName", tableName.toUpperCase());
+        } else {
+            return returnPath;
+        }
         if (!isNullOrEmpty(hostName)) inParam.put("hostName", hostName.toUpperCase());
 
         Collection<DaSyncTableVO> modelCollection = null;
@@ -102,7 +107,7 @@ public class ObjectController {
 //        if (!isNullOrEmpty(tableName)) {
 //        }
 
-        return "content/daSyncData";
+        return returnPath;
     }
 
 
@@ -116,7 +121,6 @@ public class ObjectController {
         final String apiMethod = "jpa/daObject";
         final String apiMethod2 = "jpa/daTable";
         final String apiMethod3 = "jpa/daObjectList";
-        final String apiMethod4 = "dam/entityList";
 
         String returnPath = "content" + request.getServletPath();
 
@@ -141,53 +145,42 @@ public class ObjectController {
         DaTableVO daTableVO = apiService.getApiModel(apiMethod2, DaTableVO.class, inParam);
         DaTableVO daTabModificationVO = apiService.getApiModel("daTabModification", DaTableVO.class, inParam);
 
+        model.addAttribute("daObjectVO", daObjectVO);
+        model.addAttribute("daTableVO", daTableVO);
+        model.addAttribute("tabModificationVO", daTabModificationVO);
+
         DbShow dbShow = new DbShow(daDbVOList);
         Map<Integer, String> dbMap = dbShow.getDbList();
 
         Collection<DaObjectVO> daObjectVOList = null;
         if (!inParam.isEmpty()) {
-            daObjectVOList = apiService.getApiModels(apiMethod3, new TypeReference<Collection<DaObjectVO>>() {
-                    }
-                    , inParam);
+            daObjectVOList = apiService.getApiModels(apiMethod3, new TypeReference<Collection<DaObjectVO>>() {}, inParam);
         }
-
-        model.addAttribute("daObjectVO", daObjectVO);
-        model.addAttribute("daTableVO", daTableVO);
-        model.addAttribute("tabModificationVO", daTabModificationVO);
 
         ArrayList<String> daObjectList = new ArrayList<>();
 
         for (DaObjectVO vo : daObjectVOList) {
             String text = vo.getOwner() + "." + vo.getObjectName() + "@" + dbMap.get(Integer.parseInt(vo.getDbId())) + " (" + vo.getObjectType() + ")" ;
-//            System.out.println("[TEXT: " + text);
             daObjectList.add(text);
         }
 
-/*
-        Collection<DamEntityVO> damEntityVOCollectionList = null;
+
+        Collection<DamEntityVO> damEntityVOList = null;
+        Collection<SqlNameVO> sqlNameVOList = null;
+        Collection<SqlIdVO> sqlIdVOList = null;
 
         if (!inParam.isEmpty()) {
-            damEntityVOCollectionList = apiService.getApiModels(apiMethod4, new TypeReference<Collection<DamEntityVO>>() {
-                    }
-                    , inParam);
-        }*/
-
-        Collection<SqlNameVO> sqlNameListVOList = null;
-
-        if (!inParam.isEmpty()) {
-            sqlNameListVOList = apiService.getApiModels("sqlNameList", new TypeReference<Collection<SqlNameVO>>() {
-                    }
-                    , inParam);
+            damEntityVOList = apiService.getApiModels("dam/entityList", new TypeReference<Collection<DamEntityVO>>() {}, inParam);
+            sqlNameVOList = apiService.getApiModels("sqlNameList", new TypeReference<Collection<SqlNameVO>>() {}, inParam);
+            sqlIdVOList = apiService.getApiModels("sqlIdList", new TypeReference<Collection<SqlIdVO>>() {}, inParam);
         }
 
-
         model.addAttribute("daObjectList", daObjectList);
-//        model.addAttribute("damEntityVO", damEntityVOCollectionList);
-        model.addAttribute("sqlNameListVO", sqlNameListVOList);
-
+        model.addAttribute("damEntityVO", damEntityVOList);
+        model.addAttribute("sqlNameVOList", sqlNameVOList);
+        model.addAttribute("sqlIdVOList", sqlIdVOList);
 
         model.addAttribute("defaultDate", LocalDateTime.now());
-//        System.out.println("[model" + model.toString());
 
         return returnPath;
     }

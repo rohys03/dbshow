@@ -32,7 +32,7 @@
 
 
     <div class="card-body">
-        <caption align="left"><h5>Table 정보</h5></caption>
+        <h5>Table 정보</h5><hr>
 
         <table class="table-bordered table" id="tableInfo">
             <tbody>
@@ -94,6 +94,85 @@
             </tbody>
         </table>
 
+
+        <div class="">
+            <h5>Data Info.</h5><hr>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#dataModification">Data 변경</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tableErd">ERD</a>
+                </li>
+            </ul>
+            <!-- Tab contents -->
+            <div class="tab-content">
+                <div id="dataModification" class="tab-pane active"><br>
+
+                    <h6 class="small">** Data 변경 정보는 통계 수치를 기반으로 하며, 실제와 상이할 수 있습니다. </h6>
+                    <h6 class="small">** 최근 1주일간의 일 평균 변경량이며, 현재 TMALL 데이터만 제공되고 있습니다. (2020.01.15) </h6>
+                    <table class="table-bordered table" id="tabModificationInfo">
+                        <tbody>
+                        <tr class="text-white">
+                            <th>조회 발생량</th>
+                            <th>Insert 발생량</th>
+                            <th>Update 발생량</th>
+                            <th>Delete 발생량</th>
+                        </tr>
+                        <tr th:if = "${tabModificationVO != null}">
+                            <td>집계 예정</td>
+                            <td th:text="${tabModificationVO.insertOccrCnt}">1</td>
+                            <td th:text="${tabModificationVO.updateOccrCnt}">1</td>
+                            <td th:text="${tabModificationVO.deleteOccrCnt}">1</td>
+                        </tr>
+                        <tr th:unless="${tabModificationVO != null}">
+                            <td colspan="100%">변경량 정보 찾지 못했습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tableErd" class="tab-pane fade"><br>
+
+                    <table class="table table-bordered table-sm" id="entityListGrid" >
+                        <thead class="table-thead-wrap-size">
+                        <tr>
+
+                            <th class="sqltext-wrap" style="min-width:600px">주제영역 경로</th>
+                            <th>Entity 명</th>
+                            <th>주제영역 수정일시</th>
+                            <th>Entity 유형</th>
+                            <th>표준화</th>
+                            <th>ERD Link</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody class="table-tbody-wrap-size">
+                        <tr th:if="${not #lists.isEmpty(damEntityVO)}" th:each="damEntityVO : ${damEntityVO}">
+
+                            <td th:text="${damEntityVO.subjAreaNamePath}" style="min-width:600px">주제영역 경로</td>
+                            <td th:text="${damEntityVO.entityName}" >Entity 명</td>
+                            <td th:text="${damEntityVO.modifyDt}" >주제영역 수정일시</td>
+                            <td th:text="${damEntityVO.entityType}" >Entity 유형</td>
+                            <td th:text="${damEntityVO.entityStandardType}" >표준화</td>
+
+                            <td style="height:1.5rem;" th:with="paramsData=${'modelTreeBy=ModelHistory,struId=' + damEntityVO.subjFieldId}">
+                                <a th:href="@{https://dqm.11stcorp.com/popup.action(menu='Meta.model.modelviewer.ModelViewerGo', paramsData=${paramsData})}" target="_blank">
+                                    <img align="center" src="img/Table1.png" class="d-inline-block align-top" alt="ERD Link" height="100%" ></a>
+                            </td>
+                        <tr th:unless="${damEntityVO != null}">
+                            <td colspan="100%">DQM Data를 찾지 못했습니다.</td>
+                        </tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--
         <div>
         <caption align="left">
             <h5>Data 변경 정보</h5>
@@ -120,7 +199,7 @@
             </tbody>
         </table>
         </div>
-
+-->
 <!--
         <caption align="left"><h5>ERD 정보</h5></caption>
 
@@ -157,88 +236,155 @@
         </table>
 -->
 
-        <caption align="left"><h5>Sql Name 목록</h5></caption>
 
-        <table class="table table-bordered table-sm" id="sqlNameListGrid" >
-            <thead class="table-thead-wrap-size">
-            <tr>
-                <!--<th>Data 수집시간</th>-->
-                <th>DB 명</th>
-                <th>Sql명 번호</th>
-                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+        <div class="">
+            <h5>Sql Application Info.</h5><hr>
 
-                <th>대표 Sql ID</th>
-                <th>사용자명</th>
-                <th>모듈명</th>
-                <th>최근행일시</th>
-
-                <th>총 수행횟수</th>
-                <!--<th>prevTotalExec</th>-->
-                <!--<th>execDiff</th>-->
-
-                <th>평균 Buffer</th>
-                <th>평균 Cpu </th>
-                <th>평균 응답시간 </th>
-
-                <th>총 Read Buffer</th>
-                <!--<th>prevTotalBget</th>-->
-                <!--<th>bgetDiff</th>-->
-
-                <th>총 Cpu Time</th>
-                <!--<th>prevTotalCpu</th>-->
-                <!--<th>cpuDiff</th>-->
-
-                <th>총 응답시간</th>
-                <!--<th>prevTotalElap</th>-->
-                <!--<th>elapDiff</th>-->
-
-            </tr>
-            </thead>
-
-            <tbody class="table-tbody-wrap-size">
-            <tr th:if="${not #lists.isEmpty(sqlNameListVO)}" th:each="sqlVo : ${sqlNameListVO}">
-                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
-
-                <td th:text="${GdaDbList.get(T(Integer).parseInt(sqlVo.dbId))}">1</td>
-                <td th:text="${sqlVo.sqlNameNo}" ></td>
-                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
-                <td>
-                    <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
-
-                <td th:text="${sqlVo.repSqlId}"></td>
-                <td th:text="${sqlVo.parsingSchemaName}"></td>
-                <td th:text="${sqlVo.module}"></td>
-                <td th:text="${sqlVo.LastActiveTime}"></td>
-
-                <td th:text="${sqlVo.currTotalExec}" style="text-align: right"></td>
-                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
-                <!--<td th:text="${sqlVo.execDiff}"></td>-->
-
-                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
-<!--
-                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
-                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalElap / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
--->
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#sqlNameList">SQL Name 목록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#sqlIdList">Sql Id 목록</a>
+                </li>
+            </ul>
 
 
-                <td th:text="${sqlVo.currTotalBget}" style="text-align: right"></td>
-                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
-                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+            <!-- Tab contents -->
+            <div class="tab-content">
+                <div id="sqlNameList" class="tab-pane active"><br>
+                    <table class="table table-bordered table-sm" id="sqlNameListGrid" >
+                        <thead class="table-thead-wrap-size">
+                        <tr>
+                            <!--<th>Data 수집시간</th>-->
+                            <th>DB 명</th>
+                            <th>Sql명 번호</th>
+                            <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
 
-                <td th:text="${sqlVo.currTotalCpu}" style="text-align: right"></td>
-                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
-                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+                            <th>대표 Sql ID</th>
+                            <th>사용자명</th>
+                            <th>모듈명</th>
+                            <th>최근행일시</th>
 
-                <td th:text="${sqlVo.currTotalElap}" style="text-align: right"></td>
-                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
-                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+                            <th>수행횟수</th>
+                            <!--<th>prevTotalExec</th>-->
+                            <!--<th>execDiff</th>-->를
 
-            </tr>
-            </tbody>
-        </table>
+                            <th>평균 Buffer</th>
+                            <th>평균 Cpu </th>
+                            <th>평균 응답시간 </th>
+
+                            <th>총 Read Buffer</th>
+                            <!--<th>prevTotalBget</th>-->
+                            <!--<th>bgetDiff</th>-->
+
+                            <th>총 Cpu Time</th>
+
+                            <th>총 응답시간</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody class="table-tbody-wrap-size">
+                        <tr th:if="${not #lists.isEmpty(sqlNameVOList)}" th:each="sqlVo : ${sqlNameVOList}">
+                            <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+
+                            <td th:text="${GdaDbList.get(T(Integer).parseInt(sqlVo.dbId))}">1</td>
+                            <td th:text="${sqlVo.sqlNameNo}" ></td>
+                            <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                            <td>
+                                <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+
+                            <td th:text="${sqlVo.repSqlId}"></td>
+                            <td th:text="${sqlVo.parsingSchemaName}"></td>
+                            <td th:text="${sqlVo.module}"></td>
+                            <td th:text="${sqlVo.LastActiveTime}"></td>
+
+                            <td th:text="${sqlVo.currTotalExec}" style="text-align: right"></td>
+                            <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                            <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+
+
+                            <td th:text="${sqlVo.currTotalBget}" style="text-align: right"></td>
+                            <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                            <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                            <td th:text="${sqlVo.currTotalCpu}" style="text-align: right"></td>
+
+                            <td th:text="${sqlVo.currTotalElap}" style="text-align: right"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="sqlIdList" class="tab-pane fade"><br>
+
+                    <table class="table table-bordered table-sm" id="sqlIdListGrid" >
+                        <thead class="table-thead-wrap-size">
+                        <tr>
+                            <th>DB 명</th>
+                            <th>Sql ID</th>
+                            <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                            <th>사용자명</th>
+                            <th>모듈명</th>
+                            <th>ProgramID</th>
+                            <th>최근행일시</th>
+
+                            <th>수행횟수</th>
+                            <!--<th>prevTotalExec</th>-->
+                            <!--<th>execDiff</th>-->를
+
+                            <th>평균 Buffer</th>
+                            <th>평균 Cpu </th>
+                            <th>평균 응답시간 </th>
+
+                            <th>총 Read Buffer</th>
+                            <!--<th>prevTotalBget</th>-->
+                            <!--<th>bgetDiff</th>-->
+
+                            <th>총 Cpu Time</th>
+
+                            <th>총 응답시간</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody class="table-tbody-wrap-size">
+                        <tr th:if="${not #lists.isEmpty(sqlIdVOList)}" th:each="sqlVo : ${sqlIdVOList}">
+                            <td th:text="${GdaDbList.get(T(Integer).parseInt(sqlVo.dbId))}">1</td>
+                            <td th:text="${sqlVo.sqlId}" ></td>
+                            <td>
+                                <a th:text="${sqlVo.sqlName}" th:href="@{sqlNameDetail(clctDy=${#temporals.format(defaultDate.plusDays(-15), 'yyyy-MM-dd')}, dbId=${sqlVo.dbId}, sqlNameNo=${sqlVo.sqlNameNo})}"/></td>
+
+                            <td th:text="${sqlVo.parsingSchemaName}"></td>
+                            <td th:text="${sqlVo.module}"></td>
+                            <td th:text="${sqlVo.programId}"></td>
+                            <td th:text="${sqlVo.LastActiveTime}"></td>
+                            <td th:text="${sqlVo.currTotalExec}" style="text-align: right"></td>
+
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalBget / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalCpu / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+                            <td th:with="tValue= ${sqlVo.currTotalExec <= 0} ? 0 : ${sqlVo.currTotalElap / sqlVo.currTotalExec}" th:text="${tValue}" style="text-align: right"></td>
+
+                            <td th:text="${sqlVo.currTotalBget}" style="text-align: right"></td>
+
+                            <td th:text="${sqlVo.currTotalCpu}" style="text-align: right"></td>
+
+                            <td th:text="${sqlVo.currTotalElap}" style="text-align: right"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </th:block>
 
@@ -248,6 +394,17 @@
         // Call the dataTables jQuery plugin
         $(document).ready(function() {
             $('#sqlNameListGrid').dataTable({
+                pageLength: 25,
+                paging: true,
+                searching: false,
+                order: [],
+                lengthChange: false
+            });
+        });
+
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#sqlIdListGrid').dataTable({
                 pageLength: 25,
                 paging: true,
                 searching: false,

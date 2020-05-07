@@ -3,7 +3,7 @@
 <html lang="ko">
 
 <head>
-    <title>11st DB Show - DA Data Sync Info</title>
+    <title>11st DB Show - Table 상세 정보</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +12,7 @@
 
 
     <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,9 +29,12 @@
 
 </head>
 
-<body id="page-top" class="dbshow-skyblue">
+<body id="page-top" class="dbshow-white">
 
 <header>
+
+    <!-- Sidebar -->
+
 
     <nav id="navbar" class="navbar d-inline-flex" style="width: 100%">
         <div class="navbar-brand mr-1">
@@ -48,6 +51,8 @@
             <span class="navbar-text">노영삼 님 안녕하세요.</span>
         </div>
     </nav>
+
+
 
 </header>
 
@@ -68,7 +73,7 @@
 
                 <h6 class="dropdown-header">물리 Table </h6>
                 <a class="dropdown-item" href=/daTableList>Table 목록</a>
-                <a class="dropdown-item" href=/tableDetail>Table 상세 정보</a>
+                <a class="dropdown-item" href=/daTableDetail>Table 상세 정보</a>
                 <a class="dropdown-item" href=/daSyncData>Data Sync(Ogg &)</a>
                 <div class="dropdown-divider"></div>
 
@@ -142,14 +147,12 @@
 
 
 
-
         <div id="search-form" class="card-header d-flex flex-row">
-            <form class="form-inline" action="/daTableList">
+            <form class="form-inline" action="/daTableDetail">
                 <div class="d-flex flex-row">
-
                     <label for="dbId" class="mr-2">DB ID</label>
                     <select id="dbId" name="dbId" class="form-control mr-sm-2" style="width: 200px;">
-                        <option value="1">TMALL</option>
+                        <option value="1" selected="selected">TMALL</option>
                         <option value="2">BIDB</option>
                         <option value="4">DPDB</option>
                         <option value="5">MPDB</option>
@@ -157,174 +160,436 @@
                         <option value="8">PSKPAY</option>
                         <option value="9">PSKPAYPG</option>
                         <option value="13">PRMTDB</option>
-                        <option value="0" selected="selected">ALL</option>
                     </select>
 
+                    <label for="owner" class="mr-2">Table Owner</label>
+                    <input type="text" id="owner" name="owner" class="form-control mr-sm-2" style="width: 200px;" value="TMALL" minlength="2" placeholder="owner..(equal)" required>
                     <label for="tableName" class="mr-2">Table 명</label>
-                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="" minlength="2" placeholder="Table Name..(equal)">
-                    <label for="subjAreaCd" class="mr-2">주제영역</label>
-                    <input type="text" id="subjAreaCd" name="subjAreaCd" class="form-control mr-sm-2" style="width: 200px;" value="MT_CUPN_02" minlength="2" placeholder="subjAreaCd..(equal)">
-                    <!--
-                                    <label for="logicalAreaCd" class="mr-2">주제영역</label>
-                                    <input type="text" id="logicalAreaCd" name="logicalAreaCd" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd}" minlength="2" placeholder="logicalAreaCd..(equal)">
-                                    <label for="logicalAreaCd2" class="mr-2">상위 주제영역</label>
-                                    <input type="text" id="logicalAreaCd2" name="logicalAreaCd2" class="form-control mr-sm-2" style="width: 200px;" th:value="${param.logicalAreaCd2}" minlength="2" placeholder="logicalAreaCd2..(equal)">
-                    -->
+                    <input type="text" id="tableName" name="tableName" class="form-control mr-sm-2" style="width: 200px;" value="DP_PRD_RANK_MOBILE" minlength="2" placeholder="Table Name..(equal)" required>
 
                     <button class="btn btn-outline-info ml-2" type="submit"> 검색 </button>
                 </div>
             </form>
         </div>
 
+
         <div class="card-body">
-            <table class="table table-bordered" id="dataTable" >
-                <thead class="table-thead-wrap-size">
+            <h5>Table 정보</h5><hr>
+
+            <table class="table-bordered table" id="tableInfo">
+                <tbody>
+                <tr class="text-white">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">DBMS Info</th>
+                    <th>DB 명</th>
+                    <th>OWNER</th>
+                    <th>OBJECT_NAME</th>
+                    <th>STATUS</th>
+                    <th>TEMPORARY</th>
+                    <th>생성일시</th>
+                    <th>동일 테이블명 목록(All DB)</th>
+                </tr>
                 <tr>
-                    <th>DB Name</th>
-                    <th>소유자</th>
-                    <th>Table명</th>
-                    <!--<th>Table명</th>-->
+                    <td>TMALL</td>
+                    <!--<td th:text="${daObjectVO.dbId}">1</td>-->
+                    <td>TMALL</td>
+                    <td>DP_PRD_RANK_MOBILE</td>
+                    <td>VALID</td>
+                    <td>N</td>
+                    <td>2014-10-02</td>
+                    <td rowspan="3">
+                        <div style="overflow-y:auto; max-height: 120px;">
+                            <table class="table-borderless table-sm">
+                                <tr>
+                                    <td >TMALL.DP_PRD_RANK_MOBILE@BIDB (TABLE)</td>
+                                </tr>
+                                <tr>
+                                    <td >DEV_PUB.DP_PRD_RANK_MOBILE@MPDB (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >MPUSER.DP_PRD_RANK_MOBILE@MPDB (SYNONYM)</td>
+                                </tr>
+                                <tr>
+                                    <td >TMALL.DP_PRD_RANK_MOBILE@MPDB (TABLE)</td>
+                                </tr>
+                                <tr>
+                                    <td >TMALL.DP_PRD_RANK_MOBILE@TMALL (TABLE)</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr class="text-white">
+                    <th rowspan="2" style="vertical-align: middle; text-align: center">Data Info</th>
                     <th>주제영역</th>
-                    <th>PhysicalArea</th>
-                    <th style="max-width:200px;">Comments</th>
-                    <th>Table Created Dt</th>
-                    <th>표준대상여부</th>
-                </tr>
-                </thead>
-
-                <tbody class="table-tbody-wrap-size">
-                <tr>
-                    <td>TMALL</td>
-                    <td>TMALL</td>
-                    <td style="height:1.5rem; text-align: left">
-                        <span>DP_MYPRICE_CUPN</span>
-                        <a href="daTableDetail?dbId=1&amp;owner=TMALL&amp;tableName=DP_MYPRICE_CUPN" >
-                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
-                        </a>
-                    </td>
-
-                    <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                    <!--</td>-->
-                    <td>MT_PD : MT_CUPN_02</td>
-                    <td>PD</td>
-                    <td style="max-width:200px;">고객맞춤가 제공을 위한 사용가능한 보너스,장바구니쿠폰 내역</td>
-                    <td>2015-03-05 19:44:39.0</td>
-                    <td>Y</td>
+                    <th>물리영역</th>
+                    <th>테이블 Comment</th>
+                    <th>표준화대상여부</th>
+                    <th>-</th>
+                    <th>-</th>
                 </tr>
                 <tr>
-                    <td>TMALL</td>
-                    <td>TMALL</td>
-                    <td style="height:1.5rem; text-align: left">
-                        <span>MT_BULK_ISS_CUPN</span>
-                        <a href="daTableDetail?dbId=1&amp;owner=TMALL&amp;tableName=MT_BULK_ISS_CUPN" >
-                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
-                        </a>
-                    </td>
-
-                    <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                    <!--</td>-->
-                    <td>MT_PD : MT_CUPN_02</td>
+                    <td>DP</td>
                     <td>PD</td>
-                    <td style="max-width:200px;">쿠폰 수동 대량 발급용</td>
-                    <td>2014-05-19 18:38:59.0</td>
+                    <td>모바일 랭킹 집계 테이블</td>
                     <td>Y</td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                <tr>
-                    <td>MPDB</td>
-                    <td>TMALL</td>
-                    <td style="height:1.5rem; text-align: left">
-                        <span>MT_CUPN_BIG_SELLER</span>
-                        <a href="daTableDetail?dbId=5&amp;owner=TMALL&amp;tableName=MT_CUPN_BIG_SELLER" >
-                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
-                        </a>
-                    </td>
 
-                    <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                    <!--</td>-->
-                    <td>MT_PD : MT_CUPN_02</td>
-                    <td>PD</td>
-                    <td style="max-width:200px;"></td>
-                    <td>2016-06-02 22:14:13.0</td>
-                    <td>Y</td>
-                </tr>
-                <tr>
-                    <td>MPDB</td>
-                    <td>TMALL</td>
-                    <td style="height:1.5rem; text-align: left">
-                        <span>DP_MYPRICE_CUPN</span>
-                        <a href="daTableDetail?dbId=5&amp;owner=TMALL&amp;tableName=DP_MYPRICE_CUPN" >
-                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
-                        </a>
-                    </td>
-
-                    <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                    <!--</td>-->
-                    <td>MT_PD : MT_CUPN_02</td>
-                    <td>PD</td>
-                    <td style="max-width:200px;"></td>
-                    <td>2016-06-02 22:19:07.0</td>
-                    <td>Y</td>
-                </tr>
-                <tr>
-                    <td>MPDB</td>
-                    <td>TMALL</td>
-                    <td style="height:1.5rem; text-align: left">
-                        <span>MT_ISS_CUPN</span>
-                        <a href="tableDetail?dbId=5&amp;owner=TMALL&amp;tableName=MT_ISS_CUPN" >
-                            <img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >
-                        </a>
-                    </td>
-
-                    <!--<td >-->
-                    <!--<a th:href="@{tableDetail(dbId=${objectVo.dbId}, owner=${objectVo.owner}, tableName=${objectVo.tableName})}" >-->
-                    <!--<img align="right" src="img/dat1.png" class="d-inline-block align-top" alt="" height="100%" >-->
-                    <!--</a>-->
-                    <!--</td>-->
-                    <td>MT_PD : MT_CUPN_02</td>
-                    <td>PD</td>
-                    <td style="max-width:200px;"></td>
-                    <td>2016-06-02 22:14:17.0</td>
-                    <td>Y</td>
-                </tr>
                 </tbody>
             </table>
-        </div>
+
+            <div class="">
+                <h5>Data Info.</h5><hr>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#dataModification">Data 변경</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" data-toggle="tab" href="#tableErd">ERD</a>
+                    </li>
+                </ul>
+                <!-- Tab contents -->
+                <div class="tab-content">
+                    <div id="dataModification" class="tab-pane active"><br>
+
+                        <h6 class="small">** Data 변경 정보는 통계 수치를 기반으로 하며, 실제와 상이할 수 있습니다. </h6>
+                        <h6 class="small">** 최근 1주일간의 일 평균 변경량이며, 현재 TMALL 데이터만 제공되고 있습니다. (2020.01.15) </h6>
+                        <table class="table-bordered table" id="tabModificationInfo">
+                            <tbody>
+                            <tr class="text-white">
+                                <th>조회 발생량</th>
+                                <th>Insert 발생량</th>
+                                <th>Update 발생량</th>
+                                <th>Delete 발생량</th>
+                            </tr>
+                            <tr>
+                                <td>집계 예정</td>
+                                <td>166747</td>
+                                <td>594732</td>
+                                <td>163573</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tableErd" class="tab-pane fade"><br>
+                    </div>
+                </div>
+            </div>
+
+<!--
+            <div>
+                <caption align="left">
+                    <h5>Data 변경 정보</h5>
+                    <h6 class="small">** Data 변경 정보는 통계 수치를 기반으로 하며, 실제와 상이할 수 있습니다. </h6>
+                    <h6 class="small">** 최근 1주일간의 일 평균 변경량이며, 현재 TMALL 데이터만 제공되고 있습니다. (2020.01.15) </h6>
+                </caption>
+                <table class="table-bordered table" id="tabModificationInfo">
+                    <tbody>
+                    <tr class="text-white">
+                        <th>조회 발생량</th>
+                        <th>Insert 발생량</th>
+                        <th>Update 발생량</th>
+                        <th>Delete 발생량</th>
+                    </tr>
+                    <tr>
+                        <td>집계 예정</td>
+                        <td>166747</td>
+                        <td>594732</td>
+                        <td>163573</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            -->
+
+            <!--
+                    <caption align="left"><h5>ERD 정보</h5></caption>
+
+                    <table class="table table-bordered table-sm" id="entityListGrid" >
+                        <thead class="table-thead-wrap-size">
+                        <tr>
+
+                            <th class="sqltext-wrap" style="min-width:600px">주제영역 경로</th>
+                            <th>Entity 명</th>
+                            <th>주제영역 수정일시</th>
+                            <th>Entity 유형</th>
+                            <th>표준화</th>
+                            <th>ERD Link</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody class="table-tbody-wrap-size">
+                        <tr th:if="${not #lists.isEmpty(damEntityVO)}" th:each="damEntityVO : ${damEntityVO}">
+
+                            <td th:text="${damEntityVO.subjAreaNamePath}" style="min-width:600px">주제영역 경로</td>
+                            <td th:text="${damEntityVO.entityName}" >Entity 명</td>
+                            <td th:text="${damEntityVO.modifyDt}" >주제영역 수정일시</td>
+                            <td th:text="${damEntityVO.entityType}" >Entity 유형</td>
+                            <td th:text="${damEntityVO.entityStandardType}" >표준화</td>
+
+                            <td style="height:1.5rem;" th:with="paramsData=${'modelTreeBy=ModelHistory,struId=' + damEntityVO.subjFieldId}">
+                                <a th:href="@{https://dqm.11stcorp.com/popup.action(menu='Meta.model.modelviewer.ModelViewerGo', paramsData=${paramsData})}" target="_blank">
+                                    <img align="center" src="img/Table1.png" class="d-inline-block align-top" alt="ERD Link" height="100%" ></a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+            -->
+
+
+            <div class="">
+                <h5>Sql Application Info.</h5><hr>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#sqlNameList">SQL Name 목록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#sqlIdList">Sql Id 목록</a>
+                    </li>
+                </ul>
+
+
+                <!-- Tab contents -->
+                <div class="tab-content">
+                    <div id="sqlNameList" class="tab-pane active"><br>
+
+                        <table class="table table-bordered table-sm" id="sqlNameListGrid" >
+                            <thead class="table-thead-wrap-size">
+                            <tr>
+                                <!--<th>Data 수집시간</th>-->
+                                <th>DB 명</th>
+                                <th>Sql명 번호</th>
+                                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                                <th>대표 Sql ID</th>
+                                <th>사용자명</th>
+                                <th>모듈명</th>
+                                <th>최근행일시</th>
+
+                                <th>총 수행횟수</th>
+                                <!--<th>prevTotalExec</th>-->
+                                <!--<th>execDiff</th>-->
+
+                                <th>평균 Buffer</th>
+                                <th>평균 Cpu </th>
+                                <th>평균 응답시간 </th>
+
+                                <th>총 Read Buffer</th>
+                                <!--<th>prevTotalBget</th>-->
+                                <!--<th>bgetDiff</th>-->
+
+                                <th>총 Cpu Time</th>
+                                <!--<th>prevTotalCpu</th>-->
+                                <!--<th>cpuDiff</th>-->
+
+                                <th>총 응답시간</th>
+                                <!--<th>prevTotalElap</th>-->
+                                <!--<th>elapDiff</th>-->
+
+                            </tr>
+                            </thead>
+
+                            <tbody class="table-tbody-wrap-size">
+                            <tr>
+                                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+
+                                <td>TMALL</td>
+                                <td >11862</td>
+                                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                                <td>
+                                    <a href="sqlNameDetail?clctDy=2020-04-22&amp;dbId=1&amp;sqlNameNo=11862">MERGE INTO TMALL.DP_PRD_RANK_MOBILE A USING DUAL ON(A.PRD_NO = :B1 ) WHEN NOT MATCHED THEN INSERT (A</a></td>
+
+                                <td>7v1gf2ntcjwn7</td>
+                                <td>TMALL</td>
+                                <td>SP_DP_PRD_RANK_MOBILE</td>
+                                <td>2020-05-06</td>
+
+                                <td style="text-align: right">165659947</td>
+                                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                                <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                                <td style="text-align: right">25</td>
+                                <td style="text-align: right">206</td>
+                                <td style="text-align: right">403</td>
+                                <!--
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalElap / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                -->
+
+
+                                <td style="text-align: right">4284220374</td>
+                                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                                <td style="text-align: right">34236723739</td>
+                                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                                <td style="text-align: right">66876705441</td>
+                                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="sqlIdList" class="tab-pane fade"><br>
+
+                        <table class="table table-bordered table-sm" id="sqlIdListGrid" >
+                            <thead class="table-thead-wrap-size">
+                            <tr>
+                                <!--<th>Data 수집시간</th>-->
+                                <th>DB 명</th>
+                                <th>Sql ID</th>
+                                <th class="sqltext-wrap" style="max-width:600px">Sql 명</th>
+
+                                <th>대표 Sql ID</th>
+                                <th>사용자명</th>
+                                <th>모듈명</th>
+                                <th>최근행일시</th>
+
+                                <th>총 수행횟수</th>
+                                <!--<th>prevTotalExec</th>-->
+                                <!--<th>execDiff</th>-->
+
+                                <th>평균 Buffer</th>
+                                <th>평균 Cpu </th>
+                                <th>평균 응답시간 </th>
+
+                                <th>총 Read Buffer</th>
+                                <!--<th>prevTotalBget</th>-->
+                                <!--<th>bgetDiff</th>-->
+
+                                <th>총 Cpu Time</th>
+                                <!--<th>prevTotalCpu</th>-->
+                                <!--<th>cpuDiff</th>-->
+
+                                <th>총 응답시간</th>
+                                <!--<th>prevTotalElap</th>-->
+                                <!--<th>elapDiff</th>-->
+
+                            </tr>
+                            </thead>
+
+                            <tbody class="table-tbody-wrap-size">
+
+                            <tr>
+                                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+
+                                <td>TMALL</td>
+                                <td >1693</td>
+                                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                                <td>
+                                    <a href="sqlNameDetail?clctDy=2020-04-22&amp;dbId=1&amp;sqlNameNo=1693">/* bestDAOMap.xml [mobile.getBestProductList] 김남수  2014-11-17 */</a></td>
+
+                                <td>ggw7zdas1hm2r</td>
+                                <td>TMALL</td>
+                                <td>JDBC Thin Client</td>
+                                <td>2020-05-07</td>
+
+                                <td style="text-align: right">125923</td>
+                                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                                <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                                <td style="text-align: right">7591</td>
+                                <td style="text-align: right">132607</td>
+                                <td style="text-align: right">362075</td>
+                                <!--
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalElap / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                -->
+
+
+                                <td style="text-align: right">955942898</td>
+                                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                                <td style="text-align: right">16698367310</td>
+                                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                                <td style="text-align: right">45593681652</td>
+                                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                            </tr>
+                            <tr>
+                                <!--<td th:text="${sqlVo.clctDy}" ></td>-->
+
+                                <td>TMALL</td>
+                                <td >11862</td>
+                                <!--<td><a th:text="${sqlVo.sqlName}" href="#layer2" class="dim-btn-layer" /></td>-->
+                                <td>
+                                    <a href="sqlNameDetail?clctDy=2020-04-22&amp;dbId=1&amp;sqlNameNo=11862">MERGE INTO TMALL.DP_PRD_RANK_MOBILE A USING DUAL ON(A.PRD_NO = :B1 ) WHEN NOT MATCHED THEN INSERT (A</a></td>
+
+                                <td>7v1gf2ntcjwn7</td>
+                                <td>TMALL</td>
+                                <td>SP_DP_PRD_RANK_MOBILE</td>
+                                <td>2020-05-06</td>
+
+                                <td style="text-align: right">165659947</td>
+                                <!--<td th:text="${sqlVo.prevTotalExec}"></td>-->
+                                <!--<td th:text="${sqlVo.execDiff}"></td>-->
+
+                                <td style="text-align: right">25</td>
+                                <td style="text-align: right">206</td>
+                                <td style="text-align: right">403</td>
+                                <!--
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalBget / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalCpu / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                                <td th:with="tValue= ${#numbers.formatDecimal(sqlVo.currTotalElap / sqlVo.currTotalExec,1,'DEFAULT', 2, 'DEFAULT')}" th:text="${tValue}" style="text-align: right"></td>
+                                -->
+
+
+                                <td style="text-align: right">4284220374</td>
+                                <!--<td th:text="${sqlVo.prevTotalBget}"></td>-->
+                                <!--<td th:text="${sqlVo.bgetDiff}"></td>-->
+
+                                <td style="text-align: right">34236723739</td>
+                                <!--<td th:text="${sqlVo.prevTotalCpu}"></td>-->
+                                <!--<td th:text="${sqlVo.cpuDiff}"></td>-->
+
+                                <td style="text-align: right">66876705441</td>
+                                <!--<td th:text="${sqlVo.prevTotalElap}"></td>-->
+                                <!--<td th:text="${sqlVo.elapDiff}"></td>-->
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
 
         <footer class="card-footer small text-muted">
             <ul class="row" style="list-style: none;">
-                <li>Parameter:: </li> <li>subjAreaCd : MT_CUPN_02</li>
+                <li>Parameter:: </li> <li>dbId : 1</li> <li>owner : TMALL</li> <li>tableName : DP_PRD_RANK_MOBILE</li>
             </ul>
 
             <div class="copyright text-center">
                 <div>Copyright © 11st DBshow 2019
                 </div>
-                <div class="small text-muted">[content/***.html] Updated at 2020년 1월 13일 (월) 오후 2시 05분 05초</div>
+                <div class="small text-muted">[content/***.html] Updated at null</div>
             </div>
         </footer>
     </section>
 
-    <!-- Sticky Footer
-    <footer class="sticky-footer">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright © 11st DBshow 2019</span>
-            </div>
-        </div>
-    </footer>
-    -->
 </section>
 
 <!-- Scroll to Top Button-->
@@ -339,7 +604,7 @@
 
 <!-- Bootstrap core JavaScript-->
 <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="vendor/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script type="text/javascript" src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -356,11 +621,33 @@
 <script type="text/javascript" >
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
-        $('#dataTable').dataTable({
+        $('#sqlNameListGrid').dataTable({
             pageLength: 25,
             paging: true,
             searching: false,
-            order: []
+            order: [],
+            lengthChange: false
+        });
+    });
+    $(document).ready(function() {
+        $('#sqlIdListGrid').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: false,
+            order: [],
+            lengthChange: false
+        });
+    });
+
+
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#entityListGrid').dataTable({
+            pageLength: 25,
+            paging: true,
+            searching: false,
+            order: [],
+            lengthChange: false
         });
     });
 </script>
